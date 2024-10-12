@@ -12,15 +12,15 @@ O **Projeto GM Supermercados** visa desenvolver um portal digital para clientes,
 
 - **Luiz Antonio** - [Perfil Github](https://github.com/Lafreit)  
   **Função:** Documentação  
-  Encarga-se de criar e manter toda a documentação do projeto, assegurando que as informações sejam claras e acessíveis para todos os membros da equipe.
+  Cria e mantém a documentação do projeto, garantindo que as informações sejam claras para todos.
 
 - **Sara Beatriz** - [Perfil Github](https://github.com/SaraBeatris)  
   **Função:** Design de Logotipos e Interfaces  
-  Focado na criação de logotipos e design de interfaces, garantindo uma experiência de usuário intuitiva e visualmente atraente.
+  Cria logotipos e designs de interfaces, focando em uma experiência de usuário agradável.
 
 - **Kaue Peres** - [Perfil Github](https://github.com/KauePO)  
   **Função:** Banco de Dados  
-  Responsável pela modelagem, implementação e manutenção do banco de dados, assegurando a integridade e eficiência no armazenamento de dados.
+  Cuida da estrutura e manutenção do banco de dados, garantindo que os dados sejam organizados e acessíveis.
 
 
 ### Funcionalidades Principais

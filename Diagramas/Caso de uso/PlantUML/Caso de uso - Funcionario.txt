@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+
+actor Funcionário
+
+package "Gerenciamento de Produtos" {
+    usecase "Excluir Produto" as UC1
+    usecase "Editar Produto" as UC2
+    usecase "Adicionar Produto" as UC3
+}
+
+package "Gerenciamento de Pedidos" {
+    usecase "Listar Pedidos" as UC4
+    usecase "Ver Detalhes do Pedido" as UC5
+}
+
+package "Gerenciamento de Usuários" {
+    usecase "Editar Informações do Usuário" as UC6
+    usecase "Visualizar Usuários" as UC7
+}
+
+package "Relatórios" {
+    usecase "Gerar Relatório de Resumo de Pedidos" as UC8
+    usecase "Gerar Relatório de Vendas" as UC9
+}
+
+Funcionário --> UC1
+Funcionário --> UC2
+Funcionário --> UC3
+Funcionário --> UC4
+Funcionário --> UC5
+Funcionário --> UC6
+Funcionário --> UC7
+Funcionário --> UC8
+Funcionário --> UC9
+
+@enduml

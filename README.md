@@ -14,7 +14,7 @@ Todos os membros participaram ativamente em todas as áreas do projeto, mas tive
 
 - **Luiz Antonio** - [Perfil Github](https://github.com/Lafreit)  
   **Função:** Documentação  
-  Criar e mantém a documentação do projeto, garantindo clareza nas informações.
+  Criar e manter a documentação do projeto, garantindo clareza nas informações.
 
 - **Sara Beatriz** - [Perfil Github](https://github.com/SaraBeatris)  
   **Função:** Design de Logotipos e Interfaces  

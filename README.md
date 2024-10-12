@@ -6,22 +6,23 @@
 O **Projeto GM Supermercados** visa desenvolver um portal digital para clientes, permitindo a consulta ao catálogo de produtos e a realização de reservas. O sistema proporcionará uma experiência de compra simplificada e acessível diretamente via web, facilitando o acesso a informações sobre produtos e serviços.
 
 ### Membros do Grupo
+Todos os membros participaram ativamente em todas as áreas do projeto, mas tiveram um foco maior nas seguintes funções:
+
 - **Bruno Alexander** - [Perfil Github](https://github.com/bruno-santos382)  
   **Função:** Product Owner  
-  Responsável por estabelecer a visão do produto, priorizar os requisitos e orientar a equipe ao longo do desenvolvimento.
+  Define a visão do produto e orienta a equipe.
 
 - **Luiz Antonio** - [Perfil Github](https://github.com/Lafreit)  
   **Função:** Documentação  
-  Cria e mantém a documentação do projeto, garantindo que as informações sejam claras para todos.
+  Cria e mantém a documentação do projeto, garantindo clareza nas informações.
 
 - **Sara Beatriz** - [Perfil Github](https://github.com/SaraBeatris)  
   **Função:** Design de Logotipos e Interfaces  
-  Cria logotipos e designs de interfaces, focando em uma experiência de usuário agradável.
+  Cria logotipos e designs de interfaces para proporcionar uma boa experiência ao usuário.
 
 - **Kaue Peres** - [Perfil Github](https://github.com/KauePO)  
   **Função:** Banco de Dados  
-  Cuida da estrutura e manutenção do banco de dados, garantindo que os dados sejam organizados e acessíveis.
-
+  Cria e gerencia a estrutura do banco de dados, assegurando que os dados estejam organizados.
 
 ### Funcionalidades Principais
 - **Navegação pelo Catálogo de Produtos:**  

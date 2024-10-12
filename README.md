@@ -10,19 +10,19 @@ Todos os membros participaram ativamente em todas as áreas do projeto, mas tive
 
 - **Bruno Alexander** - [Perfil Github](https://github.com/bruno-santos382)  
   **Função:** Product Owner  
-  Define a visão do produto e orienta a equipe.
+  Definir a visão do produto e orientar a equipe.
 
 - **Luiz Antonio** - [Perfil Github](https://github.com/Lafreit)  
   **Função:** Documentação  
-  Cria e mantém a documentação do projeto, garantindo clareza nas informações.
+  Criar e mantém a documentação do projeto, garantindo clareza nas informações.
 
 - **Sara Beatriz** - [Perfil Github](https://github.com/SaraBeatris)  
   **Função:** Design de Logotipos e Interfaces  
-  Cria logotipos e designs de interfaces para proporcionar uma boa experiência ao usuário.
+  Criar logotipos e designs de interfaces para proporcionar uma boa experiência ao usuário.
 
 - **Kaue Peres** - [Perfil Github](https://github.com/KauePO)  
   **Função:** Banco de Dados  
-  Cria e gerencia a estrutura do banco de dados, assegurando que os dados estejam organizados.
+  Gerenciar a estrutura do banco de dados, assegurando que os dados estejam organizados.
 
 ### Funcionalidades Principais
 - **Navegação pelo Catálogo de Produtos:**  

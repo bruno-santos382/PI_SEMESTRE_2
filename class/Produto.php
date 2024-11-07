@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Conexao.php';
+
 class Produto {
     protected Conexao $conexao;
 

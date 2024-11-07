@@ -2,7 +2,7 @@
 
 class Conexao extends \PDO {
     public function __construct() {
-        $config = require '../includes/config.php';
+        $config = include '../includes/config.php';
 
         parent::__construct(
             $config['db.dsn'], 

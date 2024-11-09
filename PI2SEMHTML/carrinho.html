@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+ <!-- Navbar -->
+ <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="img/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            GM SuperMercado
+        </a>
+        <div class="d-flex align-items-center">
+        
+            <a href="login.html" class="icon-text mx-3">
+                <img src="img/login..png" alt="Login" class="icon-image">
+                <span>Login</span>
+            </a>
+            <a href="carrinho.html" class="icon-text mx-3">
+                <img src="img/compras.png" alt="Carrinho" class="icon-image">
+                <span>Carrinho</span>
+            </a>
+            <div class="d-flex align-items-center">
+                <a href="index.html" class="icon-text mx-3">
+                    <img src="img/casinha.png" alt="Localização" class="icon-image">
+                    <span>Inicio</span>
+        </a>
+    </div>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h2 class="text-center">Carrinho de Compras</h2>
+    <div id="cartItems" class="mt-4"></div>
+    <button onclick="clearCart()" class="btn btn-danger mt-3">Esvaziar Carrinho</button>
+</div>
+
+<script>
+    function displayCart() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cartItems = document.getElementById('cartItems');
+        cartItems.innerHTML = '';
+
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p>O carrinho está vazio.</p>';
+        } else {
+            cart.forEach(item => {
+                let itemElement = document.createElement('div');
+                itemElement.className = 'mb-3 p-3 border rounded';
+                itemElement.innerHTML = `<strong>${item.productName}</strong> - ${item.price}`;
+                cartItems.appendChild(itemElement);
+            });
+        }
+    }
+
+    function clearCart() {
+        localStorage.removeItem('cart');
+        displayCart();
+    }
+
+    window.onload = displayCart;
+</script>
+
+</body>
+</html>

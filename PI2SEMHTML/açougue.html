@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Online</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/categorias.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="img/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                GM SuperMercado
+            </a>
+            <div class="d-flex align-items-center">
+                <a href="locali.png" class="icon-text mx-3">
+                    <img src="img/localizaçao1.png" alt="Localização" class="icon-image">
+                    <span>Localização</span>
+                </a>
+                <a href="login.html" class="icon-text mx-3">
+                    <img src="img/login..png" alt="Login" class="icon-image">
+                    <span>Login</span>
+                </a>
+                <a href="carrinho.html" class="icon-text mx-3">
+                    <img src="img/compras.png" alt="Carrinho" class="icon-image">
+                    <span>Carrinho</span>
+                </a>
+                <div class="d-flex align-items-center">
+                    <a href="index.html" class="icon-text mx-3">
+                        <img src="img/casinha.png" alt="Localização" class="icon-image">
+                        <span>Inicio</span>
+            </a>
+        </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Procurar por Produto</h2>
+        
+        <!-- Barra de pesquisa -->
+        <div class="input-group mb-4">
+            <input type="text" class="form-control" id="searchInput" placeholder="Digite o nome do produto" aria-label="Search">
+            <button class="btn btn-outline-success" onclick="searchProduct()">Buscar</button>
+        </div>
+
+        <h3 class="mb-3">Carnes</h3>
+<div class="position-relative">
+    <button class="scroll-button scroll-left" onclick="scrollContainer('carnes', -1)">&#10094;</button>
+    <div class="scroll-container" id="carnes">
+        < Carnes -->
+        <div class="card">
+            <img src="img/picanha.jpg" class="card-img-top" alt="Picanha">
+            <div class="card-body text-center">
+                <h5 class="card-title">Picanha</h5>
+                <p class="card-text">Picanha bovina - 1kg</p>
+                <p class="text-danger"><strong>R$ 49,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/alcatra.jpg" class="card-img-top" alt="Alcatra">
+            <div class="card-body text-center">
+                <h5 class="card-title">Alcatra</h5>
+                <p class="card-text">Alcatra bovina - 1kg</p>
+                <p class="text-danger"><strong>R$ 39,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/frango.jpg" class="card-img-top" alt="Frango">
+            <div class="card-body text-center">
+                <h5 class="card-title">Frango</h5>
+                <p class="card-text">Frango desossado - 1kg</p>
+                <p class="text-danger"><strong>R$ 12,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/costelinha.jpg" class="card-img-top" alt="Costelinha">
+            <div class="card-body text-center">
+                <h5 class="card-title">Costelinha de Porco</h5>
+                <p class="card-text">Costelinha suína - 1kg</p>
+                <p class="text-danger"><strong>R$ 19,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/lombo.jpg" class="card-img-top" alt="Lombo">
+            <div class="card-body text-center">
+                <h5 class="card-title">Lombo Suíno</h5>
+                <p class="card-text">Lombo suíno - 1kg</p>
+                <p class="text-danger"><strong>R$ 22,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/bacon.jpg" class="card-img-top" alt="Bacon">
+            <div class="card-body text-center">
+                <h5 class="card-title">Bacon</h5>
+                <p class="card-text">Bacon defumado - 500g</p>
+                <p class="text-danger"><strong>R$ 14,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+    </div>
+    <button class="scroll-button scroll-right" onclick="scrollContainer('carnes', 1)">&#10095;</button>
+</div>

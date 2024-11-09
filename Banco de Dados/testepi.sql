@@ -166,25 +166,28 @@ INSERT INTO `produtos` (`Nome`, `IdProduto`, `Preco`, `Marca`, `Estoque`) VALUES
 -- Índices de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  ADD PRIMARY KEY (`IdCarrinho`);
-
+  ADD PRIMARY KEY (`IdCarrinho`),
+  MODIFY `IdCarrinho` INT AUTO_INCREMENT;
 --
 -- Índices de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`IdCliente`);
+  ADD PRIMARY KEY (`IdCliente`),
+  MODIFY `IdCliente` INT AUTO_INCREMENT;
 
 --
 -- Índices de tabela `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD PRIMARY KEY (`IdPedido`);
+  ADD PRIMARY KEY (`IdPedido`),
+  MODIFY `IdPedido` INT AUTO_INCREMENT;
 
 --
 -- Índices de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  ADD PRIMARY KEY (`IdProduto`);
+  ADD PRIMARY KEY (`IdProduto`),
+  MODIFY `IdProduto` INT AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

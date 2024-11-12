@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const dadosForm = new FormData(form);
 
-            let resposta = await fetch('controller/?route=produto/cadastrar', {
+            let resposta = await fetch('api.php?route=produto/cadastrar', {
                 method: 'POST',
                 body: dadosForm
             });

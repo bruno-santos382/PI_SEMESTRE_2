@@ -1,9 +1,11 @@
 <?php 
+
 $template = array(
     'titulo' =>  'Cadastro de Produtos &mdash; Admin',
     'scripts' => ['./static/js/cadastro_produto.js']
 );
-include '../src/template/admin/header.php';
+
+include __DIR__ . '/../src/template/admin/header.php';
 ?>
 
 <h1>Cadastro de Produto</h1>
@@ -34,4 +36,4 @@ include '../src/template/admin/header.php';
     </div>
 </form>
 
-<?php include '../src/template/admin/footer.php'; ?>
+<?php include __DIR__ . '/../src/template/admin/footer.php'; ?>

@@ -11,6 +11,8 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE DATABASE IF NOT EXISTS mercado;
+USE mercado;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -64,6 +66,21 @@ INSERT INTO `carrinho` (`IdCarrinho`, `fk_Clientes_IdCliente`) VALUES
 (3, 4);
 
 -- --------------------------------------------------------
+
+--
+-- Estrutura tabela de usuários
+--
+
+CREATE TABLE `usuarios` (
+  IdUsuario INT AUTO_INCREMENT PRIMARY KEY,
+  Usuario VARCHAR(50) DEFAULT NULL,
+  Email VARCHAR(100) DEFAULT NULL,
+  Telefone VARCHAR(20) DEFAULT NULL,  -- Fixed typo here
+  Senha VARCHAR(255) NOT NULL,
+  DataExclusao DATETIME DEFAULT NULL,
+  UNIQUE KEY `idx_email` (`Email`),  -- Optional: to ensure email is unique
+  UNIQUE KEY `idx_telefone` (`Telefone`)  -- Optional: to ensure telefone is unique
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Estrutura para tabela `clientes`

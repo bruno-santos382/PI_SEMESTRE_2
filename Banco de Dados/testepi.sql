@@ -75,12 +75,16 @@ CREATE TABLE `usuarios` (
   IdUsuario INT AUTO_INCREMENT PRIMARY KEY,
   Usuario VARCHAR(50) DEFAULT NULL,
   Email VARCHAR(100) DEFAULT NULL,
-  Telefone VARCHAR(20) DEFAULT NULL,  -- Fixed typo here
+  Telefone VARCHAR(20) DEFAULT NULL,
   Senha VARCHAR(255) NOT NULL,
   DataExclusao DATETIME DEFAULT NULL,
-  UNIQUE KEY `idx_email` (`Email`),  -- Optional: to ensure email is unique
-  UNIQUE KEY `idx_telefone` (`Telefone`)  -- Optional: to ensure telefone is unique
+  UNIQUE KEY `idx_email` (`Email`),
+  UNIQUE KEY `idx_telefone` (`Telefone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Usuario padrão, usuario: admin, senha: admin
+INSERT INTO usuarios (Usuario, Senha) VALUES ('admin', '$2y$10$I5cV9q6YCgQkUMPA1e83seoNnpAvlwO4oil84KMACnLfFWPLswnkO');
+
 
 --
 -- Estrutura para tabela `clientes`

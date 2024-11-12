@@ -1,15 +1,11 @@
-// Aguarda o carregamento do DOM
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('loginForm');
-    form.addEventListener('submit', efetuarLogin); // Adiciona listener para o envio do form
-});
 
 // Função assíncrona para efetuar o login
 async function efetuarLogin(event) {
-    event.preventDefault(); // Impede o envio padrão
-
-    const formData = new FormData(event.target);
-    const submitButton = event.target.querySelector('[type="submit"]');
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('[type="submit"]');
 
     submitButton.disabled = true; // Desabilita o botão
     submitButton.textContent = 'Carregando...'; // Muda o texto do botão
@@ -34,8 +30,14 @@ async function efetuarLogin(event) {
     } catch (error) {
         console.error('Erro ao efetuar login:', error); // Loga o erro
         alert('Ocorreu um erro inesperado. Tente novamente.'); // Mensagem genérica de erro
-    } finally {
-        submitButton.disabled = false; // Restaura o botão
-        submitButton.textContent = 'Entrar'; // Restaura o texto do botão
     }
+
+    submitButton.disabled = false; // Restaura o botão
+    submitButton.textContent = 'Entrar'; // Restaura o texto do botão
 }
+
+// Aguarda o carregamento do DOM
+document.addEventListener('DOMContentLoaded', (event) => {
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', efetuarLogin); // Adiciona listener para o envio do form
+});

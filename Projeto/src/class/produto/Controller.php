@@ -16,43 +16,53 @@ class ProdutoController extends BaseController
 
     public function cadastrarProduto(): array
     {
-        return $this->realizarAcao([$this->produto, 'cadastrar'], [
+        $retorno = $this->realizarAcao([$this->produto, 'cadastrar'], [
             'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O nome do produto é obrigatório e não pode estar vazio.'],
             'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
             'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
             'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
         ]);
+
+        return ['status' => 'ok', 'mensagem' => 'Produto cadastrado com sucesso!', 'dados' => $retorno];
     }
 
     public function atualizarProduto(): array 
     {
-        return $this->realizarAcao([$this->produto, 'atualizar'], [
+        $retorno = $this->realizarAcao([$this->produto, 'atualizar'], [
             'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O código do produto é obrigatório.'],
             'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
             'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
             'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
         ]);
+
+        return ['status' => 'ok', 'mensagem' => 'Produto atualizado com sucesso!', 'dados' => $retorno];
     }
 
     public function excluirProduto(): array 
     {
-        return $this->realizarAcao([$this->produto, 'atualizar'], [
+        $retorno = $this->realizarAcao([$this->produto, 'atualizar'], [
             'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O código do produto é obrigatório.'],
             'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
             'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
             'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
         ]);
+
+        return ['status' => 'ok', 'mensagem' => 'Produto excluído com sucesso!', 'dados' => $retorno];
     }
 
     public function buscarProduto(): array
     {
-        return $this->realizarAcao([$this->produto, 'buscar'], [
+        $retorno = $this->realizarAcao([$this->produto, 'buscar'], [
             'termo' => ['filter' => FILTER_DEFAULT, 'erro' => 'O termo da busca é obrigatório.']
         ]);
+
+        return ['status' => 'ok', 'dados' => $retorno];
     }
 
     public function listarProdutos(): array
     {
-        return $this->realizarAcao([$this->produto, 'listar']);
+        $retorno = $this->realizarAcao([$this->produto, 'listar']);
+        
+        return ['status' => 'ok', 'dados' => $retorno];
     }
 }

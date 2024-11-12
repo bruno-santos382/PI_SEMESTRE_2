@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../validacao/Validacao.php';
+require_once __DIR__.'/validacao/Validacao.php';
 
 class BaseController
 {
@@ -11,7 +11,7 @@ class BaseController
         $this->validacao = new Validacao();
     }
 
-    protected function realizarAcao(callable $acao, array $filtros=null): array
+    protected function realizarAcao(callable $acao, array $filtros=null): mixed
     {
         $dados = [];
 
@@ -19,12 +19,6 @@ class BaseController
             $dados = $this->validacao->obterDadosPost($filtros);
         }
         
-        $resultado = $acao(...$dados);
-        
-        return [
-            'status' => 'ok', 
-            'mensagem' => 'Ação realizada com sucesso.',
-            'dados' => $resultado
-        ];
+        return $acao(...$dados);
     }
 }

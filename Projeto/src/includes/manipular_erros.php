@@ -4,7 +4,7 @@
 define('ARQUIVO_LOGS', __DIR__ . '/../logs/error.txt');
 
 // Configurações de exibição e log de erros
-ini_set('display_errors', false);  // Não exibir erros na tela
+ini_set('display_errors', true);  // Não exibir erros na tela
 ini_set('log_errors', true);       // Ativar o registro de erros no log
 ini_set('error_log', ARQUIVO_LOGS);    // Definir o arquivo de log
 

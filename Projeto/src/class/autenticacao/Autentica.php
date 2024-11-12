@@ -11,16 +11,26 @@ class Autentica
     {
         $this->conexao = new Conexao();
     }
-
-    public function login(string $usuario, string $senha): void
+    
+    public function login(string $login, string $senha): void
     {
-        $query = <<<SQL
-        SELECT id, senha
-        FROM usuarios
-        WHERE usuario = :usuario
-SQL;
+        $query = "SELECT * FROM usuarios WHERE usuario = :login";
+
+        // Caso o formato do login for um email
+        if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+            $query = "SELECT * FROM usuarios WHERE email = :login";
+        } 
+        // Caso o formato do login for um número de telefone
+        else {
+            $telefone = preg_replace('/[^\d]*/', '', $login); // Apaga todos os caracteres não numéricos
+            if (strlen($telefone) >= 10) {
+                $query = "SELECT * FROM usuarios WHERE telefone = :login";
+                $login = $telefone;
+            }
+        } 
+
         $stmt = $this->conexao->prepare($query);
-        $stmt->execute(['usuario' => $usuario]);
+        $stmt->execute(['login' => $login]);
         $row = $stmt->fetch(Conexao::FETCH_OBJ);
 
         if (!$row || !password_verify($senha, $row->senha)) {
@@ -29,7 +39,7 @@ SQL;
 
         $this->verificaSessao();
         session_regenerate_id(true);
-        $_SESSION['usuario'] = array('id' => $row->id);
+        $_SESSION['usuario'] = array('id' => $row->idusuario);
     }
 
     public function logout(): void

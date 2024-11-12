@@ -16,14 +16,24 @@ class AutenticaController extends BaseController
 
     public function login(): array
     {
-        return $this->realizarAcao([$this->autentica, 'login'], [
-            'usuario' => ['filter' => FILTER_DEFAULT, 'erro' => 'O nome de usuário é obrigatório.'],
+        $this->realizarAcao([$this->autentica, 'login'], [
+            'login' => ['filter' => FILTER_DEFAULT, 'erro' => 'O campo login é obrigatório.'],
             'senha' => ['filter' => FILTER_DEFAULT, 'erro' => 'A senha é obrigatória.'],
         ]);
+
+        return [
+            'status' => 'ok', 
+            'mensagem' => 'Login efetuado com sucesso!'
+        ];
     }
 
     public function logout(): array
     {
-        return $this->realizarAcao([$this->autentica, 'logout']);
+        $this->realizarAcao([$this->autentica, 'logout']);
+
+        return [
+            'status' => 'ok', 
+            'mensagem' => 'Logout efetuado com sucesso!'
+        ];
     }
 }

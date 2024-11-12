@@ -2,7 +2,7 @@
 
 $template = array(
     'titulo' =>  'Cadastro de Produtos &mdash; Admin',
-    'scripts' => ['./static/js/cadastro_produto.js']
+    'scripts' => ['./static/js/admin/cadastro_produto.js']
 );
 
 include __DIR__ . '/../src/template/admin/header.php';

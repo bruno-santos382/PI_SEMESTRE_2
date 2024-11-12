@@ -1,0 +1,58 @@
+<?php
+
+require_once __DIR__.'/Produto.php';
+require_once __DIR__.'/../BaseController.php';
+
+class ProdutoController extends BaseController
+{
+    private Produto $produto;
+
+    public function __construct() 
+    {
+        parent::__construct();
+        
+        $this->produto = new Produto();
+    }
+
+    public function cadastrarProduto(): array
+    {
+        return $this->realizarAcao([$this->produto, 'cadastrar'], [
+            'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O nome do produto é obrigatório e não pode estar vazio.'],
+            'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
+            'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
+            'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
+        ]);
+    }
+
+    public function atualizarProduto(): array 
+    {
+        return $this->realizarAcao([$this->produto, 'atualizar'], [
+            'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O código do produto é obrigatório.'],
+            'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
+            'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
+            'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
+        ]);
+    }
+
+    public function excluirProduto(): array 
+    {
+        return $this->realizarAcao([$this->produto, 'atualizar'], [
+            'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O código do produto é obrigatório.'],
+            'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
+            'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
+            'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
+        ]);
+    }
+
+    public function buscarProduto(): array
+    {
+        return $this->realizarAcao([$this->produto, 'buscar'], [
+            'termo' => ['filter' => FILTER_DEFAULT, 'erro' => 'O termo da busca é obrigatório.']
+        ]);
+    }
+
+    public function listarProdutos(): array
+    {
+        return $this->realizarAcao([$this->produto, 'listar']);
+    }
+}

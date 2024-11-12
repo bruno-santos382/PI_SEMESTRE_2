@@ -33,13 +33,13 @@ class Autentica
         $stmt->execute(['login' => $login]);
         $row = $stmt->fetch(Conexao::FETCH_OBJ);
 
-        if (!$row || !password_verify($senha, $row->senha)) {
+        if (!$row || !password_verify($senha, $row->Senha)) {
             throw new ValidacaoException('Usuario ou senha inválidos.');
         }
 
         $this->verificaSessao();
         session_regenerate_id(true);
-        $_SESSION['usuario'] = array('id' => $row->idusuario);
+        $_SESSION['usuario'] = array('id' => $row->IdUsuario);
     }
 
     public function logout(): void

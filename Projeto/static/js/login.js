@@ -23,7 +23,8 @@ async function efetuarLogin(event) {
         const dados = await resposta.json(); // Faz o parsing da resposta
 
         if (dados.status === 'ok') {
-            window.location.href = 'cadastro_produto.php'; // Redireciona em caso de sucesso
+            alert('Login efetuado com sucesso!');
+            window.location.href = 'index.php'; // Redireciona em caso de sucesso
         } else {
             alert(dados.mensagem || 'Falha no login'); // Caso contrário, exibe mensagem de erro
         }

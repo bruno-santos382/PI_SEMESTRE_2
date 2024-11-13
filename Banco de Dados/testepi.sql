@@ -77,6 +77,7 @@ CREATE TABLE `usuarios` (
   Email VARCHAR(100) DEFAULT NULL,
   Telefone VARCHAR(20) DEFAULT NULL,
   Senha VARCHAR(255) NOT NULL,
+  DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP(),
   DataExclusao DATETIME DEFAULT NULL,
   UNIQUE KEY `idx_email` (`Email`),
   UNIQUE KEY `idx_telefone` (`Telefone`)

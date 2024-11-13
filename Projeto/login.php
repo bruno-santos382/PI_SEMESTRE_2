@@ -2,11 +2,11 @@
 
 $template = array(
     'titulo' =>  'Cadastro de Produtos &mdash; Admin',
-    'scripts' => ['./static/js/login.js'],
+    'scripts' => ['static/js/login.js'],
     'verifica_login' => false
 );
 
-include __DIR__ . '/src/template/admin/header.php';
+include __DIR__ . '/src/template/header.php';
 ?>
 
 <h2>Login</h2>
@@ -16,4 +16,4 @@ include __DIR__ . '/src/template/admin/header.php';
     <button type="submit">Acessar</button>
 </form>
 
-<?php include __DIR__ . '/src/template/admin/footer.php'; ?>
+<?php include __DIR__ . '/src/template/footer.php'; ?>

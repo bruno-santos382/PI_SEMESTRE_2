@@ -3,6 +3,11 @@
 require_once __DIR__.'/../Conexao.php';
 require_once __DIR__.'/../validacao/ValidacaoException.php';
 
+// Iniciar sessão caso esteja inativa
+if (session_status() != PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
 class Autentica 
 {
     private Conexao $conexao;
@@ -37,14 +42,12 @@ class Autentica
             throw new ValidacaoException('Usuario ou senha inválidos.');
         }
 
-        $this->verificaSessao();
         session_regenerate_id(true);
         $_SESSION['usuario'] = array('id' => $row->IdUsuario);
     }
 
     public function logout(): void
     {
-        $this->verificaSessao();
         unset($_SESSION['usuario']);
     }
 
@@ -56,12 +59,5 @@ class Autentica
     public function verificaLogin(): void
     {
         
-    }
-
-    private function verificaSessao(): void
-    {
-        if (session_status() != PHP_SESSION_ACTIVE) {
-            session_start();
-        }
     }
 }

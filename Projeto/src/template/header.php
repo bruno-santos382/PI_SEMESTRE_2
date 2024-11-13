@@ -1,15 +1,4 @@
-<?php 
-$config = include __DIR__.'/../../includes/config.php';
-require_once __DIR__.'/../../class/autenticacao/Autentica.php';
-
- // Verificar se usuario está logado
-$autentica = new Autentica();
-if (!$autentica->usuarioLogado()) {
-    //header('Location: ' . $config['app.url'] . '/login.php');
-    exit;
-}
-
-?>
+<?php $config = include __DIR__.'/../includes/config.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">

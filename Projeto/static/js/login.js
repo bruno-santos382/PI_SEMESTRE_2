@@ -24,10 +24,16 @@ async function efetuarLogin(event) {
 
         if (dados.status === 'ok') {
             Alerta.sucesso('Login efetuado com sucesso!');
-            window.location.href = 'index.php'; // Redireciona em caso de sucesso
-        } else {
-            Alerta.erro(dados.mensagem || 'Falha no login'); // Caso contrário, exibe mensagem de erro
-        }
+            submitButton.textContent = 'Entrar';
+
+            setTimeout(function() {
+                window.location.href = 'index.php'; // Redireciona em caso de sucesso depois de um intervalo
+            }, 1000)
+
+            return;
+        } 
+    
+        Alerta.erro(dados.mensagem || 'Falha no login'); // Caso contrário, exibe mensagem de erro
     } catch (error) {
         console.error('Erro ao efetuar login:', error); // Loga o erro
         Alerta.erro('Ocorreu um erro inesperado.'); // Mensagem genérica de erro

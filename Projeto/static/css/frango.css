@@ -1,0 +1,56 @@
+body {
+    background-color: #FCBF49; 
+}
+
+.container {
+    background-color: #FFF; 
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #E96C13;
+}
+
+.form-group label {
+    color: #8B4513;
+}
+
+.btn-primary {
+    background-color: #E96C13;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #D86B0B;
+}
+
+.discount-note {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.icon-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+    color: black;
+}
+
+.icon-text .icon-image {
+    font-size: 1.5em;
+    margin-bottom: 3px;
+    width: 30px;
+    height: 30px;
+}
+
+.icon-text span {
+    font-size: 0.8em;
+}
+
+.category-link {
+    text-decoration: none;
+    color: inherit;
+}

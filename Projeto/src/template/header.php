@@ -6,7 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="<?= htmlspecialchars($config['app.url'].'/') ?>">
-    <title><?= htmlspecialchars($template['titulo']) ?></title>
+    <title><?= $template['titulo'] ?></title>
+
+    <link rel="stylesheet" href="static/css/main.css">
+    <link href="static/lib/bootstrap-5.3.3/css/bootstrap.min.css" rel="stylesheet">
 
     <?php if (!empty($template['styles'])): ?>
         <?php foreach ($template['styles'] as $href): ?>
@@ -15,3 +18,5 @@
     <?php endif; ?>
 </head>
 <body>
+
+<div class="container">

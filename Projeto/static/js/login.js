@@ -23,14 +23,14 @@ async function efetuarLogin(event) {
         const dados = await resposta.json(); // Faz o parsing da resposta
 
         if (dados.status === 'ok') {
-            alert('Login efetuado com sucesso!');
+            Alerta.sucesso('Login efetuado com sucesso!');
             window.location.href = 'index.php'; // Redireciona em caso de sucesso
         } else {
-            alert(dados.mensagem || 'Falha no login'); // Caso contrário, exibe mensagem de erro
+            Alerta.erro(dados.mensagem || 'Falha no login'); // Caso contrário, exibe mensagem de erro
         }
     } catch (error) {
         console.error('Erro ao efetuar login:', error); // Loga o erro
-        alert('Ocorreu um erro inesperado. Tente novamente.'); // Mensagem genérica de erro
+        Alerta.erro('Ocorreu um erro inesperado.'); // Mensagem genérica de erro
     }
 
     submitButton.disabled = false; // Restaura o botão

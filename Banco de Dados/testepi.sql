@@ -88,6 +88,22 @@ INSERT INTO usuarios (Usuario, Senha) VALUES ('admin', '$2y$10$I5cV9q6YCgQkUMPA1
 
 
 --
+-- Estrutura tabela de permissões dos usuários
+--
+
+CREATE TABLE `permissao_usuarios` (
+  IdPermissaoUsuario INT AUTO_INCREMENT PRIMARY KEY,
+  IdUsuario INT NOT NULL,
+  Permissao VARCHAR(255) NOT NULL,  -- Mudança: Usando Permissao como string
+  DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  ativo BIT(1) DEFAULT 1,
+  FOREIGN KEY (IdUsuario) REFERENCES usuarios(IdUsuario) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO permissao_usuarios (IdUsuario, Permissao) VALUES (1, 'acesso_admin');
+
+
+--
 -- Estrutura para tabela `clientes`
 --
 

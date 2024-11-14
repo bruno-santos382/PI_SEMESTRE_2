@@ -3,7 +3,8 @@
 $template = array(
     'titulo' =>  'Login &mdash; GM Supermercado',
     'scripts' => ['static/js/login.js'],
-    'styles' => ['static/css/login.css']
+    'styles' => ['static/css/login.css'],
+    'esconder_navbar' => true
 );
 include __DIR__ . '/src/template/header.php';
 
@@ -24,11 +25,11 @@ include __DIR__ . '/src/template/header.php';
             <form id="loginForm" action="#" method="POST">
                 <div class="form-group mb-3">
                     <label for="login">Login</label>
-                    <input type="text" name="login" class="form-control" id="login" placeholder="Digite o seu usuário, e-mail ou telefone">
+                    <input type="text" name="login" autocomplete="username" class="form-control" id="login" placeholder="Digite o seu usuário, e-mail ou telefone">
                 </div>
                 <div class="form-group mb-3">
                     <label for="senha">Senha</label>
-                    <input type="password" name="senha" class="form-control" id="senha" placeholder="Digite sua senha">
+                    <input type="password" name="senha" autocomplete="current-password" class="form-control" id="senha" placeholder="Digite sua senha">
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">Entrar</button>

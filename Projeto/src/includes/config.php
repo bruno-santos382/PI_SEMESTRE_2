@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'app.url' => 'http://localhost/Projeto PI/Projeto',
-    'db.dsn' => 'mysql:dbname=mercado;host=127.0.0.1',
+    'app.url' => 'http://localhost:8080',
+    'db.dsn' => 'mysql:dbname=mercado;host=projeto-db-1',
     'db.username' => 'root',
     'db.password' => '',
 ];

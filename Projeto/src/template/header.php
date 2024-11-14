@@ -1,4 +1,8 @@
-<?php $config = include __DIR__.'/../includes/config.php'; ?>
+<?php 
+    require_once __DIR__.'/../class/autenticacao/Autentica.php'; 
+    $config = include __DIR__.'/../includes/config.php'; 
+    $autentica = new Autentica();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,5 +22,49 @@
     <?php endif; ?>
 </head>
 <body>
+
+<!-- Navbar -->
+ <?php if (empty($template['esconder_navbar'])): ?>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="static/img/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                GM SuperMercado
+            </a>
+            <div class="d-flex align-items-center">
+
+                <?php if ($usuario = $autentica->usuarioLogado()): ?>
+                    <?php if (in_array('acesso_admin', $usuario['permissoes'])): ?>
+                        <a href="/admin" class="icon-text mx-3">
+                            <img src="static/img/admin.png" alt="admin" class="icon-image">
+                            <span>Administrar</span>
+                        </a>
+                    <?php endif; ?>
+
+                    <a href="logout.php" class="icon-text mx-3">
+                        <img src="static/img/sair.png" alt="Sair" class="icon-image">
+                        <span>Sair</span>
+                    </a>
+                <?php else: ?>
+                    <a href="login.php" class="icon-text mx-3">
+                        <img src="static/img/login..png" alt="Login" class="icon-image">
+                        <span>Login</span>
+                    </a>
+                <?php endif ?>
+
+                <a href="carrinho.html" class="icon-text mx-3">
+                    <img src="static/img/compras.png" alt="Carrinho" class="icon-image">
+                    <span>Carrinho</span>
+                </a>
+                <div class="d-flex align-items-center">
+                    <a href="index.html" class="icon-text mx-3">
+                        <img src="static/img/casinha.png" alt="Localização" class="icon-image">
+                        <span>Inicio</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+<?php endif; ?>
 
 <div class="container">

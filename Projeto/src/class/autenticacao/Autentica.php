@@ -53,11 +53,23 @@ class Autentica
 
     public function usuarioLogado(): array|false
     {
-        return $_SESSION['usuario'] ?? false;
-    }
+        // Variável estática para armazenar os dados do usuário
+        static $usuario;
 
-    public function verificaLogin(): void
-    {
-        
+        if (empty($usuario)) 
+        {
+            $usuario = $_SESSION['usuario'] ?? false;
+            
+            if ($usuario) 
+            {
+                // Carregar permissões do usuário
+                $query = "SELECT Permissao FROM permissao_usuarios WHERE IdUsuario = :id AND Ativo = 1";
+                $stmt = $this->conexao->prepare($query);
+                $stmt->execute(['id' => $usuario['id']]);
+                $usuario['permissoes'] = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+            }
+        }
+
+        return $usuario;
     }
 }

@@ -63,7 +63,7 @@ class Autentica
             if ($usuario) 
             {
                 // Carregar permissões do usuário
-                $query = "SELECT Permissao FROM permissao_usuarios WHERE IdUsuario = :id AND Ativo = 1";
+                $query = "SELECT Permissao FROM permissao_usuarios WHERE IdUsuario = :id AND DataExclusao IS NULL";
                 $stmt = $this->conexao->prepare($query);
                 $stmt->execute(['id' => $usuario['id']]);
                 $usuario['permissoes'] = $stmt->fetchAll(\PDO::FETCH_COLUMN);

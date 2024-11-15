@@ -20,7 +20,9 @@ include __DIR__ . '/src/template/header.php';
             <h3 class="text-center">Bem-Vindo ao GM Supermercado, faça seu login!</h3>
 
             <!-- Caixa de alerta -->
-            <?php include __DIR__ . '/src/template/alertas.php' ?>
+            <div id="alertaLogin">
+                <?php include __DIR__ . '/src/template/alertas.php' ?>
+            </div>
 
             <form id="loginForm" action="#" method="POST">
                 <div class="form-group mb-3">

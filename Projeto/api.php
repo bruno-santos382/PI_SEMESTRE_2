@@ -3,6 +3,7 @@
 require_once __DIR__.'/src/includes/manipular_erros.php';
 require_once __DIR__.'/src/class/produto/Controller.php';
 require_once __DIR__.'/src/class/autenticacao/Controller.php';
+require_once __DIR__.'/src/class/imagem/Controller.php';
 require_once __DIR__.'/src/class/validacao/ValidacaoException.php';
 
 header('Content-Type: application/json');
@@ -12,6 +13,7 @@ try {
 
     $produto = new ProdutoController();
     $autentica = new AutenticaController();
+    $imagem = new ImagemController();
     
     $funcao = [
         // Rotas de produto
@@ -24,10 +26,15 @@ try {
         // Rotas de autenticação
         'autentica/login' => [$autentica, 'login'],
         'autentica/logout' => [$autentica, 'logout'],
+
+        // Rotas de imagem
+        'imagem/upload' => [$imagem, 'uploadImagem'],
+        'imagem/excluir' => [$imagem, 'excluirImagem'],
+
     ];
     
     if (!isset($funcao[$rota])) {
-        throw new \Exception('Rota não definida');
+        throw new \Exception("Rota não definida: $rota");
     }
 
     $resposta = call_user_func($funcao[$rota]);

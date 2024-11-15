@@ -1,0 +1,257 @@
+[2024-11-14 15:31:45] Erro [256]: Erro inesperado: SQLSTATE[HY000] [2002] Connection refused em /var/www/html/src/class/Conexao.php na linha 10
+Pilha de chamadas:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-14 15:54:43] Erro [256]: Erro inesperado: SQLSTATE[HY000] [2002] Connection refused em /var/www/html/src/class/Conexao.php na linha 10
+Pilha de chamadas:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-14 16:05:53] Erro [256]: Erro inesperado: SQLSTATE[HY000] [2002] Connection refused em /var/www/html/src/class/Conexao.php na linha 10
+Pilha de chamadas:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-14 21:48:34] Erro [256]: Erro inesperado: SQLSTATE[HY000] [2002] Connection refused em /var/www/html/src/class/Conexao.php na linha 10
+Pilha de chamadas:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-14 21:49:32] Erro [256]: Erro inesperado: SQLSTATE[HY000] [2002] No such file or directory em /var/www/html/src/class/Conexao.php na linha 10
+Pilha de chamadas:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-14 21:49:35] Erro [256]: Erro inesperado: SQLSTATE[HY000] [2002] No such file or directory em /var/www/html/src/class/Conexao.php na linha 10
+Pilha de chamadas:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-14 21:50:00] Erro [256]: Erro inesperado: SQLSTATE[HY000] [2002] No such file or directory em /var/www/html/src/class/Conexao.php na linha 10
+Pilha de chamadas:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-14 21:53:03] Erro [256]: Erro inesperado: SQLSTATE[HY000] [2002] Connection refused em /var/www/html/src/class/Conexao.php na linha 10
+Pilha de chamadas:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main} em /var/www/html/api.php na linha 46
+[14-Nov-2024 21:53:09 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [2002] Connection refused in /var/www/html/src/class/Conexao.php:10
+Stack trace:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main}
+  thrown in /var/www/html/src/class/Conexao.php on line 10
+[14-Nov-2024 21:53:09 UTC] PHP Stack trace:
+[14-Nov-2024 21:53:09 UTC] PHP   1. {main}() /var/www/html/api.php:0
+[14-Nov-2024 21:53:09 UTC] PHP   2. ProdutoController->__construct() /var/www/html/api.php:13
+[14-Nov-2024 21:53:09 UTC] PHP   3. Produto->__construct() /var/www/html/src/class/produto/Controller.php:14
+[14-Nov-2024 21:53:09 UTC] PHP   4. Conexao->__construct() /var/www/html/src/class/produto/Produto.php:10
+[14-Nov-2024 21:53:09 UTC] PHP   5. PDO->__construct($dsn = 'mysql:dbname=mercado;host=127.0.0.1', $username = 'root', $password = '') /var/www/html/src/class/Conexao.php:10
+[14-Nov-2024 21:53:09 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [2002] Connection refused in /var/www/html/src/class/Conexao.php:10
+Stack trace:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main}
+  thrown in /var/www/html/src/class/Conexao.php on line 10
+[14-Nov-2024 21:53:09 UTC] PHP Stack trace:
+[14-Nov-2024 21:53:09 UTC] PHP   1. {main}() /var/www/html/api.php:0
+[14-Nov-2024 21:53:09 UTC] PHP   2. ProdutoController->__construct() /var/www/html/api.php:13
+[14-Nov-2024 21:53:09 UTC] PHP   3. Produto->__construct() /var/www/html/src/class/produto/Controller.php:14
+[14-Nov-2024 21:53:09 UTC] PHP   4. Conexao->__construct() /var/www/html/src/class/produto/Produto.php:10
+[14-Nov-2024 21:53:09 UTC] PHP   5. PDO->__construct($dsn = 'mysql:dbname=mercado;host=127.0.0.1', $username = 'root', $password = '') /var/www/html/src/class/Conexao.php:10
+[2024-11-14 21:56:11] Erro [256]: Erro inesperado: SQLSTATE[HY000] [2002] Connection refused em /var/www/html/src/class/Conexao.php na linha 10
+Pilha de chamadas:
+#0 /var/www/html/src/class/Conexao.php(10): PDO->__construct('mysql:dbname=me...', 'root', '')
+#1 /var/www/html/src/class/produto/Produto.php(10): Conexao->__construct()
+#2 /var/www/html/src/class/produto/Controller.php(14): Produto->__construct()
+#3 /var/www/html/api.php(13): ProdutoController->__construct()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:40:25] Erro [256]: Erro inesperado: Rota não definida em /var/www/html/api.php na linha 30
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:40:29] Erro [256]: Erro inesperado: Rota não definida em /var/www/html/api.php na linha 30
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:42:05] Erro [256]: Erro inesperado: Rota não definida em /var/www/html/api.php na linha 30
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:42:43] Erro [256]: Erro inesperado: Rota não definida em /var/www/html/api.php na linha 30
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:43:33] Erro [256]: Erro inesperado: Rota não definida em /var/www/html/api.php na linha 30
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:44:58] Erro [256]: Erro inesperado: Rota não definida em /var/www/html/api.php na linha 30
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:45:02] Erro [256]: Erro inesperado: Rota não definida em /var/www/html/api.php na linha 30
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:45:19] Erro [256]: Erro inesperado: Rota não definida em /var/www/html/api.php na linha 30
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:49:39] Erro [256]: Erro inesperado: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'inativo' in 'field list' em /var/www/html/src/class/produto/Produto.php na linha 65
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(65): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->excluir(17)
+#2 /var/www/html/src/class/produto/Controller.php(45): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(33): ProdutoController->excluirProduto()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:49:47] Erro [256]: Erro inesperado: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'inativo' in 'field list' em /var/www/html/src/class/produto/Produto.php na linha 65
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(65): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->excluir(16)
+#2 /var/www/html/src/class/produto/Controller.php(45): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(33): ProdutoController->excluirProduto()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:51:36] Erro [256]: Erro inesperado: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'inativo' in 'field list' em /var/www/html/src/class/produto/Produto.php na linha 65
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(65): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->excluir(17)
+#2 /var/www/html/src/class/produto/Controller.php(45): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(33): ProdutoController->excluirProduto()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:53:41] Erro [256]: Erro inesperado: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ativo' in 'field list' em /var/www/html/src/class/produto/Produto.php na linha 65
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(65): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->excluir(17)
+#2 /var/www/html/src/class/produto/Controller.php(45): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(33): ProdutoController->excluirProduto()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 01:54:06] Erro [256]: Erro inesperado: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' em /var/www/html/src/class/produto/Produto.php na linha 64
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(64): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->excluir(17)
+#2 /var/www/html/src/class/produto/Controller.php(45): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(33): ProdutoController->excluirProduto()
+#4 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 15:43:24] Erro [256]: Erro inesperado: Rota não definida em /var/www/html/api.php na linha 30
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 46
+[2024-11-15 15:44:02] Erro [256]: Erro inesperado: SQLSTATE[42000]: Syntax error or access violation: 1305 FUNCTION mercado.GETDATE does not exist em /var/www/html/src/class/imagem/Imagem.php na linha 40
+Pilha de chamadas:
+#0 /var/www/html/src/class/imagem/Imagem.php(40): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Imagem->excluir(1)
+#2 /var/www/html/src/class/imagem/Controller.php(30): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(40): ImagemController->excluirImagem()
+#4 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 17:23:37] Erro [256]: Erro inesperado: Unknown named parameter $id_imagem em /var/www/html/src/class/BaseController.php na linha 22
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Controller.php(20): BaseController->realizarAcao(Array, Array)
+#1 /var/www/html/api.php(40): ProdutoController->cadastrarProduto()
+#2 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 17:25:22] Exceção não capturada: syntax error, unexpected token ">"
+Arquivo: /var/www/html/src/class/produto/Produto.php na linha 51
+Pilha de chamadas: #0 /var/www/html/api.php(4): require_once()
+#1 {main}
+[2024-11-15 17:25:54] Erro [256]: Erro inesperado: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens em /var/www/html/src/class/produto/Produto.php na linha 25
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(25): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->cadastrar('teste', 23.0, '23', 23, 1)
+#2 /var/www/html/src/class/produto/Controller.php(20): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(40): ProdutoController->cadastrarProduto()
+#4 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 17:25:56] Erro [256]: Erro inesperado: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined em /var/www/html/src/class/produto/Produto.php na linha 25
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(25): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->cadastrar('teste', 23.0, '23', 23, 1)
+#2 /var/www/html/src/class/produto/Controller.php(20): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(40): ProdutoController->cadastrarProduto()
+#4 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 17:53:35] Erro [256]: Erro inesperado: Rota não definida em /var/www/html/api.php na linha 37
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 17:54:07] Erro [256]: Erro inesperado: Rota não definida: imagem/upload em /var/www/html/api.php na linha 37
+Pilha de chamadas:
+#0 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 18:06:50] Erro [256]: Erro inesperado: SQLSTATE[HY000]: General error: 2014 Cannot execute queries while there are pending result sets. Consider unsetting the previous PDOStatement or calling PDOStatement::closeCursor() em /var/www/html/src/class/imagem/Imagem.php na linha 36
+Pilha de chamadas:
+#0 /var/www/html/src/class/imagem/Imagem.php(36): PDOStatement->execute()
+#1 /var/www/html/src/class/BaseController.php(22): Imagem->upload()
+#2 /var/www/html/src/class/imagem/Controller.php(19): BaseController->realizarAcao(Array)
+#3 /var/www/html/api.php(40): ImagemController->uploadImagem()
+#4 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 18:08:02] Erro [256]: Erro inesperado: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1 img.*
+        FROM imagens img
+        ORDER BY img.idimagem DESC' at line 1 em /var/www/html/src/class/imagem/Imagem.php na linha 34
+Pilha de chamadas:
+#0 /var/www/html/src/class/imagem/Imagem.php(34): PDOStatement->closeCursor()
+#1 /var/www/html/src/class/BaseController.php(22): Imagem->upload()
+#2 /var/www/html/src/class/imagem/Controller.php(19): BaseController->realizarAcao(Array)
+#3 /var/www/html/api.php(40): ImagemController->uploadImagem()
+#4 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 18:09:31] Erro [256]: Erro inesperado: Imagem::upload(): Return value must be of type array, bool returned em /var/www/html/src/class/imagem/Imagem.php na linha 40
+Pilha de chamadas:
+#0 /var/www/html/src/class/BaseController.php(22): Imagem->upload()
+#1 /var/www/html/src/class/imagem/Controller.php(19): BaseController->realizarAcao(Array)
+#2 /var/www/html/api.php(40): ImagemController->uploadImagem()
+#3 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 18:10:53] Erro [256]: Erro inesperado: SQLSTATE[HY000]: General error: 2014 Cannot execute queries while there are pending result sets. Consider unsetting the previous PDOStatement or calling PDOStatement::closeCursor() em /var/www/html/src/class/imagem/Imagem.php na linha 37
+Pilha de chamadas:
+#0 /var/www/html/src/class/imagem/Imagem.php(37): PDOStatement->execute()
+#1 /var/www/html/src/class/BaseController.php(22): Imagem->upload()
+#2 /var/www/html/src/class/imagem/Controller.php(19): BaseController->realizarAcao(Array)
+#3 /var/www/html/api.php(40): ImagemController->uploadImagem()
+#4 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 18:17:17] Erro [2]: Undefined array key "imagem" em /var/www/html/src/class/imagem/Imagem.php na linha 76
+[2024-11-15 18:17:17] Erro [2]: Trying to access array offset on value of type null em /var/www/html/src/class/imagem/Imagem.php na linha 76
+[2024-11-15 18:30:49] Erro [256]: Erro inesperado: Imagem::inserido(): Return value must be of type array, bool returned em /var/www/html/src/class/imagem/Imagem.php na linha 75
+Pilha de chamadas:
+#0 /var/www/html/src/class/imagem/Imagem.php(44): Imagem->inserido()
+#1 /var/www/html/src/class/BaseController.php(22): Imagem->excluir(45)
+#2 /var/www/html/src/class/imagem/Controller.php(31): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(40): ImagemController->excluirImagem()
+#4 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 18:41:03] Erro [2]: Undefined array key "imagem" em /var/www/html/src/class/imagem/Imagem.php na linha 79
+[2024-11-15 18:41:03] Erro [2]: Trying to access array offset on value of type null em /var/www/html/src/class/imagem/Imagem.php na linha 79
+[2024-11-15 19:16:41] Erro [256]: Erro inesperado: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mercado`.`produtos`, CONSTRAINT `fk_produtos_imagens` FOREIGN KEY (`IdImagem`) REFERENCES `imagens` (`IdImagem`) ON DELETE SET NULL ON UPDATE CASCADE) em /var/www/html/src/class/produto/Produto.php na linha 25
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(25): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->cadastrar('Noise gate', 23.0, 'Noise gate', 1, 0)
+#2 /var/www/html/src/class/produto/Controller.php(20): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(40): ProdutoController->cadastrarProduto()
+#4 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 19:21:33] Erro [256]: Erro inesperado: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mercado`.`produtos`, CONSTRAINT `fk_produtos_imagens` FOREIGN KEY (`IdImagem`) REFERENCES `imagens` (`IdImagem`) ON DELETE SET NULL ON UPDATE CASCADE) em /var/www/html/src/class/produto/Produto.php na linha 25
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(25): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->cadastrar('teste', 23.0, 'teste', 23, 0)
+#2 /var/www/html/src/class/produto/Controller.php(20): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(40): ProdutoController->cadastrarProduto()
+#4 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 19:23:16] Erro [256]: Erro inesperado: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mercado`.`produtos`, CONSTRAINT `fk_produtos_imagens` FOREIGN KEY (`IdImagem`) REFERENCES `imagens` (`IdImagem`) ON DELETE SET NULL ON UPDATE CASCADE) em /var/www/html/src/class/produto/Produto.php na linha 25
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(25): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->cadastrar('teste', 23.0, 'teste', 23, 0)
+#2 /var/www/html/src/class/produto/Controller.php(20): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(40): ProdutoController->cadastrarProduto()
+#4 {main} em /var/www/html/api.php na linha 53
+[2024-11-15 19:25:03] Erro [256]: Erro inesperado: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mercado`.`produtos`, CONSTRAINT `fk_produtos_imagens` FOREIGN KEY (`IdImagem`) REFERENCES `imagens` (`IdImagem`) ON DELETE SET NULL ON UPDATE CASCADE) em /var/www/html/src/class/produto/Produto.php na linha 27
+Pilha de chamadas:
+#0 /var/www/html/src/class/produto/Produto.php(27): PDOStatement->execute(Array)
+#1 /var/www/html/src/class/BaseController.php(22): Produto->cadastrar('teste', 23.0, 'teste', 23, 0)
+#2 /var/www/html/src/class/produto/Controller.php(20): BaseController->realizarAcao(Array, Array)
+#3 /var/www/html/api.php(40): ProdutoController->cadastrarProduto()
+#4 {main} em /var/www/html/api.php na linha 53

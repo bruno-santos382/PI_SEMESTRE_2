@@ -17,14 +17,14 @@ async function removerProduto(btnExcluir, id) {
 
         const json = await resposta.json();
         if (json.status === 'ok') {
-            Alerta.sucesso('Produto removido com sucesso!');
+            Alerta.sucesso('#alertaProduto', 'Produto removido com sucesso!');
             btnExcluir.closest('tr').remove();
         } else {
-            Alerta.erro(json.erro || 'Erro ao remover produto.');
+            Alerta.erro('#alertaProduto', json.mensagem || 'Erro ao remover produto.');
         }
     } catch (e) {
         console.error(e)
-        Alerta.erro('Erro ao remover produto.');
+        Alerta.erro('#alertaProduto', 'Erro ao remover produto.');
     }
 
     btnExcluir.removeAttribute('disabled');

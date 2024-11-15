@@ -10,11 +10,11 @@ class Produto
         $this->conexao = new Conexao();
     }
 
-    public function cadastrar(string $nome, float $preco, string $marca, int $estoque): void 
-    {
+    public function cadastrar(string $nome, float $preco, string $marca, int $estoque, int $id_imagem=null): void 
+    {        
         $query = <<<SQL
-            INSERT INTO produtos (nome, preco, marca, estoque) 
-            VALUES (:nome, :preco, :marca, :estoque);
+            INSERT INTO produtos (nome, preco, marca, estoque, idimagem) 
+            VALUES (:nome, :preco, :marca, :estoque, :idimagem);
 SQL;
         $stmt = $this->conexao->prepare($query);
         $stmt->execute([
@@ -22,10 +22,11 @@ SQL;
             'preco' => $preco,
             'marca' => $marca,
             'estoque' => $estoque,
+            'idimagem' => $id_imagem
         ]);
     }
 
-    public function atualizar(int $id, string $nome, float $preco, string $marca, int $estoque): void 
+    public function atualizar(int $id, string $nome, float $preco, string $marca, int $estoque, int $id_imagem=null): void 
     {
         if (empty($id)) {
             throw new \Exception('O código do produto é obrigatório.');
@@ -36,7 +37,8 @@ SQL;
                 SET nome = :nome,
                     preco = :preco,
                     marca = :marca,
-                    estoque = :estoque
+                    estoque = :estoque,
+                    idimagem = :idimagem
             WHERE id = :id;
 SQL;
         $stmt = $this->conexao->prepare($query);
@@ -46,6 +48,7 @@ SQL;
             'preco' => $preco,
             'marca' => $marca,
             'estoque' => $estoque,
+            'idimagem' => $id_imagem
         ]);
     }
 
@@ -56,7 +59,7 @@ SQL;
 
         $query = <<<SQL
         UPDATE produtos
-        SET Inativo = 1
+        SET DataExclusao = CURRENT_TIMESTAMP()
         WHERE IdProduto = :id
 SQL;
         $stmt = $this->conexao->prepare($query);
@@ -71,7 +74,7 @@ SQL;
             SELECT p.* 
             FROM produtos p
             WHERE p.nome LIKE CONCAT(:nome, '%')
-            AND p.inativo = 0
+            AND DataExclusao IS NULL
 SQL;
 
         $stmt = $this->conexao->prepare($query);
@@ -86,10 +89,14 @@ SQL;
     public function listar(): array
     {
         $query = <<<SQL
-        SELECT p.* 
+
+        SELECT 
+            p.*, 
+            img.caminho AS imagem
         FROM produtos p
-        WHERE p.inativo = 0
-        ORDER BY p.idproduto, p.nome ASC
+        LEFT JOIN imagens img ON img.idimagem = p.idimagem
+        WHERE p.dataexclusao IS NULL
+        ORDER BY p.idproduto ASC, p.nome ASC;
 SQL;
 
         $stmt = $this->conexao->prepare($query);

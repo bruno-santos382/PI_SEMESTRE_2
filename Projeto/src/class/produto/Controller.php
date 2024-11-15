@@ -21,6 +21,7 @@ class ProdutoController extends BaseController
             'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
             'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
             'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
+            'id_imagem' => ['filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_NULL_ON_FAILURE, 'options' => ['min_range' => 1], 'obrigatorio' => false]
         ]);
 
         return ['status' => 'ok', 'mensagem' => 'Produto cadastrado com sucesso!', 'dados' => $retorno];
@@ -34,6 +35,7 @@ class ProdutoController extends BaseController
             'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
             'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
             'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
+            'id_imagem' => ['filter' => FILTER_VALIDATE_INT, 'obrigatorio' => false]
         ]);
 
         return ['status' => 'ok', 'mensagem' => 'Produto atualizado com sucesso!', 'dados' => $retorno];

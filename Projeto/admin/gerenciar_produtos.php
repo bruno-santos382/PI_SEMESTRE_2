@@ -11,13 +11,15 @@ include __DIR__ . '/../src/template/admin/header.php';
 
 <h2 class="text-center my-4">Gerenciar Produtos</h2>
 
-<?php include __DIR__. '/../src/template/alertas.php'; ?>
+<div id="alertaProduto">
+    <?php include __DIR__. '/../src/template/alertas.php'; ?>
+</div>
 
 <table class="table table-centered table-hover table-borderless">
     <thead class="table-secondary">
         <tr>
             <th scope="col" style="width: 100px;">Código</th>
-            <th scope="col">Imagem</th>
+            <th scope="col" style="width: 100px;">Imagem</th>
             <th scope="col">Nome</th>
             <th scope="col">Marca</th>
             <th scope="col" style="width: 200px;">Preço</th>
@@ -34,7 +36,7 @@ include __DIR__ . '/../src/template/admin/header.php';
             <tr>
                 <td><?= $item['IdProduto'] ?></td>
                 <td>
-                    <img src="static/img/<?= strtolower(str_replace(' ', '_', $item['Nome'])) ?>.jpg" alt="<?= $item['Nome'] ?>" class="img-fluid" style="max-width: 50px; height: auto;">
+                    <img src="<?= $item['imagem'] ?? 'static/img/galeria.png' ?>" alt="<?= $item['Nome'] ?>" class="img-fluid" style="max-width: 50px; height: auto;">
                 </td>
                 <td><?= $item['Nome'] ?></td>
                 <td><?= $item['Marca'] ?></td>

@@ -23,7 +23,7 @@ async function efetuarLogin(event) {
         const dados = await resposta.json(); // Faz o parsing da resposta
 
         if (dados.status === 'ok') {
-            Alerta.sucesso('Login efetuado com sucesso!');
+            Alerta.sucesso('#alertaLogin', 'Login efetuado com sucesso!');
             submitButton.textContent = 'Entrar';
 
             setTimeout(function() {
@@ -33,10 +33,10 @@ async function efetuarLogin(event) {
             return;
         } 
     
-        Alerta.erro(dados.mensagem || 'Falha no login'); // Caso contrário, exibe mensagem de erro
+        Alerta.erro('#alertaLogin', dados.mensagem || 'Falha no login'); // Caso contrário, exibe mensagem de erro
     } catch (error) {
-        console.error('Erro ao efetuar login:', error); // Loga o erro
-        Alerta.erro('Ocorreu um erro inesperado.'); // Mensagem genérica de erro
+        console.error('#alertaLogin', 'Erro ao efetuar login:', error); // Loga o erro
+        Alerta.erro('#alertaLogin', 'Ocorreu um erro inesperado.'); // Mensagem genérica de erro
     }
 
     submitButton.disabled = false; // Restaura o botão

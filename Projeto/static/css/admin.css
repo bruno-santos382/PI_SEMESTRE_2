@@ -1,0 +1,39 @@
+body {
+    --bs-body-bg: #f5f7fa;
+}
+
+.form-control {
+    background-color: #fff !important;
+    border: 1px solid #d6d6d6;
+}
+
+/* Barra lateral */
+.sidenav {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    flex: 0 0 250px;
+    border-right: 1px solid #d6d6d6;
+    background-color: #fff;
+}
+
+/* Logo */
+.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #343a40;
+    color: white;
+}
+
+/* Navbar oculta */
+.navbar {
+    display: none;
+}

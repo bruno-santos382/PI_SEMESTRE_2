@@ -182,7 +182,8 @@ CREATE TABLE `produtos` (
   `IdProduto` int(11) NOT NULL,
   `Preco` float DEFAULT NULL,
   `Marca` varchar(40) DEFAULT NULL,
-  `Estoque` int(11) DEFAULT NULL
+  `Estoque` int(11) DEFAULT NULL,
+  Inativo BIT(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

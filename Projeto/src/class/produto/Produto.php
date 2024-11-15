@@ -27,9 +27,8 @@ SQL;
 
     public function atualizar(int $id, string $nome, float $preco, string $marca, int $estoque): void 
     {
-        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         if (empty($id)) {
-            throw new \Exception('O código do produto é obrigatório e deve ser um número inteiro positivo.');
+            throw new \Exception('O código do produto é obrigatório.');
         }
 
         $query = <<<SQL
@@ -52,13 +51,13 @@ SQL;
 
     public function excluir(int $id) {        
         if (empty($id)) {
-            throw new \Exception('O código do produto é obrigatório e deve ser um número inteiro positivo.');
+            throw new \Exception('O código do produto é obrigatório.');
         }
 
         $query = <<<SQL
-            UPDATE produtos
-                SET inativo = 1
-                WHERE id = :id
+        UPDATE produtos
+        SET Inativo = 1
+        WHERE IdProduto = :id
 SQL;
         $stmt = $this->conexao->prepare($query);
         $stmt->execute([
@@ -72,7 +71,7 @@ SQL;
             SELECT p.* 
             FROM produtos p
             WHERE p.nome LIKE CONCAT(:nome, '%')
-                OR p.marca LIKE CONCAT(:marca, '%')
+            AND p.inativo = 0
 SQL;
 
         $stmt = $this->conexao->prepare($query);
@@ -89,7 +88,8 @@ SQL;
         $query = <<<SQL
         SELECT p.* 
         FROM produtos p
-        ORDER BY p.nome ASC
+        WHERE p.inativo = 0
+        ORDER BY p.idproduto, p.nome ASC
 SQL;
 
         $stmt = $this->conexao->prepare($query);

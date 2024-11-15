@@ -17,7 +17,7 @@ class ProdutoController extends BaseController
     public function cadastrarProduto(): array
     {
         $retorno = $this->realizarAcao([$this->produto, 'cadastrar'], [
-            'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O nome do produto é obrigatório e não pode estar vazio.'],
+            'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O nome do produto é obrigatório e não pode em branco.'],
             'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
             'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
             'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
@@ -29,7 +29,8 @@ class ProdutoController extends BaseController
     public function atualizarProduto(): array 
     {
         $retorno = $this->realizarAcao([$this->produto, 'atualizar'], [
-            'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O código do produto é obrigatório.'],
+            'id' => ['filter' => FILTER_DEFAULT, 'erro' => 'O código do produto é obrigatório.'],
+            'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O nome do produto é obrigatório  e não pode estar em branco.'],
             'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
             'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
             'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
@@ -40,12 +41,8 @@ class ProdutoController extends BaseController
 
     public function excluirProduto(): array 
     {
-        $retorno = $this->realizarAcao([$this->produto, 'atualizar'], [
-            'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O código do produto é obrigatório.'],
-            'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
-            'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
-            'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
-        ]);
+        $retorno = $this->realizarAcao([$this->produto, 'excluir'], [
+            'id' => ['filter' => FILTER_DEFAULT, 'erro' => 'O código do produto é obrigatório.'] ]);
 
         return ['status' => 'ok', 'mensagem' => 'Produto excluído com sucesso!', 'dados' => $retorno];
     }

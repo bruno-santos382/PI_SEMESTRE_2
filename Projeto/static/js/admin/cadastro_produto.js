@@ -7,21 +7,22 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const dadosForm = new FormData(form);
 
-            let resposta = await fetch('api.php?route=produto/cadastrar', {
+            const resposta = await fetch('api.php?route=produto/cadastrar', {
                 method: 'POST',
                 body: dadosForm
             });
 
             const json = await resposta.json();
-            
-            if (json.sucesso) {
-                alert('Cadastrado com sucesso');
+            if (json.status === 'ok') {
+                Alerta.sucesso('Cadastrado com sucesso!');
+                form.reset();
             } else {
-                alert(json.erro || 'Erro ao realizar cadastro.');
+                Alerta.erro(json.erro || 'Erro ao realizar cadastro.');
             }
             
         } catch (e) {
             console.error(e)
+            Alerta.erro('Erro ao realizar cadastro.');
         }
     });
 })

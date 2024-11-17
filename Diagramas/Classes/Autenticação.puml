@@ -1,0 +1,33 @@
+@startuml Autenticação
+
+abstract class BaseController {
+    -Validacao validacao
+    +__construct() : void
+    +realizarAcao(callable acao, array filtros = null) : mixed:  "Executa uma ação específica após validar os dados do POST."
+}
+
+class Conexao {
+    +__construct(): void:  "Inicia a conexão com o banco de dados utilizando configurações específicas."
+}
+
+package "Autenticação" {
+    class AutenticaController {
+        -Autentica autentica
+        +__construct() : void : "Inicializa a instância de Autentica."
+        +login() : array : "Trata o login do usuário."
+        +logout() : array : "Trata o logout do usuário."
+    }
+
+    class Autentica {
+        -Conexao conexao
+        +__construct() : void : "Inicializa a instância da classe."
+        +login(string login, string senha) : void : "Autentica o usuário com as credenciais fornecidas."
+        +logout() : void : "Desloga o usuário e limpa a sessão."
+        +usuarioLogado() : array | false : "Verifica se um usuário está logado e retorna seus dados."
+    }
+
+    BaseController <|-- AutenticaController
+    AutenticaController --> Autentica : usa
+    Autentica --> Conexao: usa 
+}
+@enduml

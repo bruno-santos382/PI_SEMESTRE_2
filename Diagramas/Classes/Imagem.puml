@@ -1,0 +1,33 @@
+@startuml Imagem
+
+abstract class BaseController {
+    -Validacao validacao
+    +__construct() : void
+    +realizarAcao(callable acao, array filtros = null) : mixed:  "Executa uma ação específica após validar os dados do POST."
+}
+
+class Conexao {
+    +__construct(): void:  "Inicia a conexão com o banco de dados utilizando configurações específicas."
+}
+
+package "Imagem" {
+    class Imagem {
+        -Conexao conexao
+        +__construct() : void : "Inicializa a instância da classe."
+        +upload() : array : "Faz o upload de uma imagem e retorna seus dados."
+        +excluir(int id) : void : "Exclui uma imagem do banco de dados."
+        +listarTudo() : array : "Retorna todas as imagens ativas."
+    }
+
+    class ImagemController {
+        -Imagem imagem
+        +__construct() : void : "Inicializa a instância da classe."
+        +uploadImagem() : array : "Faz o upload de uma imagem."
+        +excluirImagem(int id) : array: "Exclui uma imagem pelo ID."
+    }
+
+    BaseController <|-- ImagemController
+    ImagemController --> Imagem: usa
+    Imagem --> Conexao: usa
+}
+@enduml

@@ -8,15 +8,38 @@ if (session_status() != PHP_SESSION_ACTIVE) {
     session_start();
 }
 
+/**
+ * Class Autentica
+ * 
+ * Esta classe gerencia a autenticação de usuários, incluindo login, logout e verificação de sessão.
+ * Utiliza a classe Conexao para interagir com o banco de dados e a classe ValidacaoException para
+ * tratar erros de validação durante o processo de login.
+ */
 class Autentica 
 {
     private Conexao $conexao;
 
+    /**
+     * Construtor da classe.
+     * 
+     * Instancia uma nova conexão com o banco de dados.
+     */
     public function __construct()
     {
         $this->conexao = new Conexao();
     }
     
+    
+    /**
+     * Realiza o login do usuário.
+     * 
+     * O login pode ser feito com o login do usuário, email ou número de telefone.
+     * 
+     * @throws ValidacaoException Caso o login ou senha seja inválido
+     * @param string $login Login do usuário, email ou número de telefone
+     * @param string $senha Senha do usuário
+     * @return void
+     */
     public function login(string $login, string $senha): void
     {
         $query = "SELECT * FROM usuarios WHERE usuario = :login";
@@ -46,11 +69,24 @@ class Autentica
         $_SESSION['usuario'] = array('id' => $row->IdUsuario);
     }
 
+    
+    /**
+     * Desloga o usuário e remove a sessão.
+     */
     public function logout(): void
     {
         unset($_SESSION['usuario']);
     }
 
+
+    /**
+     * Verifica se o usuário está logado e retorna seus dados.
+     * 
+     * O método verifica se o usuário está logado e retorna seus dados, caso contrário, 
+     * retorna false.
+     * 
+     * @return array|false dados do usuário com as permissões ou false se o usuário não estiver logado
+     */
     public function usuarioLogado(): array|false
     {
         // Variável estática para armazenar os dados do usuário

@@ -26,3 +26,26 @@
     object-fit: cover;
     width: 100%;
 }
+
+/* Estilos para os ícones e texto na navbar */
+.icon-text {
+    display: flex;
+    flex-direction: column;  
+    align-items: center;     
+    font-size: 18;        
+    color: black;
+}
+
+.icon-text i {
+    font-size: 1.5em;  
+    margin-bottom: 3px; 
+}
+
+.icon-text span {
+    font-size: 0.8em;   
+}
+
+.icon-image {
+    width: 52px; 
+    height: 52px;
+}

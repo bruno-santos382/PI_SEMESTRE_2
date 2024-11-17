@@ -56,15 +56,14 @@
                     <img src="static/img/compras.png" alt="Carrinho" class="icon-image">
                     <span>Carrinho</span>
                 </a>
-                <div class="d-flex align-items-center">
-                    <a href="index.html" class="icon-text mx-3">
-                        <img src="static/img/casinha.png" alt="Localização" class="icon-image">
-                        <span>Inicio</span>
-                    </a>
-                </div>
+                
+                <a href="index.html" class="icon-text mx-3">
+                    <img src="static/img/casinha.png" alt="Localização" class="icon-image">
+                    <span>Inicio</span>
+                </a>
             </div>
         </div>
     </nav>
 <?php endif; ?>
 
-<div class="container">
+<div class="container-fluid px-0">

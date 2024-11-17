@@ -45,7 +45,7 @@ include __DIR__ . '/src/template/header.php';
                         <h5 class="card-title"><?= $item['Nome'] ?></h5>
                         <p class="card-text"><?= $item['Marca'] ?></p>
                         <p class="text-danger"><strong>R$ <?= number_format($item['Preco'], 2, ',', '.') ?></strong></p>
-                        <button href="#" class="btn btn-success">Adicionar ao Carrinho</button>
+                        <button type="button" data-id-produto="<?= $item['IdProduto'] ?>" class="btn btn-success btn-adicionar-produto">Adicionar ao Carrinho</button>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -71,7 +71,7 @@ include __DIR__ . '/src/template/header.php';
                         <h5 class="card-title"><?= $item['Nome'] ?></h5>
                         <p class="card-text"><?= $item['Marca'] ?></p>
                         <p class="text-danger"><strong>R$ <?= number_format($item['Preco'], 2, ',', '.') ?></strong></p>
-                        <button href="#" class="btn btn-success">Adicionar ao Carrinho</button>
+                        <button type="button" data-id-produto="<?= $item['IdProduto'] ?>" class="btn btn-success btn-adicionar-produto">Adicionar ao Carrinho</button>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -97,7 +97,7 @@ include __DIR__ . '/src/template/header.php';
                         <h5 class="card-title"><?= $item['Nome'] ?></h5>
                         <p class="card-text"><?= $item['Marca'] ?></p>
                         <p class="text-danger"><strong>R$ <?= number_format($item['Preco'], 2, ',', '.') ?></strong></p>
-                        <button href="#" class="btn btn-success">Adicionar ao Carrinho</button>
+                        <button type="button" data-id-produto="<?= $item['IdProduto'] ?>" class="btn btn-success btn-adicionar-produto">Adicionar ao Carrinho</button>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -106,4 +106,7 @@ include __DIR__ . '/src/template/header.php';
     </div>
 </div>
 
-<?php include __DIR__ . '/src/template/footer.php'; ?>
+<?php 
+    include __DIR__ . '/src/template/popup_produto_adicionado.php';
+    include __DIR__ . '/src/template/footer.php'; 
+?>

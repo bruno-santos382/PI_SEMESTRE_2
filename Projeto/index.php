@@ -3,7 +3,7 @@
 
 $template = array(
     'titulo' => 'Loja Online &mdash; GM Supermercado',
-    'scripts' => ['static/js/site.js'],
+    'scripts' => ['static/js/index.js'],
     'styles' => ['static/css/site.css']
 );
 include __DIR__ . '/src/template/header.php';

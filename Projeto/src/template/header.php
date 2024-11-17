@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="static/css/main.css">
     <link href="static/lib/bootstrap-5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/lib/bootstrap-icons-1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <?php if (!empty($template['styles'])): ?>
         <?php foreach ($template['styles'] as $href): ?>
@@ -52,12 +53,12 @@
                     </a>
                 <?php endif ?>
 
-                <a href="carrinho.html" class="icon-text mx-3">
+                <a href="carrinho.php" class="icon-text mx-3">
                     <img src="static/img/compras.png" alt="Carrinho" class="icon-image">
                     <span>Carrinho</span>
                 </a>
                 
-                <a href="index.html" class="icon-text mx-3">
+                <a href="index.php" class="icon-text mx-3">
                     <img src="static/img/casinha.png" alt="Localização" class="icon-image">
                     <span>Inicio</span>
                 </a>

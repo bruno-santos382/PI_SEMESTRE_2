@@ -4,6 +4,7 @@ require_once __DIR__.'/src/includes/manipular_erros.php';
 require_once __DIR__.'/src/class/produto/Controller.php';
 require_once __DIR__.'/src/class/autenticacao/Controller.php';
 require_once __DIR__.'/src/class/imagem/Controller.php';
+require_once __DIR__.'/src/class/carrinho/Controller.php';
 require_once __DIR__.'/src/class/validacao/ValidacaoException.php';
 
 header('Content-Type: application/json');
@@ -14,6 +15,7 @@ try {
     $produto = new ProdutoController();
     $autentica = new AutenticaController();
     $imagem = new ImagemController();
+    $carrinho = new CarrinhoController();
     
     $funcao = [
         // Rotas de produto
@@ -30,6 +32,9 @@ try {
         // Rotas de imagem
         'imagem/upload' => [$imagem, 'uploadImagem'],
         'imagem/excluir' => [$imagem, 'excluirImagem'],
+
+        // Rotas do carrinho
+        'carrinho/adicionar' => [$carrinho, 'adicionarProduto'],
 
     ];
     

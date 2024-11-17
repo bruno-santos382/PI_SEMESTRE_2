@@ -10,23 +10,24 @@ class Produto
         $this->conexao = new Conexao();
     }
 
-    public function cadastrar(string $nome, float $preco, string $marca, int $estoque, int $id_imagem=null): void 
+    public function cadastrar(string $nome, float $preco, string $marca, int $categoria, int $estoque, int $id_imagem=null): void 
     {        
         $query = <<<SQL
-            INSERT INTO produtos (nome, preco, marca, estoque, idimagem) 
-            VALUES (:nome, :preco, :marca, :estoque, :idimagem);
+            INSERT INTO produtos (nome, preco, marca, idcategoria, estoque, idimagem) 
+            VALUES (:nome, :preco, :marca, :categoria, :estoque, :idimagem);
 SQL;
         $stmt = $this->conexao->prepare($query);
         $stmt->execute([
             'nome' => $nome,
             'preco' => $preco,
             'marca' => $marca,
+            'categoria' => $categoria,
             'estoque' => $estoque,
             'idimagem' => $id_imagem
         ]);
     }
 
-    public function atualizar(int $id, string $nome, float $preco, string $marca, int $estoque, int $id_imagem=null): void 
+    public function atualizar(int $id, string $nome, float $preco, string $marca, int $categoria, int $estoque, int $id_imagem=null): void 
     {
         if (empty($id)) {
             throw new \Exception('O código do produto é obrigatório.');
@@ -37,6 +38,7 @@ SQL;
                 SET nome = :nome,
                     preco = :preco,
                     marca = :marca,
+                    idcategoria = :categoria,
                     estoque = :estoque,
                     idimagem = :idimagem
             WHERE id = :id;
@@ -47,6 +49,7 @@ SQL;
             'nome' => $nome,
             'preco' => $preco,
             'marca' => $marca,
+            'categoria' => $categoria,
             'estoque' => $estoque,
             'idimagem' => $id_imagem
         ]);
@@ -86,15 +89,17 @@ SQL;
         return $stmt->fetchAll(Conexao::FETCH_ASSOC);
     }
 
-    public function listar(): array
+    public function lista(): array
     {
         $query = <<<SQL
 
         SELECT 
             p.*, 
-            img.caminho AS imagem
+            img.caminho AS Imagem,
+            cat.nome AS Categoria
         FROM produtos p
         LEFT JOIN imagens img ON img.idimagem = p.idimagem
+        LEFT JOIN categoria_produto cat ON cat.idcategoria = p.idcategoria
         WHERE p.dataexclusao IS NULL
         ORDER BY p.idproduto ASC, p.nome ASC;
 SQL;

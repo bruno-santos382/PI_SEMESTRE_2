@@ -218,6 +218,27 @@ INSERT INTO imagens (IdImagem, NomeImagem, Caminho) VALUES
 (32, 'uva-verde.jpg', 'static/img/upload/uvaverde.jpg');
 
 
+
+--
+-- Estrutura para tabela `categoria_produto`
+--
+
+CREATE TABLE `categoria_produto` (
+  `IdCategoria` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `Nome` VARCHAR(40) DEFAULT NULL,
+  `Descricao` TEXT DEFAULT NULL,
+  `DataCriacao` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `DataExclusao` DATETIME DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `categoria_produto` (`IdCategoria`, `Nome`)
+VALUES 
+    (1, 'Carnes'),
+    (2, 'Verduras'),
+    (3, 'Frutas'),
+    (4, 'Legumes'),
+    (5, 'Bebidas');
+
 --
 -- Estrutura para tabela `produtos`
 --
@@ -230,17 +251,46 @@ CREATE TABLE `produtos` (
   `Estoque` INT(11) DEFAULT NULL,
   `DataCriacao` DATETIME DEFAULT CURRENT_TIMESTAMP(),
   `DataExclusao` DATETIME DEFAULT NULL,
+  IdCategoria INT DEFAULT NULL,
   `IdImagem` INT(11) DEFAULT NULL,
-  CONSTRAINT `fk_produtos_imagens` FOREIGN KEY (`IdImagem`) REFERENCES `imagens`(`IdImagem`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `fk_produtos_imagens` FOREIGN KEY (`IdImagem`) REFERENCES `imagens`(`IdImagem`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_produto_categoria` FOREIGN KEY (`IdCategoria`) REFERENCES `categoria_produto`(`IdCategoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Inserindo dados para a tabela `produtos`
-INSERT INTO `produtos` (`Nome`, `Preco`, `Marca`, `Estoque`, `IdImagem`) VALUES
-('Arroz', 15, 'Marca A', 100, 1),
-('Feijão', 8.5, 'Marca B', 150, 2),
-('Açúcar', 4, 'Marca C', 200, 3),
-('Óleo', 7.2, 'Marca D', 120, 4),
-('Café', 10, 'Marca E', 80, 5);
+INSERT INTO produtos (Nome, Preco, Marca, Estoque, IdCategoria, IdImagem) VALUES 
+    ('Abacaxi', 5.00, 'Marca A', 50, 3, 1),          -- Categoria: Frutas
+    ('Abóbora', 4.00, 'Marca B', 30, 4, 2),         -- Categoria: Legumes
+    ('Alface', 3.00, 'Marca C', 100, 2, 3),         -- Categoria: Verduras
+    ('Banana', 3.00, 'Marca D', 60, 3, 4),          -- Categoria: Frutas
+    ('Batata', 2.50, 'Marca E', 200, 4, 5),         -- Categoria: Legumes
+    ('Batata Doce', 3.00, 'Marca F', 150, 4, 6),    -- Categoria: Legumes
+    ('Brócolis', 5.00, 'Marca G', 80, 2, 7),        -- Categoria: Verduras
+    ('Carne Moída', 30.00, 'Marca H', 50, 1, 8),    -- Categoria: Carnes
+    ('Cebolinha', 1.80, 'Marca I', 100, 2, 9),      -- Categoria: Verduras
+    ('Cenoura', 1.50, 'Marca J', 180, 4, 11),       -- Categoria: Legumes
+    ('Cereja', 10.00, 'Marca K', 40, 3, 12),        -- Categoria: Frutas
+    ('Couve', 3.50, 'Marca L', 120, 2, 13),         -- Categoria: Verduras
+    ('Escarola', 4.00, 'Marca M', 90, 2, 14),       -- Categoria: Verduras
+    ('Espinafre', 5.00, 'Marca N', 60, 2, 15),      -- Categoria: Verduras
+    ('Frango', 25.00, 'Marca O', 70, 1, 16),        -- Categoria: Carnes
+    ('Kiwi', 6.00, 'Marca P', 40, 3, 17),           -- Categoria: Frutas
+    ('Maçã', 3.50, 'Marca Q', 80, 3, 21),           -- Categoria: Frutas
+    ('Mamão', 4.50, 'Marca R', 60, 3, 18),          -- Categoria: Frutas
+    ('Mandioca', 5.00, 'Marca S', 50, 4, 19),       -- Categoria: Legumes
+    ('Manga', 6.00, 'Marca T', 40, 3, 20),          -- Categoria: Frutas
+    ('Melancia', 8.00, 'Marca U', 30, 3, 22),       -- Categoria: Frutas
+    ('Morangos', 10.00, 'Marca V', 20, 3, 23),      -- Categoria: Frutas
+    ('Pepino', 2.00, 'Marca W', 150, 4, 24),        -- Categoria: Legumes
+    ('Pimentão', 3.50, 'Marca X', 120, 4, 25),      -- Categoria: Legumes
+    ('Rabanete', 2.50, 'Marca Y', 80, 4, 26),       -- Categoria: Legumes
+    ('Rúcula', 3.00, 'Marca Z', 100, 2, 27),        -- Categoria: Verduras
+    ('Salsinha', 1.20, 'Marca AA', 200, 2, 28),     -- Categoria: Verduras
+    ('Suco de Laranja', 5.00, 'Marca AB', 40, 5, 29), -- Categoria: Bebidas
+    ('Tomate', 3.00, 'Marca AC', 150, 4, 30),       -- Categoria: Legumes
+    ('Uva Francesa', 10.00, 'Marca AD', 30, 3, 31), -- Categoria: Frutas
+    ('Uva Verde', 8.00, 'Marca AE', 40, 3, 32);     -- Categoria: Frutas
+
 
 
 --
@@ -288,6 +338,28 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+
+DELIMITER $$
+
+ -- Descrição: Este trigger é responsável por definir o campo IdCategoria como NULL em todos os produtos
+  -- que estão referenciando uma categoria quando a DataExclusao da categoria é definida.
+  
+CREATE TRIGGER set_produto_categoria_null_on_exclusao
+BEFORE UPDATE ON categoria_produto
+FOR EACH ROW
+BEGIN
+  -- Verifica se a data de exclusão foi alterada para não nula
+  IF NEW.DataExclusao IS NOT NULL AND OLD.DataExclusao IS NULL THEN
+    -- Define o campo IdCategoria como NULL nos produtos que referenciam a categoria excluída
+    UPDATE produtos
+    SET IdCategoria = NULL
+    WHERE IdCategoria = OLD.IdCategoria;
+  END IF;
+END $$
+
+DELIMITER ;
+
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

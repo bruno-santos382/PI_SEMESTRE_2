@@ -21,20 +21,41 @@ include __DIR__ . '/../src/template/admin/header.php';
                 <label for="nome" class="form-label fw-bold text-muted">Nome do Produto:</label>
                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do produto" required>
             </div>
+            
             <!-- Marca -->
             <div class="mb-3">
                 <label for="marca" class="form-label fw-bold text-muted">Marca:</label>
                 <input type="text" class="form-control" id="marca" name="marca" placeholder="Digite a marca do produto" required>
             </div>
-            <!-- Preço -->
+
+            <!-- Categoria -->
             <div class="mb-3">
-                <label for="preco" class="form-label fw-bold text-muted">Preço:</label>
-                <input type="number" class="form-control" id="preco" name="preco" placeholder="R$" required>
+                <label for="categoria" class="form-label fw-bold text-muted">Categoria:</label>
+                <select name="categoria" id="categoria" class="form-select" required>
+                    <option value="" disabled selected>Selecione a categoria do produto</option>
+                    
+                    <?php 
+                        require __DIR__.'/../src/class/categoria/Categoria.php';
+                        $categoria = new Categoria();
+                    ?>
+
+                    <?php foreach ($categoria->lista() as $item): ?>
+                        <option value="<?= $item['IdCategoria'] ?>"><?= $item['Nome'] ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
-            <!-- Quantidade em Estoque -->
-            <div class="mb-3">
-                <label for="estoque" class="form-label fw-bold text-muted">Quantidade em Estoque:</label>
-                <input type="number" class="form-control" id="estoque" name="estoque" placeholder="Digite a quantidade em estoque" required>
+
+            <div class="row gap-1 align-items-center mb-3">
+                <!-- Preço -->
+                <div class="col">
+                    <label for="preco" class="form-label fw-bold text-muted">Preço:</label>
+                    <input type="number" class="form-control" id="preco" name="preco" placeholder="R$" required>
+                </div>
+                <!-- Quantidade em Estoque -->
+                <div class="col">
+                    <label for="estoque" class="form-label fw-bold text-muted">Quantidade em Estoque:</label>
+                    <input type="number" class="form-control" id="estoque" name="estoque" placeholder="Digite a quantidade em estoque" required>
+                </div>
             </div>
 
             <!-- Imagem do Produto -->

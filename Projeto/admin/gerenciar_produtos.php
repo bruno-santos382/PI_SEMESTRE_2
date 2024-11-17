@@ -18,7 +18,8 @@ include __DIR__ . '/../src/template/admin/header.php';
 <table class="table table-centered table-hover table-borderless">
     <thead class="table-secondary">
         <tr>
-            <th scope="col" style="width: 100px;">Código</th>
+            <th scope="col" style="width: 50px;">Código</th>
+            <th scope="col">Categoria</th>
             <th scope="col" style="width: 100px;">Imagem</th>
             <th scope="col">Nome</th>
             <th scope="col">Marca</th>
@@ -32,11 +33,12 @@ include __DIR__ . '/../src/template/admin/header.php';
             require_once __DIR__.'/../src/class/produto/Produto.php';
             $produto = new Produto();
         ?>
-        <?php foreach ($produto->listar() as $item): ?>
+        <?php foreach ($produto->lista() as $item): ?>
             <tr>
                 <td><?= $item['IdProduto'] ?></td>
+                <td><?= $item['Categoria'] ?></td>
                 <td>
-                    <img src="<?= $item['imagem'] ?? 'static/img/galeria.png' ?>" alt="<?= $item['Nome'] ?>" class="img-fluid" style="max-width: 50px; height: auto;">
+                    <img src="<?= $item['Imagem'] ?? 'static/img/galeria.png' ?>" alt="<?= $item['Nome'] ?>" class="img-fluid" style="max-width: 50px; height: auto;">
                 </td>
                 <td><?= $item['Nome'] ?></td>
                 <td><?= $item['Marca'] ?></td>

@@ -19,7 +19,8 @@ class ProdutoController extends BaseController
         $retorno = $this->realizarAcao([$this->produto, 'cadastrar'], [
             'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O nome do produto é obrigatório e não pode em branco.'],
             'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
-            'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
+            'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória.'],
+            'categoria' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A categoria do produto é obrigatória e deve ser um número inteiro.'] ,
             'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
             'id_imagem' => ['filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_NULL_ON_FAILURE, 'options' => ['min_range' => 1], 'obrigatorio' => false]
         ]);
@@ -33,7 +34,8 @@ class ProdutoController extends BaseController
             'id' => ['filter' => FILTER_DEFAULT, 'erro' => 'O código do produto é obrigatório.'],
             'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O nome do produto é obrigatório  e não pode estar em branco.'],
             'preco' => ['filter' => FILTER_VALIDATE_FLOAT, 'erro' => 'O preço do produto é obrigatório e deve ser um valor numérico válido.'],
-            'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória e não pode estar vazia.'],
+            'marca' => ['filter' => FILTER_DEFAULT, 'erro' => 'A marca do produto é obrigatória.'],
+            'categoria' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A categoria do produto é obrigatória e deve ser um número inteiro.'] ,
             'estoque' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.'],
             'id_imagem' => ['filter' => FILTER_VALIDATE_INT, 'obrigatorio' => false]
         ]);

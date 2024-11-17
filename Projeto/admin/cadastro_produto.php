@@ -39,7 +39,7 @@ include __DIR__ . '/../src/template/admin/header.php';
                         $categoria = new Categoria();
                     ?>
 
-                    <?php foreach ($categoria->lista() as $item): ?>
+                    <?php foreach ($categoria->listarTudo() as $item): ?>
                         <option value="<?= $item['IdCategoria'] ?>"><?= $item['Nome'] ?></option>
                     <?php endforeach; ?>
                 </select>
@@ -121,7 +121,7 @@ include __DIR__ . '/../src/template/admin/header.php';
                                 require __DIR__.'/../src/class/imagem/Imagem.php';
                                 $imagem = new Imagem(); 
                             ?>
-                            <?php foreach ($imagem->lista() as $img): ?>
+                            <?php foreach ($imagem->listarTudo() as $img): ?>
                                 <div class="card img-card" data-caminho-imagem="<?= $img['Caminho'] ?>" data-id-imagem="<?= $img['IdImagem'] ?>" title="<?= $img['NomeImagem'] ?>">
                                     <div class="card-header text-center bg-light">
                                         <div class="text-muted small text-truncate"><?= htmlspecialchars($img['NomeImagem']) ?></div>

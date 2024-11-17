@@ -33,7 +33,7 @@ include __DIR__ . '/../src/template/admin/header.php';
             require_once __DIR__.'/../src/class/produto/Produto.php';
             $produto = new Produto();
         ?>
-        <?php foreach ($produto->lista() as $item): ?>
+        <?php foreach ($produto->listarTudo() as $item): ?>
             <tr>
                 <td><?= $item['IdProduto'] ?></td>
                 <td><?= $item['Categoria'] ?></td>

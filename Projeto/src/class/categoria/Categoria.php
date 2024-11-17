@@ -24,7 +24,7 @@ SQL;
         ]);
     }
 
-    public function lista(): array
+    public function listarTudo(): array
     {
         $query = <<<SQL
 

@@ -89,7 +89,7 @@ SQL;
         return $stmt->fetchAll(Conexao::FETCH_ASSOC);
     }
 
-    public function lista(): array
+    public function listarTudo(): array
     {
         $query = <<<SQL
 
@@ -106,6 +106,28 @@ SQL;
 
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
+
+        return $stmt->fetchAll(Conexao::FETCH_ASSOC);
+    }
+
+    public function listarPorCategoria(string $categoria): array
+    {
+        $query = <<<SQL
+
+        SELECT 
+            p.*, 
+            img.caminho AS Imagem,
+            cat.nome AS Categoria
+        FROM produtos p
+        LEFT JOIN imagens img ON img.idimagem = p.idimagem
+        LEFT JOIN categoria_produto cat ON cat.idcategoria = p.idcategoria
+        WHERE p.dataexclusao IS NULL
+            AND cat.nome = :categoria
+        ORDER BY p.idproduto ASC, p.nome ASC;
+SQL;
+
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute(['categoria' => $categoria]);
 
         return $stmt->fetchAll(Conexao::FETCH_ASSOC);
     }

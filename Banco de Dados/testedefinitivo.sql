@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19/11/2024 às 18:33
+-- Tempo de geração: 19/11/2024 às 20:33
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -25,6 +25,20 @@ DELIMITER $$
 --
 -- Procedimentos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PRC_ADICIONAR_AO_CARRINHO` (IN `idprod` INT, IN `qtde` INT, IN `idCli` INT)   BEGIN
+
+DECLARE idCar INT;
+
+    -- Obter o ID do carrinho do cliente
+    SELECT IdCarrinho INTO idcar
+    FROM carrinho
+    WHERE fk_Clientes_IdCliente = idcli;
+
+INSERT INTO produtoscarrinho
+VALUES (qtde, idCar, idprod);
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PRC_ATUALIZA_ESTOQUE` (IN `idprod` INT, IN `qtde` INT, IN `operacao` CHAR(1))   BEGIN
   -- Verifica se a operação é 'E' (Entrada) ou 'S' (Saída)
     IF operacao = 'E' THEN
@@ -113,6 +127,19 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PRC_FECHAR_PEDIDO` (IN `idcliente` 
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PRC_REMOVER_DO_CARRINHO` (IN `idprod` INT, IN `idCli` INT)   BEGIN
+
+DECLARE idCar INT;
+
+    -- Obter o ID do carrinho do cliente
+    SELECT IdCarrinho INTO idcar
+    FROM carrinho
+    WHERE fk_Clientes_IdCliente = idcli;
+
+delete FROM produtoscarrinho
+WHERE fk_produtos_idproduto = idprod AND fk_carrinho_idcarrinho = idcar;
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -183,7 +210,11 @@ INSERT INTO `pedidos` (`IdPedido`, `DataPedido`, `DataRetirada`, `ValorTotal`, `
 (4, '2024-10-25', NULL, 0, 'Em Andamento', 1),
 (5, '2024-11-13', NULL, 0, 'Em Andamento', 1),
 (6, '2024-11-19', NULL, 38, 'Em Andamento', 1),
-(7, '2024-11-19', NULL, 34, 'Em Andamento', 1);
+(7, '2024-11-19', NULL, 34, 'Em Andamento', 1),
+(8, '2024-11-19', NULL, 0, 'Em Andamento', 1),
+(9, '2024-11-19', NULL, 0, 'Em Andamento', 111),
+(10, '2024-11-19', NULL, 0, 'Em Andamento', 111),
+(11, '2024-11-19', NULL, 300, 'Em Andamento', 1);
 
 -- --------------------------------------------------------
 
@@ -204,7 +235,7 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`Nome`, `IdProduto`, `Preco`, `Marca`, `Estoque`) VALUES
-('Arroz', 1, 15, 'Marca A', 96),
+('Arroz', 1, 15, 'Marca A', 76),
 ('Feijão', 2, 8.5, 'Marca B', 150),
 ('Açúcar', 3, 4, 'Marca C', 197),
 ('Óleo', 4, 7.2, 'Marca D', 120),
@@ -258,7 +289,9 @@ INSERT INTO `produtospedido` (`fk_Pedidos_IdPedido`, `fk_Produtos_IdProduto`, `Q
 (6, 3, 1),
 (6, 3, 1),
 (7, 1, 2),
-(7, 3, 1);
+(7, 3, 1),
+(11, 1, 10),
+(11, 1, 10);
 
 --
 -- Acionadores `produtospedido`
@@ -326,7 +359,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de tabela `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `IdPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `IdPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`

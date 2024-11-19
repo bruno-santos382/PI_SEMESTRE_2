@@ -25,7 +25,7 @@ include __DIR__ . '/src/template/header.php';
             </a>
         </div>
         <div class="col-4 col-md-2">
-            <a href="açougue.html" class="category-link">
+            <a href="acougue.php" class="category-link">
                 <div class="category-item">
                     <div class="icon-circle">
                         <img src="static/img/carne.png" alt="Carne" class="category-image">
@@ -35,7 +35,7 @@ include __DIR__ . '/src/template/header.php';
             </a>
         </div>
         <div class="col-4 col-md-2">
-            <a href="mercenaria.html" class="category-link">
+            <a href="mercenaria.php" class="category-link">
                 <div class="category-item">
                     <div class="icon-circle">
                         <img src="static/img/MERCENARIA.png" alt="mercenaria" class="category-image">
@@ -45,7 +45,7 @@ include __DIR__ . '/src/template/header.php';
             </a>
         </div>
         <div class="col-4 col-md-2">
-            <a href="bebida.html" class="category-link">
+            <a href="bebida.php" class="category-link">
                 <div class="category-item">
                     <div class="icon-circle">
                         <img src="static/img/bebida.png" alt="Bebidas" class="category-image">
@@ -55,7 +55,7 @@ include __DIR__ . '/src/template/header.php';
             </a>
         </div>
         <div class="col-4 col-md-2">
-            <a href="padaria.html" class="category-link">
+            <a href="padaria.php" class="category-link">
                 <div class="category-item">
                     <div class="icon-circle">
                         <img src="static/img/pao.png" alt="Padaria" class="category-image">
@@ -65,7 +65,7 @@ include __DIR__ . '/src/template/header.php';
             </a>
         </div>
         <div class="col-4 col-md-2">
-            <a href="limpeza.html" class="category-link">
+            <a href="limpeza.php" class="category-link">
                 <div class="category-item">
                     <div class="icon-circle">
                         <img src="static/img/limpeza.png" alt="Limpeza" class="category-image">

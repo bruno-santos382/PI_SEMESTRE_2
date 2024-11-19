@@ -2,7 +2,7 @@
 <?php
 
 $template = array(
-    'titulo' => 'Hortifruti &mdash; GM Supermercado',
+    'titulo' => 'Bebidas &mdash; GM Supermercado',
     'scripts' => ['static/js/categorias.js'],
     'styles' => ['static/css/categorias.css']
 );
@@ -24,20 +24,12 @@ include __DIR__ . '/src/template/header.php';
 ?>
 
 <div class="container my-5">
-    <h2 class="text-center mb-4">Setor de Hortifruti</h2>
+    <h2 class="text-center mb-4">Setor de Bebidas</h2>
 
+    <!-- Categoria: Bebidas -->
     <?php 
-        // Para a categoria Verduras
-        $categoria = 'Verduras'; 
-        include __DIR__ . '/src/template/lista_produtos_categoria.php';
-
-        // Para a categoria Frutas
-        $categoria = 'Frutas'; 
-        include __DIR__ . '/src/template/lista_produtos_categoria.php';
-
-        // Para a categoria Legumes
-        $categoria = 'Legumes'; 
-        include __DIR__ . '/src/template/lista_produtos_categoria.php';
+        $categoria = 'Bebidas';
+        include __DIR__.'/src/template/lista_produtos_categoria.php';
     ?>
 </div>
 

@@ -36,7 +36,7 @@
 
                 <?php if ($usuario = $autentica->usuarioLogado()): ?>
                     <?php if (in_array('acesso_admin', $usuario['permissoes'])): ?>
-                        <a href="/admin" class="icon-text mx-3">
+                        <a href="admin/" class="icon-text mx-3">
                             <img src="static/img/admin.png" alt="admin" class="icon-image">
                             <span>Administrar</span>
                         </a>

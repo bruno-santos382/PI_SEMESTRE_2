@@ -36,6 +36,9 @@ try {
         // Rotas do carrinho
         'carrinho/adicionar' => [$carrinho, 'adicionarProduto'],
 
+        // Rotas de categoria
+        'categoria/cadastrar' => [$categoria, 'cadastrarCategoria'],
+        'categoria/excluir' => [$categoria, 'excluirCategoria']
     ];
     
     if (!isset($funcao[$rota])) {

@@ -11,7 +11,23 @@ class Categoria
         $this->conexao = new Conexao();
     }
     
-    public function excluir(int $id) {
+    public function cadastrar(int $id=null, string $nome, string $pagina=null): void
+    {
+        $query = 'INSERT INTO categoria_produto (nome, pagina) VALUES (:nome, :pagina)';
+        if (!empty($id)) {
+            $query = 'UPDATE categoria_produto SET nome = :nome, pagina = :pagina WHERE id = :id';
+        }
+
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute([
+            'id' => $id,
+            'nome' => $nome,
+            'pagina' => $pagina
+        ]);
+    }
+
+    public function excluir(int $id): void
+    {
         $query = <<<SQL
         
         UPDATE categoria_produto

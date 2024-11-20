@@ -30,7 +30,7 @@ if (empty($template['menu_atual'])) {
     <link href="static/lib/bootstrap-5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/lib/bootstrap-icons-1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-    <?php if (!empty($template['styles'])): ?>
+    <?php if (!empty($template['styles']) && is_array($template['styles'])): ?>
         <?php foreach ($template['styles'] as $href): ?>
             <link rel="stylesheet" href="<?= htmlspecialchars($href) ?>">
         <?php endforeach; ?>
@@ -41,7 +41,7 @@ if (empty($template['menu_atual'])) {
 
     <div class="container-fluid d-flex flex-row">
         <div class="d-flex flex-column flex-shrink-0 p-3 sidenav">
-            <a href="/"
+            <a href="./"
                 class="d-flex w-100 flex-column align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                 <img src="static/img/logo.png" width="100">
                 <span class="fs-5">GM SuperMercado</span>
@@ -76,8 +76,16 @@ if (empty($template['menu_atual'])) {
                             </a>
                         </li>
                     </ul>
+                </li>
 
-                    <!-- Usuários -->
+                <!-- Categorias -->
+                <li class="nav-item">
+                    <a href="admin/categorias.php" class="<?= $template['menu_atual'] == 'categorias' ? 'active' : 'link-dark' ?> nav-link" >
+                        <i class="bi bi-tag me-2"></i> Categorias
+                    </a>
+                </li>
+
+                <!-- Usuários -->
                 <li class="nav-item">
                     <a href="#usuariosSubmenu" class="nav-link link-dark" data-bs-toggle="collapse">
                         <i class="bi bi-person me-2"></i> Usuários
@@ -97,7 +105,6 @@ if (empty($template['menu_atual'])) {
                         </li>
                     </ul>
                 </li>
-
             </ul>
 
             <hr>

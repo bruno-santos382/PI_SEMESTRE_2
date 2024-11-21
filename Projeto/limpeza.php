@@ -20,34 +20,21 @@ include __DIR__ . '/src/template/header.php';
 
 <?php
     require __DIR__.'/src/class/produto/Produto.php';
+    require __DIR__.'/src/class/categoria/Categoria.php';
+    
     $produto = new Produto();
+    $categoria = new Categoria();
 ?>
 
 <div class="container my-5">
     <h2 class="text-center mb-4">Setor de Limpeza</h2>
 
-    <!-- Categoria: Casa -->
     <?php 
-        $categoria = 'Limpeza da Casa';
-        include __DIR__.'/src/template/lista_produtos_categoria.php';
-    ?>
-    
-    <!-- Categoria: Cozinha -->
-    <?php 
-        $categoria = 'Limpeza da Cozinha';
-        include __DIR__.'/src/template/lista_produtos_categoria.php';
-    ?>
-
-    <!-- Categoria: Roupas -->
-    <?php 
-        $categoria = 'Lavagem de Roupas';
-        include __DIR__.'/src/template/lista_produtos_categoria.php';
-    ?>
-
-    <!-- Categoria: Higiene Pessoal -->
-    <?php 
-        $categoria = 'Higiene Pessoal';
-        include __DIR__.'/src/template/lista_produtos_categoria.php';
+        // Categorias da página de Limpeza
+        foreach ($categoria->listarPorPagina('limpeza') as $item) {
+            $nome_categoria = $item['Nome'];
+            include __DIR__ . '/src/template/lista_produtos_categoria.php';
+        }
     ?>
 </div>
 

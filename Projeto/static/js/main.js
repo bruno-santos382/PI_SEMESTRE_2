@@ -13,7 +13,7 @@ const Alerta = {
                 alert.querySelector('.mensagem-alerta').innerHTML = mensagem;
                 alert.classList.remove('d-none');
             }
-            element.firstElementChild.style.maxHeight = '500px'; // Ajuste de altura do container, para animação
+            element.firstElementChild.style.maxHeight = '60px'; // Ajuste de altura do container, para animação
         }
     },
     erro: (container, mensagem) => Alerta.exibir(container, 'erro', mensagem),

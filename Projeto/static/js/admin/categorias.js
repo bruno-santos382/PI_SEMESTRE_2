@@ -1,6 +1,36 @@
 
+function htmlCategoria(categoria) {
+    const paginas = {
+        'hortifruti': 'Hortifruti',
+        'acougue': 'Açougue',
+        'mercenaria': 'Mercenaria',
+        'bebidas': 'Bebidas',
+        'padaria': 'Padaria',
+        'limpeza': 'Limpeza'
+    };
+
+    return `
+        <tr data-id-categoria="${categoria.IdCategoria}">
+            <td>${categoria.IdCategoria}</td>
+            <td>${categoria.Nome}</td>
+            <td>${paginas[categoria.Pagina] || '<i class="text-muted">(Nenhuma)</i>'}</td>
+            <td>
+                <button type="button" class="btn btn-warning btn-sm" title="Editar" 
+                        onclick="editarCategoria('${categoria.IdCategoria}', '${categoria.Nome}', '${categoria.Pagina}')">
+                    <i class="bi bi-pencil me-1"></i> Editar
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" onclick="removerCategoria(this, '${categoria.IdCategoria}')" title="Remover">
+                    <i class="bi bi-trash me-1"></i> Remover
+                </button>
+            </td>
+        </tr>
+    `;
+}
+
 async function cadastrarCategoria(event) {
     event.preventDefault();
+
+    document.querySelector('#alertaEditando').style.maxHeight = '0px';
 
     try {
         const dadosForm = new FormData(this);
@@ -12,8 +42,20 @@ async function cadastrarCategoria(event) {
 
         const json = await resposta.json();
         if (json.status === 'ok') {
-            Alerta.sucesso('#alertaCategoria', 'Cadastrado com sucesso!');
             this.reset();
+
+            if (dadosForm.get('id') == '') {
+                Alerta.sucesso('#alertaCategoria', 'Categoria cadastrada com sucesso!');
+
+                const tr = document.createElement('tr');
+                tr.outerHTML = htmlCategoria(json.dados);
+                document.querySelector('#dadosTabela').appendChild(tr);
+            } else {
+                Alerta.sucesso('#alertaCategoria', 'Categoria alterada com sucesso!');
+                // Atualizar categoria na tabela
+                const tr = document.querySelector(`#dadosTabela [data-id-categoria="${json.dados.IdCategoria}"]`);
+                tr.outerHTML = htmlCategoria(json.dados);
+            }
         } else {
             Alerta.erro('#alertaCategoria', json.mensagem || 'Erro ao realizar cadastro.');
         }
@@ -55,6 +97,20 @@ async function removerCategoria(btnExcluir, id) {
 
     btnExcluir.removeAttribute('disabled');
     btnExcluir.innerHTML = html;
+}
+
+function editarCategoria(id, nome, pagina) {
+    const campoNome = document.querySelector('#nome');
+    campoNome.value = nome;
+    campoNome.focus();
+
+    document.querySelector('#categoriaSelecionada').textContent = nome;
+    document.querySelector('#codigo').value = id;
+    document.querySelector('#pagina').value = pagina;
+
+    // Animação no alerta
+    document.querySelector('#alertaEditando').style.maxHeight = '60px';
+    document.querySelector('#alertaCategoria').firstElementChild.style.maxHeight = '0px';
 }
 
 

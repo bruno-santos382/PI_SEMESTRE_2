@@ -5,6 +5,7 @@ require_once __DIR__.'/src/class/produto/Controller.php';
 require_once __DIR__.'/src/class/autenticacao/Controller.php';
 require_once __DIR__.'/src/class/imagem/Controller.php';
 require_once __DIR__.'/src/class/carrinho/Controller.php';
+require_once __DIR__.'/src/class/categoria/Controller.php';
 require_once __DIR__.'/src/class/validacao/ValidacaoException.php';
 
 header('Content-Type: application/json');
@@ -16,6 +17,7 @@ try {
     $autentica = new AutenticaController();
     $imagem = new ImagemController();
     $carrinho = new CarrinhoController();
+    $categoria = new CategoriaController();
     
     $funcao = [
         // Rotas de produto

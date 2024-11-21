@@ -17,7 +17,7 @@ class CategoriaController extends BaseController
     public function cadastrarCategoria(): array
     {
         $retorno = $this->realizarAcao([$this->categoria, 'cadastrar'], [
-            'id' => ['filter' => FILTER_DEFAULT, 'obrigatorio' => false],
+            'id' => ['filter' => FILTER_VALIDATE_INT, 'obrigatorio' => false],
             'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O nome da categoria é obrigatório.'],
             'pagina' => ['filter' => FILTER_DEFAULT, 'obrigatorio' => false]
         ]);
@@ -32,7 +32,8 @@ class CategoriaController extends BaseController
     public function excluirCategoria(): array 
     {
         $retorno = $this->realizarAcao([$this->categoria, 'excluir'], [
-            'id' => ['filter' => FILTER_DEFAULT, 'erro' => 'O código da categoria é obrigatório.'] ]);
+            'id' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'O código da categoria é obrigatório.'] 
+        ]);
 
         return [
             'status' => 'ok', 

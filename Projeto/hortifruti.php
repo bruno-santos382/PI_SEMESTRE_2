@@ -20,24 +20,21 @@ include __DIR__ . '/src/template/header.php';
 
 <?php
     require __DIR__.'/src/class/produto/Produto.php';
+    require __DIR__.'/src/class/categoria/Categoria.php';
+    
     $produto = new Produto();
+    $categoria = new Categoria();
 ?>
 
 <div class="container my-5">
     <h2 class="text-center mb-4">Setor de Hortifruti</h2>
 
     <?php 
-        // Para a categoria Verduras
-        $categoria = 'Verduras'; 
-        include __DIR__ . '/src/template/lista_produtos_categoria.php';
-
-        // Para a categoria Frutas
-        $categoria = 'Frutas'; 
-        include __DIR__ . '/src/template/lista_produtos_categoria.php';
-
-        // Para a categoria Legumes
-        $categoria = 'Legumes'; 
-        include __DIR__ . '/src/template/lista_produtos_categoria.php';
+        // Categorias da página de hortifruti
+        foreach ($categoria->listarPorPagina('hortifruti') as $item) {
+            $nome_categoria = $item['Nome'];
+            include __DIR__ . '/src/template/lista_produtos_categoria.php';
+        }
     ?>
 </div>
 

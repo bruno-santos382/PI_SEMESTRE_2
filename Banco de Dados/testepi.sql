@@ -232,13 +232,21 @@ CREATE TABLE `categoria_produto` (
   `DataExclusao` DATETIME DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `categoria_produto` (`IdCategoria`, `Nome`)
+INSERT INTO `categoria_produto` (`IdCategoria`, `Nome`, `Pagina`)
 VALUES 
-    (1, 'Carnes'),
-    (2, 'Verduras'),
-    (3, 'Frutas'),
-    (4, 'Legumes'),
-    (5, 'Bebidas');
+    (1, 'Carnes', 'acougue'),
+    (2, 'Verduras', 'hortifruti'),
+    (3, 'Frutas', 'hortifruti'),
+    (4, 'Legumes', 'hortifruti'),
+    (5, 'Bebidas', 'bebidas'),
+    (6, 'Limpeza da Casa', 'limpeza'),
+    (7, 'Limpeza da Cozinha', 'limpeza'),
+    (8, 'Lavagem de Roupas', 'limpeza'),
+    (9, 'Higiene Pessoal', 'limpeza'),
+    (10, 'Pães', 'padaria'),
+    (11, 'Doces', 'padaria'),
+    (12, 'Salgados', 'padaria'),
+    (13, 'Grãos e Cereais', 'mercenaria');
 
 --
 -- Estrutura para tabela `produtos`

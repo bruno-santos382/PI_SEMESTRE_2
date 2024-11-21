@@ -28,15 +28,15 @@ include __DIR__ . '/../src/template/admin/header.php';
         <?php include __DIR__. '/../src/template/alertas.php'; ?>
     </div>
 
-    <div id="alertaEditando" class="slide-down">
-        <strong class="text-success pb-5">
-            <i class="bi bi-pen"></i> Editando categoria <span id="categoriaSelecionada"></span>
-        </strong>
+    <div id="alertaEditando" class="slide-down mb-2">
+        <span class="text-success">
+            <i class="bi bi-pencil-square"></i> Editando categoria <strong id="categoriaSelecionada"></strong>
+        </span>
     </div>
 
     <form action="" method="POST" class="mb-4" id="formCadastro">
         <div class="row align-items-end g-3">
-            <input type="number" name="id" hidden>
+            <input type="number" name="id" id="codigo" hidden>
 
             <!-- Nome da Categoria -->
             <div class="col">
@@ -73,18 +73,19 @@ include __DIR__ . '/../src/template/admin/header.php';
                 <th scope="col" style="width: 200px;">Ações</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="dadosTabela">
             <?php 
                 require_once __DIR__.'/../src/class/categoria/Categoria.php';
                 $categoria = new Categoria();
             ?>
             <?php foreach ($categoria->listarTudo() as $item): ?>
-                <tr>
+                <tr data-id-categoria="<?= $item['IdCategoria'] ?>">
                     <td><?= $item['IdCategoria'] ?></td>
                     <td><?= htmlspecialchars($item['Nome']) ?></td>
                     <td><?= $paginas[$item['Pagina']] ?? '<i class="text-muted">(Nenhuma)</i>' ?></td>
                     <td>
-                        <button type="button" class="btn btn-warning btn-sm" title="Editar">
+                        <button type="button" class="btn btn-warning btn-sm" title="Editar" 
+                                onclick="editarCategoria('<?= $item['IdCategoria'] ?>', '<?= $item['Nome'] ?>', '<?= $item['Pagina'] ?>')">
                             <i class="bi bi-pencil me-1"></i> Editar
                         </button>
                         <button type="button" class="btn btn-danger btn-sm" onclick="removerCategoria(this, '<?= $item['IdCategoria'] ?>')" title="Remover">

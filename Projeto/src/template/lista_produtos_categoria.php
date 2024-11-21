@@ -11,11 +11,11 @@ $_id_categoria++;
 
 ?>
 
-<h3 class="mb-3 text-capitalize"><?= $titulo_secao ?? $categoria ?></h3>
+<h3 class="mb-3 text-capitalize"><?= $titulo_secao ?? $nome_categoria ?></h3>
 <div class="position-relative">
     <button class="scroll-button scroll-left" onclick="scrollContainer('<?= 'categoria'.$_id_categoria ?>', -1)">&#10094;</button>
     <div class="scroll-container" id="<?= 'categoria'.$_id_categoria ?>">
-        <?php $produtos = $produto->listarPorCategoria($categoria); ?>
+        <?php $produtos = $produto->listarPorCategoria($nome_categoria); ?>
         
         <div class="card card-nenhum-resultado w-100" style="<?php if (!empty($produtos)) echo 'display: none'; ?>">
             <div class="card-body text-center">
@@ -24,7 +24,7 @@ $_id_categoria++;
             </div>
         </div>
 
-        <?php foreach ($produto->listarPorCategoria($categoria) as $item): ?>
+        <?php foreach ($produto->listarPorCategoria($nome_categoria) as $item): ?>
             <div class="card card-produto">
                 <img src="<?= $item['Imagem'] ?>" class="card-img-top" alt="<?= $item['Nome'] ?>">
                 <div class="card-body text-center">

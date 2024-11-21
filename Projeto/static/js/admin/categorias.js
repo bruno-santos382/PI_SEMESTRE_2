@@ -48,8 +48,8 @@ async function cadastrarCategoria(event) {
                 Alerta.sucesso('#alertaCategoria', 'Categoria cadastrada com sucesso!');
 
                 const tr = document.createElement('tr');
-                tr.outerHTML = htmlCategoria(json.dados);
                 document.querySelector('#dadosTabela').appendChild(tr);
+                tr.outerHTML = htmlCategoria(json.dados);
             } else {
                 Alerta.sucesso('#alertaCategoria', 'Categoria alterada com sucesso!');
                 // Atualizar categoria na tabela

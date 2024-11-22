@@ -61,9 +61,42 @@ class bancoDados{
         }                        
     }
 
+    public function cadastrarCliente($nom, $cont, $logi, $senh){
+        try{
+            $stmt = $this->conn->prepare ("CALL PRC_CADASTRAR_CLIENTE(:nome, :contato, :login, :senha)");
+            $stmt->bindParam(':nome', $nom, PDO::PARAM_STR);
+            $stmt->bindParam(':contato', $cont, PDO::PARAM_STR);
+            $stmt->bindParam(':login', $logi, PDO::PARAM_STR);
+            $stmt->bindParam(':senha', $senh, PDO::PARAM_STR);
+
+            $stmt->execute();
+        }
+        catch(PDOException $e)
+        {
+            echo "Erro: " . $e->getMessage();
+        }
+    }
+
+    public function cadastrarProduto($nom, $prec, $marc, $estoqu){
+        try{
+            $stmt = $this->conn->prepare ("CALL PRC_CADASTRAR_PRODUTO(:nome, :preco, :marca, :estoque)");
+            $stmt->bindParam(':nome', $nom, PDO::PARAM_STR);
+            $stmt->bindParam(':preco', $prec, PDO::PARAM_STR);
+            $stmt->bindParam(':marca', $marc, PDO::PARAM_STR);
+            $stmt->bindParam(':estoque', $estoqu, PDO::PARAM_INT);
+
+            $stmt->execute();
+        }
+        catch(PDOException $e)
+        {
+            echo "Erro: " . $e->getMessage();
+        }
+    }
 
     public function __destruct(){
         $this->conn = null;
     }
 }
 ?>
+
+

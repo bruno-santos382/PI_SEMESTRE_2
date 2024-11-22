@@ -41,7 +41,7 @@ SQL;
                     idcategoria = :categoria,
                     estoque = :estoque,
                     idimagem = :idimagem
-            WHERE id = :id;
+            WHERE idproduto = :id;
 SQL;
         $stmt = $this->conexao->prepare($query);
         $stmt->execute([
@@ -87,6 +87,26 @@ SQL;
         ]);
 
         return $stmt->fetchAll(Conexao::FETCH_ASSOC);
+    }
+
+    public function buscaPorId(int $id): array|false
+    {
+        $query = <<<SQL
+
+        SELECT 
+            p.*, 
+            img.caminho AS Imagem,
+            cat.nome AS Categoria
+        FROM produtos p
+        LEFT JOIN imagens img ON img.idimagem = p.idimagem
+        LEFT JOIN categoria_produto cat ON cat.idcategoria = p.idcategoria
+        WHERE p.dataexclusao IS NULL AND p.idproduto = :id
+SQL;
+
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute(['id' => $id]);
+
+        return $stmt->fetch(Conexao::FETCH_ASSOC);
     }
 
     public function listarTudo(): array

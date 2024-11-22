@@ -45,9 +45,9 @@ include __DIR__ . '/../src/template/admin/header.php';
                 <td>R$ <?= number_format($item['Preco'], 2, ',', '.') ?></td>
                 <td><?= $item['Estoque'] ?></td>
                 <td>
-                    <button type="button" class="btn btn-warning btn-sm">
+                    <a href="admin/cadastro_produto.php?id=<?= $item['IdProduto'] ?>" class="btn btn-warning btn-sm" >
                         <i class="bi bi-pencil me-1"></i> Editar
-                    </button>
+                    </a>
                     <button type="button" class="btn btn-danger btn-sm" onclick="removerProduto(this, '<?= $item['IdProduto'] ?>')">
                         <i class="bi bi-trash me-1"></i> Remover
                     </button>

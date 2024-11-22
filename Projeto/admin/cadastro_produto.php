@@ -15,17 +15,51 @@ include __DIR__ . '/../src/template/admin/header.php';
         <?php include __DIR__. '/../src/template/alertas.php'; ?>   
     </div>
 
+    <?php
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+        $nome = null;
+        $marca = null;
+        $id_categoria = null;
+        $preco = null;
+        $estoque = null;
+        $imagem = null;
+        $id_imagem = null;
+        
+        if (!empty($id)) 
+        {
+            require __DIR__.'/../src/class/produto/Produto.php';
+            $produto = new Produto();
+            $produto = $produto->buscaPorId($id);
+
+            if ($produto) {
+                $nome = $produto['Nome'];
+                $marca = $produto['Marca'];
+                $id_categoria = $produto['IdCategoria'];
+                $preco = $produto['Preco'];
+                $estoque = $produto['Estoque'];
+                $imagem = $produto['Imagem'];
+                $id_imagem = $produto['IdImagem'];
+            } else {
+                $id = null;
+            }
+        }
+    ?>
+
     <form id="formCadastro" class="mb-3" action="" method="POST">
+            <!-- Código do produto -->
+            <input type="number" name="id" id="codigo" value="<?= $id ?>" hidden>
+
             <!-- Nome do Produto -->
             <div class="mb-3">
                 <label for="nome" class="form-label fw-bold text-muted">Nome do Produto:</label>
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do produto" required>
+                <input type="text" value="<?= $nome ?>" class="form-control" id="nome" name="nome" placeholder="Digite o nome do produto" required>
             </div>
             
             <!-- Marca -->
             <div class="mb-3">
                 <label for="marca" class="form-label fw-bold text-muted">Marca:</label>
-                <input type="text" class="form-control" id="marca" name="marca" placeholder="Digite a marca do produto" required>
+                <input type="text" value="<?= $marca ?>" class="form-control" id="marca" name="marca" placeholder="Digite a marca do produto" required>
             </div>
 
             <!-- Categoria -->
@@ -40,7 +74,10 @@ include __DIR__ . '/../src/template/admin/header.php';
                     ?>
 
                     <?php foreach ($categoria->listarTudo() as $item): ?>
-                        <option value="<?= $item['IdCategoria'] ?>"><?= $item['Nome'] ?></option>
+                        <option value="<?= $item['IdCategoria'] ?>" 
+                                <?php if ($id_categoria === $item['IdCategoria']) echo 'selected' ?> >
+                            <?= $item['Nome'] ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -49,12 +86,12 @@ include __DIR__ . '/../src/template/admin/header.php';
                 <!-- Preço -->
                 <div class="col">
                     <label for="preco" class="form-label fw-bold text-muted">Preço:</label>
-                    <input type="number" class="form-control" id="preco" name="preco" placeholder="R$" required>
+                    <input type="number" value="<?= $preco ?>" class="form-control" id="preco" name="preco" placeholder="R$" required>
                 </div>
                 <!-- Quantidade em Estoque -->
                 <div class="col">
                     <label for="estoque" class="form-label fw-bold text-muted">Quantidade em Estoque:</label>
-                    <input type="number" class="form-control" id="estoque" name="estoque" placeholder="Digite a quantidade em estoque" required>
+                    <input type="number" value="<?= $estoque ?>" class="form-control" id="estoque" name="estoque" placeholder="Digite a quantidade em estoque" required>
                 </div>
             </div>
 
@@ -62,8 +99,8 @@ include __DIR__ . '/../src/template/admin/header.php';
             <label class="form-label fw-bold text-muted">Imagem do Produto:</label>
             <div class="card mb-3">
                 <div class="card-body d-flex flex-column align-items-center">
-                    <img id="imagemProduto" src="static/img/galeria.png" data-default-src="static/img/galeria.png" width="150" alt="Prévia da imagem" class="img-fluid mb-3">
-                    <input id="idImagem" name="id_imagem" type="number" value="" hidden>
+                    <img id="imagemProduto" src="<?= $imagem ?? 'static/img/galeria.png' ?>" data-default-src="<?= $imagem ?? 'static/img/galeria.png' ?>" width="150" alt="Prévia da imagem" class="img-fluid mb-3">
+                    <input id="idImagem" name="id_imagem" type="number" value="<?= $id_imagem ?>" hidden>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalImagens">
                         Selecionar Imagem
                     </button>

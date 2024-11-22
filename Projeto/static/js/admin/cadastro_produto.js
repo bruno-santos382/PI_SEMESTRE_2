@@ -65,16 +65,23 @@ async function cadastrarProduto(event) {
 
     try {
         const dadosForm = new FormData(this);
+        const atualizar = Boolean(dadosForm.get('id') != '');
 
-        const resposta = await fetch('api.php?route=produto/cadastrar', {
-            method: 'POST',
-            body: dadosForm
-        });
+        const resposta = await fetch(atualizar ? 
+            'api.php?route=produto/atualizar' : 
+            'api.php?route=produto/cadastrar', {
+                method: 'POST',
+                body: dadosForm
+            } );
 
         const json = await resposta.json();
         if (json.status === 'ok') {
-            Alerta.sucesso('#alertaProduto', 'Cadastrado com sucesso!');
-            this.reset();
+            if (atualizar) {
+                Alerta.sucesso('#alertaProduto', 'Produto atualizado com sucesso!');
+            } else {
+                Alerta.sucesso('#alertaProduto', 'Produto cadastrado com sucesso!');
+                this.reset(); // Limpar formulário
+            }
         } else {
             Alerta.erro('#alertaProduto', json.mensagem || 'Erro ao realizar cadastro.');
         }

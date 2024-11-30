@@ -39,6 +39,8 @@ try {
 
         // Rotas do carrinho
         'carrinho/adicionar' => [$carrinho, 'adicionarProduto'],
+        'carrinho/remover' => [$carrinho, 'removerProduto'],
+        'carrinho/esvaziar' => [$carrinho, 'esvaziarCarrinho'],
 
         // Rotas de categoria
         'categoria/cadastrar' => [$categoria, 'cadastrarCategoria'],

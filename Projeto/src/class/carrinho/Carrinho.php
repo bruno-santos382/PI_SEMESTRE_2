@@ -39,6 +39,23 @@ class Carrinho
         ];
     }
 
+    public function remover(int $id_produto): void
+    {
+        // Procura pelo produto no carrinho
+        foreach ($_SESSION['carrinho'] as $index => $item) {
+            if ($item['IdProduto'] === $id_produto) {
+                // Remove o produto do carrinho
+                unset($_SESSION['carrinho'][$index]);
+                return;
+            }
+        }
+    }
+
+    public function esvaziar(): void
+    {
+        unset($_SESSION['carrinho']);
+    }
+
     public function obterItens(): array
     {        
         $produtos = $_SESSION['carrinho'] ?? [];

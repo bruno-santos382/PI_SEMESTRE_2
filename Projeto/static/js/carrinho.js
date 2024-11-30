@@ -1,90 +1,169 @@
 const Carrinho = {
     /**
+     * Formata valores para o formato monetário (R$).
+     * 
+     * @param {number} valor O valor a ser formatado.
+     * @returns {string} O valor formatado em moeda brasileira.
+     */
+    formatarMoeda: function (valor) {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(valor);
+    },
+
+    /**
+     * Função auxiliar para processar ações do carrinho via AJAX (adicionar ou remover produto).
+     * 
+     * @param {string} route A rota da API para adicionar ou remover o produto.
+     * @param {Event} event Evento de clique no botão.
+     * @param {Function} onSuccess Função de sucesso.
+     * @param {Function} onError Função de erro.
+     */
+    processarCarrinho: async function (route, event, onSucesso, onErro) {
+        const button = event.currentTarget;
+        button.setAttribute('disabled', true);
+        const html = button.innerHTML;
+        button.textContent = 'Carregando...';
+
+        try {
+            const dadosForm = new FormData();
+            dadosForm.append('id_produto', button.dataset.idProduto);
+            const resposta = await fetch(`api.php?route=${route}`, {
+                method: 'POST',
+                body: dadosForm
+            });
+
+            const json = await resposta.json();
+            if (json.status === 'ok') {
+                onSucesso(button);
+            } else {
+                onErro(json.mensagem);
+            }
+        } catch (e) {
+            console.error(e);
+            onErro('Erro ao processar o carrinho.');
+        } finally {
+            button.removeAttribute('disabled');
+            button.innerHTML = html;
+        }
+    },
+
+    /**
+     * Esvazia o carrinho de compras via AJAX.
+     * 
+     * @returns {Promise<void>}
+     */
+    esvaziarCarrinho: function (event) {
+        Carrinho.processarCarrinho(
+            'carrinho/esvaziar',
+            event,
+            () => {
+                document.querySelector('.cart-empty').classList.remove('d-none');
+                document.querySelector('#alertaCarrinho').firstElementChild.style.maxHeight = '0px';
+                document.querySelector('.lista-produtos').classList.add('d-none');
+            },
+            (mensagem) => {
+                // Exibe mensagem de erro caso a API retorne falha
+                Alerta.erro('#alertaCarrinho', mensagem || 'Erro ao esvaziar o carrinho.');
+            }
+        );
+    },
+
+
+    /**
      * Adiciona um produto ao carrinho de compras via AJAX.
      * 
      * @param {Event} event Evento de clique do botão "Adicionar ao carrinho".
      * @returns {Promise<void>}
      */
-    adicionarProduto: async function (event) {
-        const button = event.currentTarget;
-
-        button.setAttribute('disabled', true);
-        const html = button.innerHTML;
-        button.textContent = 'Carregando...';
-    
-        try {
-            const dadosForm = new FormData();
-            dadosForm.append('id_produto', button.dataset.idProduto);
-            const resposta = await fetch('api.php?route=carrinho/adicionar', {
-                method: 'POST',
-                body: dadosForm
-            });
-    
-            const json = await resposta.json();
-            if (json.status === 'ok') {
-                bootstrap.Modal.getOrCreateInstance('#modalAdicionarProduto').show();
-            } else {
-                bootstrap.Modal.getOrCreateInstance('#modalErroAdicionarProduto').show();
-            }
-    
-        } catch (e) {
-            console.error(e);
-        }
-        
-        button.removeAttribute('disabled');
-        button.innerHTML = html;
+    adicionarProduto: function (event) {
+        Carrinho.processarCarrinho(
+            'carrinho/adicionar',
+            event,
+            () => bootstrap.Modal.getOrCreateInstance('#modalAdicionarProduto').show(),
+            (mensagem) => bootstrap.Modal.getOrCreateInstance('#modalErroAdicionarProduto').show()
+        );
     },
 
-    // Função auxiliar para atualizar a quantidade e o preço total
+    /**
+     * Remove um produto do carrinho via AJAX.
+     * 
+     * @param {Event} event Evento de clique do botão "Remover do carrinho".
+     */
+    removerProduto: function (event) {
+        Carrinho.processarCarrinho(
+            'carrinho/remover',
+            event,
+            (button) => {
+                Alerta.sucesso('#alertaCarrinho', 'Produto removido com sucesso!');
+                
+                const cardItem = button.closest('.cart-item');
+                const inputQuantidade = cardItem.querySelector('.input-quantidade');
+                const quantidadeAtual = parseInt(inputQuantidade.value);
+                const precoUnitario = parseFloat(button.dataset.precoUnitario);
+                const totalCompraAtual = parseFloat(document.querySelector('.total-compra').dataset.valorTotal);
+                const totalCompraNovo = totalCompraAtual - (quantidadeAtual * precoUnitario);
+                
+                // Atualiza o preço total da compra
+                document.querySelector('.total-compra').dataset.valorTotal = totalCompraNovo;
+                document.querySelector('.total-compra').textContent = this.formatarMoeda(totalCompraNovo);
+                
+                // Remove o item do carrinho
+                cardItem.remove();
+
+                // Verifica se o carrinho ficou vazio
+                if (document.querySelectorAll('.cart-item').length === 0) {
+                    document.querySelector('.cart-empty').classList.remove('d-none');
+                    document.querySelector('#alertaCarrinho').firstElementChild.style.maxHeight = '0px';
+                    document.querySelector('.lista-produtos').classList.add('d-none');
+                }
+            },
+            (mensagem) => Alerta.erro('#alertaCarrinho', mensagem || 'Erro ao remover o item do carrinho.')
+        );
+    },
+
+    /**
+     * Atualiza a quantidade de um produto no carrinho e ajusta o preço total.
+     * 
+     * @param {Event} event Evento de clique do botão de aumentar/diminuir a quantidade.
+     * @param {number} incremento O valor do incremento (+1 ou -1).
+     */
     atualizarQuantidade: function (event, incremento) {
-        const button = event.currentTarget;  // Botão que foi clicado
-        const cardItem = button.closest('.cart-item');  // Item do carrinho
-        const inputQuantidade = cardItem.querySelector('.input-quantidade');  // Campo de quantidade
-        const textPrecoTotal = cardItem.querySelector('.preco-total');  // Elemento que exibe o preço total
-    
-        // Atualiza a quantidade, aplicando o incremento (+1 ou -1)
+        const button = event.currentTarget;
+        const cardItem = button.closest('.cart-item');
+        const inputQuantidade = cardItem.querySelector('.input-quantidade');
+        const textPrecoTotal = cardItem.querySelector('.preco-total');
+        
+        // Atualiza a quantidade, aplicando o incremento
         const quantidadeAtual = parseInt(inputQuantidade.value);
+        if (incremento < 0 && quantidadeAtual <= 0) return; // Impede diminuir a quantidade para valores negativos
 
-        if (incremento < 0 && !quantidadeAtual) {
-            return;
-        }
-
-        const novaQuantidade = Math.max(0,  quantidadeAtual + incremento);
-        inputQuantidade.value = novaQuantidade;  // Atualiza o campo de quantidade
+        const novaQuantidade = quantidadeAtual + incremento;
+        inputQuantidade.value = novaQuantidade;
 
         // Calcula o novo preço total com base na quantidade e no preço unitário
         const precoUnitario = parseFloat(button.dataset.precoUnitario);
         const precoTotal = novaQuantidade * precoUnitario;
-    
-        // Atualiza o preço total do item no carrinho
-        textPrecoTotal.textContent = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        }).format(precoTotal);  // Formata o preço total como moeda
-    
-        // Atualiza o preço total da compra
-        const textTotalCompra = document.querySelector('.total-compra');  // Elemento que exibe o preço total da compra
-        const totalCompraAtual = parseFloat(textTotalCompra.dataset.valorTotal);
-        const totalCompraNovo = totalCompraAtual + (incremento * precoUnitario);
-        textTotalCompra.dataset.valorTotal = totalCompraNovo;
-    
-        // Atualiza o preço total da compra formatado
-        textTotalCompra.textContent = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        }).format(totalCompraNovo);  // Formata o preço total da compra
-    },    
+        textPrecoTotal.textContent = Carrinho.formatarMoeda(precoTotal);
 
-    // Função para aumentar a quantidade
-    aumentarQuantidade: function (event) {
-        this.atualizarQuantidade(event, 1);  // Chama a função auxiliar com incremento de +1
+        // Atualiza o preço total da compra
+        const totalCompraAtual = parseFloat(document.querySelector('.total-compra').dataset.valorTotal);
+        const totalCompraNovo = totalCompraAtual + (incremento * precoUnitario);
+        
+        // Atualiza o preço total da compra formatado
+        document.querySelector('.total-compra').dataset.valorTotal = totalCompraNovo;
+        document.querySelector('.total-compra').textContent = Carrinho.formatarMoeda(totalCompraNovo);
     },
 
-    // Função para diminuir a quantidade
+    aumentarQuantidade: function (event) {
+        Carrinho.atualizarQuantidade(event, 1);  // Aumenta a quantidade
+    },
+
     diminuirQuantidade: function (event) {
-        this.atualizarQuantidade(event, -1);  // Chama a função auxiliar com incremento de -1
+        Carrinho.atualizarQuantidade(event, -1);  // Diminui a quantidade
     }
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     const btnAdicionarProduto = document.querySelectorAll('.btn-adicionar-produto');

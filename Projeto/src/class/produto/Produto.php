@@ -93,14 +93,9 @@ SQL;
     {
         $query = <<<SQL
 
-        SELECT 
-            p.*, 
-            img.caminho AS Imagem,
-            cat.nome AS Categoria
-        FROM produtos p
-        LEFT JOIN imagens img ON img.idimagem = p.idimagem
-        LEFT JOIN categoria_produto cat ON cat.idcategoria = p.idcategoria
-        WHERE p.dataexclusao IS NULL AND p.idproduto = :id
+        SELECT *
+        FROM VW_PRODUTOS_ATIVOS
+        WHERE dataexclusao IS NULL AND idproduto = :id
 SQL;
 
         $stmt = $this->conexao->prepare($query);
@@ -113,15 +108,10 @@ SQL;
     {
         $query = <<<SQL
 
-        SELECT 
-            p.*, 
-            img.caminho AS Imagem,
-            cat.nome AS Categoria
-        FROM produtos p
-        LEFT JOIN imagens img ON img.idimagem = p.idimagem
-        LEFT JOIN categoria_produto cat ON cat.idcategoria = p.idcategoria
-        WHERE p.dataexclusao IS NULL
-        ORDER BY p.idproduto ASC, p.nome ASC;
+        SELECT *
+        FROM VW_PRODUTOS_ATIVOS
+        WHERE dataexclusao IS NULL
+        ORDER BY idproduto ASC, nome ASC;
 SQL;
 
         $stmt = $this->conexao->prepare($query);
@@ -134,16 +124,11 @@ SQL;
     {
         $query = <<<SQL
 
-        SELECT 
-            p.*, 
-            img.caminho AS Imagem,
-            cat.nome AS Categoria
-        FROM produtos p
-        LEFT JOIN imagens img ON img.idimagem = p.idimagem
-        LEFT JOIN categoria_produto cat ON cat.idcategoria = p.idcategoria
-        WHERE p.dataexclusao IS NULL
-            AND cat.nome = :categoria
-        ORDER BY p.idproduto ASC, p.nome ASC;
+        SELECT *
+        FROM VW_PRODUTOS_ATIVOS
+        WHERE dataexclusao IS NULL
+            AND categoria = :categoria
+        ORDER BY idproduto ASC, nome ASC;
 SQL;
 
         $stmt = $this->conexao->prepare($query);

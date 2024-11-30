@@ -266,40 +266,92 @@ CREATE TABLE `produtos` (
   CONSTRAINT `fk_produto_categoria` FOREIGN KEY (`IdCategoria`) REFERENCES `categoria_produto`(`IdCategoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Inserindo dados para a tabela `produtos`
-INSERT INTO produtos (Nome, Preco, Marca, Estoque, IdCategoria, IdImagem) VALUES 
-    ('Abacaxi', 5.00, 'Marca A', 50, 3, 1),          -- Categoria: Frutas
-    ('Abóbora', 4.00, 'Marca B', 30, 4, 2),         -- Categoria: Legumes
-    ('Alface', 3.00, 'Marca C', 100, 2, 3),         -- Categoria: Verduras
-    ('Banana', 3.00, 'Marca D', 60, 3, 4),          -- Categoria: Frutas
-    ('Batata', 2.50, 'Marca E', 200, 4, 5),         -- Categoria: Legumes
-    ('Batata Doce', 3.00, 'Marca F', 150, 4, 6),    -- Categoria: Legumes
-    ('Brócolis', 5.00, 'Marca G', 80, 2, 7),        -- Categoria: Verduras
-    ('Carne Moída', 30.00, 'Marca H', 50, 1, 8),    -- Categoria: Carnes
-    ('Cebolinha', 1.80, 'Marca I', 100, 2, 9),      -- Categoria: Verduras
-    ('Cenoura', 1.50, 'Marca J', 180, 4, 11),       -- Categoria: Legumes
-    ('Cereja', 10.00, 'Marca K', 40, 3, 12),        -- Categoria: Frutas
-    ('Couve', 3.50, 'Marca L', 120, 2, 13),         -- Categoria: Verduras
-    ('Escarola', 4.00, 'Marca M', 90, 2, 14),       -- Categoria: Verduras
-    ('Espinafre', 5.00, 'Marca N', 60, 2, 15),      -- Categoria: Verduras
-    ('Frango', 25.00, 'Marca O', 70, 1, 16),        -- Categoria: Carnes
-    ('Kiwi', 6.00, 'Marca P', 40, 3, 17),           -- Categoria: Frutas
-    ('Maçã', 3.50, 'Marca Q', 80, 3, 21),           -- Categoria: Frutas
-    ('Mamão', 4.50, 'Marca R', 60, 3, 18),          -- Categoria: Frutas
-    ('Mandioca', 5.00, 'Marca S', 50, 4, 19),       -- Categoria: Legumes
-    ('Manga', 6.00, 'Marca T', 40, 3, 20),          -- Categoria: Frutas
-    ('Melancia', 8.00, 'Marca U', 30, 3, 22),       -- Categoria: Frutas
-    ('Morangos', 10.00, 'Marca V', 20, 3, 23),      -- Categoria: Frutas
-    ('Pepino', 2.00, 'Marca W', 150, 4, 24),        -- Categoria: Legumes
-    ('Pimentão', 3.50, 'Marca X', 120, 4, 25),      -- Categoria: Legumes
-    ('Rabanete', 2.50, 'Marca Y', 80, 4, 26),       -- Categoria: Legumes
-    ('Rúcula', 3.00, 'Marca Z', 100, 2, 27),        -- Categoria: Verduras
-    ('Salsinha', 1.20, 'Marca AA', 200, 2, 28),     -- Categoria: Verduras
-    ('Suco de Laranja', 5.00, 'Marca AB', 40, 5, 29), -- Categoria: Bebidas
-    ('Tomate', 3.00, 'Marca AC', 150, 4, 30),       -- Categoria: Legumes
-    ('Uva Francesa', 10.00, 'Marca AD', 30, 3, 31), -- Categoria: Frutas
-    ('Uva Verde', 8.00, 'Marca AE', 40, 3, 32);     -- Categoria: Frutas
 
+-- Inserindo dados para a tabela `produtos`
+INSERT INTO produtos (IdProduto, Nome, Preco, Marca, Estoque, IdCategoria, IdImagem) VALUES 
+    (1, 'Abacaxi', 5.00, 'Marca A', 50, 3, 1),          -- Categoria: Frutas
+    (2, 'Abóbora', 4.00, 'Marca B', 30, 4, 2),           -- Categoria: Legumes
+    (3, 'Alface', 3.00, 'Marca C', 100, 2, 3),           -- Categoria: Verduras
+    (4, 'Banana', 3.00, 'Marca D', 60, 3, 4),            -- Categoria: Frutas
+    (5, 'Batata', 2.50, 'Marca E', 200, 4, 5),           -- Categoria: Legumes
+    (6, 'Batata Doce', 3.00, 'Marca F', 150, 4, 6),      -- Categoria: Legumes
+    (7, 'Brócolis', 5.00, 'Marca G', 80, 2, 7),          -- Categoria: Verduras
+    (8, 'Carne Moída', 30.00, 'Marca H', 50, 1, 8),      -- Categoria: Carnes
+    (9, 'Cebolinha', 1.80, 'Marca I', 100, 2, 9),        -- Categoria: Verduras
+    (10, 'Cenoura', 1.50, 'Marca J', 180, 4, 11),        -- Categoria: Legumes
+    (11, 'Cereja', 10.00, 'Marca K', 40, 3, 12),         -- Categoria: Frutas
+    (12, 'Couve', 3.50, 'Marca L', 120, 2, 13),          -- Categoria: Verduras
+    (13, 'Escarola', 4.00, 'Marca M', 90, 2, 14),        -- Categoria: Verduras
+    (14, 'Espinafre', 5.00, 'Marca N', 60, 2, 15),       -- Categoria: Verduras
+    (15, 'Frango', 25.00, 'Marca O', 70, 1, 16),         -- Categoria: Carnes
+    (16, 'Kiwi', 6.00, 'Marca P', 40, 3, 17),            -- Categoria: Frutas
+    (17, 'Maçã', 3.50, 'Marca Q', 80, 3, 21),            -- Categoria: Frutas
+    (18, 'Mamão', 4.50, 'Marca R', 60, 3, 18),           -- Categoria: Frutas
+    (19, 'Mandioca', 5.00, 'Marca S', 50, 4, 19),        -- Categoria: Legumes
+    (20, 'Manga', 6.00, 'Marca T', 40, 3, 20),           -- Categoria: Frutas
+    (21, 'Melancia', 8.00, 'Marca U', 30, 3, 22),        -- Categoria: Frutas
+    (22, 'Morangos', 10.00, 'Marca V', 20, 3, 23),       -- Categoria: Frutas
+    (23, 'Pepino', 2.00, 'Marca W', 150, 4, 24),         -- Categoria: Legumes
+    (24, 'Pimentão', 3.50, 'Marca X', 120, 4, 25),       -- Categoria: Legumes
+    (25, 'Rabanete', 2.50, 'Marca Y', 80, 4, 26),        -- Categoria: Legumes
+    (26, 'Rúcula', 3.00, 'Marca Z', 100, 2, 27),         -- Categoria: Verduras
+    (27, 'Salsinha', 1.20, 'Marca AA', 200, 2, 28),      -- Categoria: Verduras
+    (28, 'Suco de Laranja', 5.00, 'Marca AB', 40, 5, 29), -- Categoria: Bebidas
+    (29, 'Tomate', 3.00, 'Marca AC', 150, 4, 30),        -- Categoria: Legumes
+    (30, 'Uva Francesa', 10.00, 'Marca AD', 30, 3, 31),  -- Categoria: Frutas
+    (31, 'Uva Verde', 8.00, 'Marca AE', 40, 3, 32);      -- Categoria: Frutas
+
+
+
+--
+-- Estrutura para tabela `promoções`
+--
+
+CREATE TABLE `promocoes` (
+  `IdPromocao` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `IdProduto` INT NOT NULL,
+  `DataInicio` DATE NOT NULL,
+  `DataFim` DATE NOT NULL,
+  `Desconto` DECIMAL(5,2) NOT NULL,
+  `DataCriacao` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `DataExclusao` DATETIME DEFAULT NULL,
+  CONSTRAINT `fk_promocoes_produto` FOREIGN KEY (`IdProduto`) REFERENCES `produtos`(`IdProduto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- Inserindo promoções
+INSERT INTO promocoes (IdProduto, DataInicio, DataFim, Desconto) VALUES
+    (1, '2024-01-01', '2025-12-31', 10.00),  -- Abacaxi com 10% de desconto
+    (2, '2024-01-01', '2025-12-31', 15.00),  -- Abóbora com 15% de desconto
+    (3, '2024-01-01', '2025-12-31', 5.00),   -- Alface com 5% de desconto
+    (4, '2024-01-01', '2025-12-31', 20.00),  -- Banana com 20% de desconto
+    (5, '2024-01-01', '2025-12-31', 10.00),  -- Batata com 10% de desconto
+    (6, '2024-01-01', '2025-12-31', 8.00),   -- Batata Doce com 8% de desconto
+    (7, '2024-01-01', '2025-12-31', 12.00),  -- Brócolis com 12% de desconto
+    (8, '2024-01-01', '2025-12-31', 25.00),  -- Carne Moída com 25% de desconto
+    (9, '2024-01-01', '2025-12-31', 5.00),   -- Cebolinha com 5% de desconto
+    (10, '2024-12-01', '2024-12-15', 18.00),  -- Cenoura com 18% de desconto
+    (11, '2024-12-06', '2024-12-20', 10.00),  -- Cereja com 10% de desconto
+    (12, '2024-12-03', '2024-12-18', 8.00),   -- Couve com 8% de desconto
+    (13, '2024-12-10', '2024-12-24', 5.00),   -- Escarola com 5% de desconto
+    (14, '2024-12-05', '2024-12-22', 15.00),  -- Espinafre com 15% de desconto
+    (15, '2024-12-09', '2024-12-21', 20.00),  -- Frango com 20% de desconto
+    (16, '2024-12-13', '2024-12-27', 10.00),  -- Kiwi com 10% de desconto
+    (17, '2024-12-02', '2024-12-17', 12.00),  -- Maçã com 12% de desconto
+    (18, '2024-12-11', '2024-12-28', 5.00),   -- Mamão com 5% de desconto
+    (19, '2024-12-07', '2024-12-23', 8.00),   -- Mandioca com 8% de desconto
+    (20, '2024-12-04', '2024-12-19', 12.00),  -- Manga com 12% de desconto
+    (21, '2024-12-10', '2024-12-24', 5.00),   -- Melancia com 5% de desconto
+    (22, '2024-12-15', '2024-12-30', 15.00),  -- Morangos com 15% de desconto
+    (23, '2024-12-09', '2024-12-22', 20.00),  -- Pepino com 20% de desconto
+    (24, '2024-12-12', '2024-12-27', 10.00),  -- Pimentão com 10% de desconto
+    (25, '2024-12-08', '2024-12-21', 12.00),  -- Rabanete com 12% de desconto
+    (26, '2024-12-01', '2024-12-15', 5.00),   -- Rúcula com 5% de desconto
+    (27, '2024-12-06', '2024-12-18', 10.00),  -- Salsinha com 10% de desconto
+    (28, '2024-12-05', '2024-12-19', 12.00),  -- Suco de Laranja com 12% de desconto
+    (29, '2024-12-11', '2024-12-25', 15.00),  -- Tomate com 15% de desconto
+    (30, '2024-12-03', '2024-12-16', 8.00),   -- Uva Francesa com 8% de desconto
+    (31, '2024-12-07', '2024-12-20', 10.00);   -- Uva Verde com 10% de desconto
 
 
 --
@@ -333,7 +385,7 @@ DELIMITER $$
 
 -- Descrição: Este trigger é responsável por definir o campo IdImagem como NULL em todos os produtos
 -- que estão referenciando uma imagem quando a DataExclusao da imagem é definida.
-CREATE TRIGGER set_produto_imagem_null_on_exclusao
+CREATE TRIGGER TRG_SET_PRODUTO_IMAGEM_NULL_ON_EXCLUSAO
 BEFORE UPDATE ON imagens
 FOR EACH ROW
 BEGIN
@@ -351,10 +403,29 @@ DELIMITER ;
 
 DELIMITER $$
 
- -- Descrição: Este trigger é responsável por definir o campo IdCategoria como NULL em todos os produtos
-  -- que estão referenciando uma categoria quando a DataExclusao da categoria é definida.
-  
-CREATE TRIGGER set_produto_categoria_null_on_exclusao
+-- Descrição: Este trigger é responsável por definir o campo DataExclusao nas promoções
+-- quando a DataExclusao de um produto associado a uma promoção for definida.
+CREATE TRIGGER TRG_EXCLUIR_PROMOCAO_ON_PRODUTO_EXCLUIDO
+BEFORE UPDATE ON produtos
+FOR EACH ROW
+BEGIN
+  -- Verifica se a DataExclusao do produto foi alterada para não nula
+  IF NEW.DataExclusao IS NOT NULL AND OLD.DataExclusao IS NULL THEN
+    -- Atualiza o campo DataExclusao nas promoções associadas ao produto
+    UPDATE promocoes
+    SET DataExclusao = CURRENT_TIMESTAMP()
+    WHERE IdProduto = OLD.IdProduto AND DataExclusao IS NULL;
+  END IF;
+END $$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+-- Descrição: Este trigger é responsável por definir o campo IdCategoria como NULL em todos os produtos
+-- que estão referenciando uma categoria quando a DataExclusao da categoria é definida.
+CREATE TRIGGER TRG_SET_PRODUTO_CATEGORIA_NULL_ON_EXCLUSAO
 BEFORE UPDATE ON categoria_produto
 FOR EACH ROW
 BEGIN
@@ -369,6 +440,78 @@ END $$
 
 DELIMITER ;
 
+
+DELIMITER $$
+
+-- Função para calcular o preço com desconto
+-- Parâmetros:
+--   preco: O preço original do produto.
+--   desconto: O percentual de desconto aplicado.
+-- Retorna o valor final do preço após o desconto, arredondado para 2 casas decimais.
+CREATE FUNCTION FN_CALCULAR_PRECO_COM_DESCONTO(preco DECIMAL(10,2), desconto DECIMAL(5,2))
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+    -- Verifica se algum parâmetro é NULL e retorna NULL se for o caso
+    IF preco IS NULL OR desconto IS NULL THEN
+        RETURN NULL;
+    END IF;
+
+    -- Calcula o preço com o desconto e arredonda para 2 casas decimais
+    RETURN ROUND(preco - (preco * (desconto / 100)), 2);
+END $$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+-- Criação da view para promoções dos produtos
+CREATE VIEW VW_PROMOCOES_PRODUTO_ATIVAS AS
+SELECT 
+    p.IdProduto, 
+    p.Nome, 
+    p.Marca,
+    pr.IdPromocao,
+    pr.DataInicio, 
+    pr.DataFim, 
+    pr.Desconto,
+    p.Preco AS PrecoAntigo,
+    FN_CALCULAR_PRECO_COM_DESCONTO(p.Preco, pr.Desconto) AS PrecoComDesconto,
+    img.caminho AS Imagem,
+    CASE 
+        WHEN pr.DataFim < CURDATE() THEN 'Expirado'
+        ELSE 'Ativo'
+    END AS Status
+FROM promocoes pr
+JOIN produtos p ON pr.IdProduto = p.IdProduto
+LEFT JOIN imagens img ON img.idimagem = p.idimagem
+WHERE pr.dataexclusao IS NULL
+
+$$
+DELIMITER ;
+
+
+DELIMITER $$
+
+-- Criação de view para produtos ativos
+CREATE VIEW VW_PRODUTOS_ATIVOS AS
+SELECT 
+    p.*, 
+    img.caminho AS Imagem,
+    cat.nome AS Categoria,
+    FN_CALCULAR_PRECO_COM_DESCONTO(p.Preco, pr.Desconto) AS PrecoComDesconto
+FROM produtos p
+LEFT JOIN imagens img ON img.idimagem = p.idimagem
+LEFT JOIN categoria_produto cat ON cat.idcategoria = p.idcategoria
+LEFT JOIN promocoes pr 
+  ON pr.idproduto = p.idproduto 
+  AND pr.dataexclusao IS NULL
+  AND CURDATE() BETWEEN pr.datainicio AND pr.datafim
+WHERE p.dataexclusao IS NULL
+
+$$
+DELIMITER ;
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

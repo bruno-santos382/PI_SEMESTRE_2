@@ -100,12 +100,13 @@ include __DIR__ . '/src/template/header.php';
 
             <div class="card h-100 mx-2">
                 <img src="<?=  $promocao['Imagem'] ?? 'static/img/galeria.png' ?>" class="card-img-top" alt="<?= $promocao['Nome'] ?>">
-                <div class="card-body">
+                <div class="card-body text-center">
                     <h5 class="card-title"><?= $promocao['Nome'] ?></h5>
                     <p class="card-text"><?= $promocao['Marca'] ?></p>
-                    <p class="text-danger">
-                        <strong>R$ <?= number_format($promocao['PrecoComDesconto'], 2, ',', '.') ?></strong>
-                        <small class="text-muted">R$ <?= number_format($promocao['PrecoAntigo'], 2, ',', '.') ?></small>
+                    <small class="text-success ">Oferta por tempo limitado!</small>
+                    <p class="text-center">
+                        <strong class="text-success">R$ <?= number_format($promocao['PrecoComDesconto'], 2, ',', '.') ?></strong>
+                        <small style="text-decoration: line-through;" class="text-danger">R$ <?= number_format($promocao['PrecoAntigo'], 2, ',', '.') ?></small>
                     </p>
                     <div class="text-center">
                         <button type="button" data-id-produto="<?= $promocao['IdProduto'] ?>" class="btn btn-success btn-adicionar-produto" style="width: 180px;">

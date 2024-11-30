@@ -26,11 +26,21 @@ $_id_categoria++;
 
         <?php foreach ($produto->listarPorCategoria($nome_categoria) as $item): ?>
             <div class="card card-produto">
-                <img src="<?= $item['Imagem'] ?? 'static/img/galeria.png' ?>" class="card-img-top" alt="<?= $item['Nome'] ?>">
-                <div class="card-body text-center">
+                <img src="<?= $item['Imagem']  ?>" class="card-img-top" alt="<?= $item['Nome'] ?>">
+                <div class="card-body text-center d-flex flex-column">
                     <h5 class="card-title"><?= $item['Nome'] ?></h5>
                     <p class="card-text"><?= $item['Marca'] ?></p>
-                    <p class="text-danger"><strong>R$ <?= number_format($item['Preco'], 2, ',', '.') ?></strong></p>
+                    <?php if (!empty($item['PrecoComDesconto'])): ?>
+                        <small class="text-success">Oferta por tempo limitado!</small>
+                        <p class="text-success">
+                            <strong>R$ <?= number_format($item['PrecoComDesconto'], 2, ',', '.') ?></strong>
+                            <small class="text-danger" style="text-decoration: line-through;">R$ <?= number_format($item['Preco'], 2, ',', '.') ?></small>
+                        </p>
+                    <?php else: ?>
+                        <p class="text-muted mt-auto"><strong>R$ <?= number_format($item['Preco'], 2, ',', '.') ?></strong></p>
+                    <?php endif; ?>
+                    
+                    <!-- <p class="text-danger"><strong>R$ <?= number_format($item['Preco'], 2, ',', '.') ?></strong></p> -->
                     <button type="button" data-id-produto="<?= $item['IdProduto'] ?>" class="btn btn-success btn-adicionar-produto">Adicionar ao Carrinho</button>
                 </div>
             </div>

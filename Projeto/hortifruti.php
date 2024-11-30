@@ -3,7 +3,7 @@
 
 $template = array(
     'titulo' => 'Hortifruti &mdash; GM Supermercado',
-    'scripts' => ['static/js/categorias.js'],
+    'scripts' => ['static/js/categorias.js', 'static/js/carrinho.js'],
     'styles' => ['static/css/categorias.css']
 );
 include __DIR__ . '/src/template/header.php';

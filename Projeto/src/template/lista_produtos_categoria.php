@@ -26,7 +26,7 @@ $_id_categoria++;
 
         <?php foreach ($produto->listarPorCategoria($nome_categoria) as $item): ?>
             <div class="card card-produto">
-                <img src="<?= $item['Imagem'] ?>" class="card-img-top" alt="<?= $item['Nome'] ?>">
+                <img src="<?= $item['Imagem'] ?? 'static/img/galeria.png' ?>" class="card-img-top" alt="<?= $item['Nome'] ?>">
                 <div class="card-body text-center">
                     <h5 class="card-title"><?= $item['Nome'] ?></h5>
                     <p class="card-text"><?= $item['Marca'] ?></p>

@@ -1,9 +1,10 @@
 <!-- Homepage do site -->
 <?php
 
+
 $template = array(
     'titulo' => 'Loja Online &mdash; GM Supermercado',
-    'scripts' => ['static/js/index.js'],
+    'scripts' => ['static/js/index.js', 'static/js/carrinho.js'],
     'styles' => ['static/css/site.css']
 );
 include __DIR__ . '/src/template/header.php';
@@ -89,65 +90,32 @@ include __DIR__ . '/src/template/header.php';
 
         <div class="promo-carousel d-flex overflow-hidden">
 
+            <?php
+                require_once __DIR__.'/src/class/promocao/Promocao.php';
+                $promocao = new Promocao();
+                $promocoes = $promocao->listarPromocoesSeemana();
+            ?>
+
+            <?php foreach ($promocoes as $promocao): ?>
+
             <div class="card h-100 mx-2">
-                <img src="static/img/upload/cenoura.png" class="card-img-top" alt="Cenoura">
+                <img src="<?=  $promocao['Imagem'] ?? 'static/img/galeria.png' ?>" class="card-img-top" alt="<?= $promocao['Nome'] ?>">
                 <div class="card-body">
-                    <h5 class="card-title">Cenoura</h5>
-                    <p class="card-text">Cenoura fresca - 1kg</p>
-                    <p class="text-danger"><strong>R$ 14,99</strong> <small class="text-muted">R$ 19,99</small></p>
-                    <button class="btn btn-success">Adicionar ao Carrinho</button>
+                    <h5 class="card-title"><?= $promocao['Nome'] ?></h5>
+                    <p class="card-text"><?= $promocao['Marca'] ?></p>
+                    <p class="text-danger">
+                        <strong>R$ <?= number_format($promocao['PrecoComDesconto'], 2, ',', '.') ?></strong>
+                        <small class="text-muted">R$ <?= number_format($promocao['PrecoAntigo'], 2, ',', '.') ?></small>
+                    </p>
+                    <div class="text-center">
+                        <button type="button" data-id-produto="<?= $promocao['IdProduto'] ?>" class="btn btn-success btn-adicionar-produto" style="width: 180px;">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="card h-100 mx-2">
-                <img src="static/img/upload/suco.jpg" class="card-img-top" alt="Suco Natural">
-                <div class="card-body">
-                    <h5 class="card-title">Suco Natural</h5>
-                    <p class="card-text">Suco de Laranja - 1L</p>
-                    <p class="text-danger"><strong>R$ 5,99</strong> <small class="text-muted">R$ 7,99</small></p>
-                    <button class="btn btn-success">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-
-            <div class="card h-100 mx-2">
-                <img src="static/img/upload/mamao.webp" class="card-img-top" alt="Mamão">
-                <div class="card-body">
-                    <h5 class="card-title">Mamão</h5>
-                    <p class="card-text">Mamão Fresco - 5kg</p>
-                    <p class="text-danger"><strong>R$ 12,99</strong> <small class="text-muted">R$ 15,99</small></p>
-                    <button class="btn btn-success">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-
-            <div class="card h-100 mx-2">
-                <img src="static/img/upload/morangos1.jpg" class="card-img-top" alt="Morango">
-                <div class="card-body">
-                    <h5 class="card-title">Morango</h5>
-                    <p class="card-text">Morango fresco - 500g</p>
-                    <p class="text-danger"><strong>R$ 8,99</strong> <small class="text-muted">R$ 10,99</small></p>
-                    <button class="btn btn-success">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-
-            <div class="card h-100 mx-2">
-                <img src="static/img/upload/tomate.jpg" class="card-img-top" alt="Tomate">
-                <div class="card-body">
-                    <h5 class="card-title">Tomate</h5>
-                    <p class="card-text">Tomate fresco - 1kg</p>
-                    <p class="text-danger"><strong>R$ 6,99</strong> <small class="text-muted">R$ 8,99</small></p>
-                    <button class="btn btn-success">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-
-            <div class="card h-100 mx-2">
-                <img src="static/img/upload/carnemoida.webp" class="card-img-top" alt="Carne Moída">
-                <div class="card-body">
-                    <h5 class="card-title">Carne Moída</h5>
-                    <p class="card-text">Carne Moída - 1kg</p>
-                    <p class="text-danger"><strong>R$ 24,99</strong> <small class="text-muted">R$ 29,99</small></p>
-                    <button class="btn btn-success">Adicionar ao Carrinho</button>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
@@ -222,8 +190,10 @@ include __DIR__ . '/src/template/header.php';
                 </ul>
             </div>
         </div>
-        <p class="mt-3">© 2023 GM SuperMercado. Todos os direitos reservados.</p>
+        <p class="mt-3">© <?php echo date('Y'); ?> GM SuperMercado. Todos os direitos reservados.</p>
     </div>
 </footer>
+
+<?php include __DIR__ . '/src/template/popup_produto_adicionado.php'; ?>
 
 <?php include __DIR__ . '/src/template/footer.php'; ?>

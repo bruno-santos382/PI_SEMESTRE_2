@@ -53,10 +53,17 @@ class Carrinho
         // Construir a query
         $query = <<<SQL
         WITH carrinho(idproduto, quantidade) AS (VALUES $placeholders)
-        SELECT p.*, img.caminho AS Imagem, c.quantidade AS Quantidade
-        FROM carrinho c
-        JOIN produtos p ON p.idproduto = c.idproduto
-        LEFT JOIN imagens img ON img.idimagem = p.idimagem
+        SELECT 
+            p.*, 
+            img.caminho AS Imagem, 
+            c.quantidade AS Quantidade, 
+            (COALESCE(p.PrecoComDesconto, p.Preco) * c.quantidade) AS PrecoTotal
+        FROM 
+            carrinho c
+        JOIN 
+            VW_PRODUTOS_ATIVOS p ON p.idproduto = c.idproduto
+        LEFT JOIN 
+            imagens img ON img.idimagem = p.idimagem;
 SQL;
 
         // Preparar a consulta
@@ -76,7 +83,7 @@ SQL;
         // Calcular o total do carrinho
         $total = 0;
         foreach ($produtos as $produto) {
-            $total += $produto['Preco'] * $produto['Quantidade'];
+            $total += $produto['PrecoTotal'];
         }
         
         return ['valor_total' => $total, 'produtos' => $produtos];

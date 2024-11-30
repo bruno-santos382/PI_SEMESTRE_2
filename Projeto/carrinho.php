@@ -10,13 +10,13 @@ include __DIR__ . '/src/template/header.php';
 
 ?>
 
-<div class="w-50 mx-auto mt-5">
+<div class="w-50 mx-auto my-5">
     <h2 class="text-center">Carrinho de Compras</h2>
 
     <?php 
         require __DIR__.'/src/class/carrinho/Carrinho.php';
         $carrinho = new Carrinho();
-        ['valor_total' => $valor_tota, 'produtos' => $produtos] = $carrinho->obterItens();
+        ['valor_total' => $valor_total, 'produtos' => $produtos] = $carrinho->obterItens();
     ?>
     
     <?php if (empty($produtos)): ?>
@@ -79,12 +79,19 @@ include __DIR__ . '/src/template/header.php';
 
                     <!-- Preço unitário -->
                     <div class="text-center">
-                        <span class="text-muted">R$ <?= number_format($item['Preco'], 2, ',', '.') ?></span>
+                        <?php if (!empty($item['PrecoComDesconto'])): ?>
+                            <p class="text-success">
+                                <strong>R$ <?= number_format($item['PrecoComDesconto'], 2, ',', '.') ?></strong>
+                                <small class="text-danger" style="text-decoration: line-through;">R$ <?= number_format($item['Preco'], 2, ',', '.') ?></small>
+                            </p>
+                        <?php else: ?>
+                            <strong class="text-muted">R$ <?= number_format($item['Preco'], 2, ',', '.') ?></strong>
+                        <?php endif; ?>
                     </div>
 
                     <!-- Total do produto -->
                     <div class="text-center">
-                        <strong>R$ <?= number_format($item['Preco'] * $item['Quantidade'], 2, ',', '.') ?></strong>
+                        <strong>R$ <?= number_format($item['PrecoTotal'], 2, ',', '.') ?></strong>
                     </div>
 
                     <!-- Remover produto -->
@@ -100,7 +107,7 @@ include __DIR__ . '/src/template/header.php';
         <!-- Total do Carrinho -->
         <div class="d-flex justify-content-between align-items-center mt-4">
             <h4>Total:</h4>
-            <span><strong>R$ <?= number_format($valor_tota, 2, ',', '.') ?></strong></span>
+            <span><strong>R$ <?= number_format($valor_total, 2, ',', '.') ?></strong></span>
         </div>
 
         <!-- Botão de esvaziar o carrinho -->

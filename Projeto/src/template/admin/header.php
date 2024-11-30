@@ -85,6 +85,13 @@ if (empty($template['menu_atual'])) {
                     </a>
                 </li>
 
+                 <!-- Promoções -->
+                 <li class="nav-item">
+                    <a href="admin/promocoes.php" class="<?= $template['menu_atual'] == 'promocoes' ? 'active' : 'link-dark' ?> nav-link" >
+                        <i class="bi bi-percent me-2"></i> Promoções
+                    </a>
+                </li>
+
                 <!-- Usuários -->
                 <li class="nav-item">
                     <a href="#usuariosSubmenu" class="nav-link link-dark" data-bs-toggle="collapse">

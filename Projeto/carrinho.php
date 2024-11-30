@@ -3,7 +3,7 @@
 
 $template = array(
     'titulo' => 'Carrinho de Compras &mdash; GM Supermercado',
-    'scripts' => ['static/js/site.js'],
+    'scripts' => ['static/js/carrinho.js'],
     'styles' => ['static/css/site.css']
 );
 include __DIR__ . '/src/template/header.php';
@@ -66,13 +66,25 @@ include __DIR__ . '/src/template/header.php';
 
                     <!-- Quantidade -->
                     <div class="quantity d-flex align-items-center">
-                        <button type="button" class="btn btn-sm btn-success me-2" title="Diminuir quantidade" onclick="decreaseQuantity(productId)">
+                        <button 
+                            type="button" 
+                            class="btn btn-sm btn-success me-2" 
+                            title="Diminuir quantidade" 
+                            data-preco-unitario="<?= $item['PrecoComDesconto'] ?? $item['Preco'] ?>" 
+                            data-id-produto="<?= $item['IdProduto'] ?>" 
+                            onclick="Carrinho.diminuirQuantidade(event)" >
                             <i class="bi bi-dash h6"></i>
                         </button>
 
-                        <input type="number" value="<?= $item['Quantidade'] ?>" class="form-control form-control-sm" style="width: 50px;" readonly>
+                        <input type="number" value="<?= $item['Quantidade'] ?>" class="form-control form-control-sm input-quantidade" style="width: 50px;" readonly>
                         
-                        <button type="button" class="btn btn-sm btn-success ms-2" title="Aumentar quantidade" onclick="increaseQuantity(productId)">
+                        <button
+                            type="button" 
+                            class="btn btn-sm btn-success ms-2" 
+                            title="Diminuir quantidade" 
+                            data-preco-unitario="<?= $item['PrecoComDesconto'] ?? $item['Preco'] ?>" 
+                            data-id-produto="<?= $item['IdProduto'] ?>" 
+                            onclick="Carrinho.aumentarQuantidade(event)" >
                             <i class="bi bi-plus h6"></i>
                         </button>
                     </div>
@@ -91,7 +103,7 @@ include __DIR__ . '/src/template/header.php';
 
                     <!-- Total do produto -->
                     <div class="text-center">
-                        <strong>R$ <?= number_format($item['PrecoTotal'], 2, ',', '.') ?></strong>
+                        <strong class="preco-total">R$ <?= number_format($item['PrecoTotal'], 2, ',', '.') ?></strong>
                     </div>
 
                     <!-- Remover produto -->
@@ -107,7 +119,7 @@ include __DIR__ . '/src/template/header.php';
         <!-- Total do Carrinho -->
         <div class="d-flex justify-content-between align-items-center mt-4">
             <h4>Total:</h4>
-            <span><strong>R$ <?= number_format($valor_total, 2, ',', '.') ?></strong></span>
+            <span><strong data-valor-total="<?= $valor_total ?>" class="total-compra">R$ <?= number_format($valor_total, 2, ',', '.') ?></strong></span>
         </div>
 
         <!-- Botão de esvaziar o carrinho -->

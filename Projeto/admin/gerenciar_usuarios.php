@@ -20,8 +20,6 @@ include __DIR__ . '/../src/template/admin/header.php';
         <tr>
             <th scope="col" style="width: 50px;">ID</th>
             <th scope="col">Usuário</th>
-            <th scope="col">E-mail</th>
-            <th scope="col">Telefone</th>
             <th scope="col">Tipo</th>
             <th scope="col" style="width: 200px;">Cadastrado em</th>
             <th scope="col" style="width: 200px;">Ações</th>
@@ -36,8 +34,6 @@ include __DIR__ . '/../src/template/admin/header.php';
             <tr>
                 <td><?= $item['IdUsuario'] ?></td>
                 <td><?= $item['Usuario'] ?></td>
-                <td><?= $item['Email'] ?></td>
-                <td><?= $item['Telefone'] ?></td>
                 <td><?= ucfirst($item['TipoUsuario']) ?></td>
                 <td><?= date('d/m/Y H:i', strtotime($item['DataCriacao'])) ?></td>
                 <td>

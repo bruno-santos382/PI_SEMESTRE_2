@@ -42,17 +42,17 @@ class Autentica
      */
     public function login(string $login, string $senha): void
     {
-        $query = "SELECT * FROM usuarios WHERE usuario = :login";
+        $query = "SELECT * FROM VW_USUARIOS_ATIVOS WHERE usuario = :login";
 
         // Caso o formato do login for um email
         if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
-            $query = "SELECT * FROM usuarios WHERE email = :login";
+            $query = "SELECT * FROM VW_USUARIOS_ATIVOS WHERE email = :login";
         } 
         // Caso o formato do login for um número de telefone
         else {
             $telefone = preg_replace('/[^\d]*/', '', $login); // Apaga todos os caracteres não numéricos
             if (strlen($telefone) >= 10) {
-                $query = "SELECT * FROM usuarios WHERE telefone = :login";
+                $query = "SELECT * FROM VW_USUARIOS_ATIVOS WHERE telefone = :login";
                 $login = $telefone;
             }
         } 

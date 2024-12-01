@@ -14,95 +14,70 @@ class Usuario
     public function cadastrar(
         string $usuario, 
         string $senha, 
-        string $tipo_usuario,
-        string $telefone = null,
-        string $email = null, 
+        string $tipo_usuario, 
         array $id_permissao = []
     ): void {
-        // Verifica duplicatas
-        $this->verificarDuplicidade($usuario, null, $email, $telefone);
-
+        // Verifica se usuário já existe
+        $this->verificarDuplicidade('usuario', $usuario, null, 'Nome de usuário já está em uso.');
+    
         // Insere o novo usuário
         $query = <<<SQL
-            INSERT INTO usuarios (usuario, email, senha, telefone, tipousuario) 
-            VALUES (:usuario, :email, :senha, :telefone, :tipo_usuario);
-SQL;
+            INSERT INTO usuarios (usuario, senha, tipousuario) 
+            VALUES (:usuario, :senha, :tipo_usuario);
+    SQL;
         $stmt = $this->conexao->prepare($query);
         $stmt->execute([
             'usuario' => $usuario,
-            'email' => $email,
             'senha' => password_hash($senha, PASSWORD_DEFAULT),
-            'telefone' => $telefone,
             'tipo_usuario' => $tipo_usuario
         ]);
     }
-
+    
     public function atualizar(
         int $id, 
         string $usuario, 
-        string $tipo_usuario,
+        string $tipo_usuario, 
         string $senha = null, 
-        string $email = null,  
-        string $telefone = null,
         array $id_permissao = []
     ): void {
         if (empty($id)) {
             throw new \Exception('O código do usuário é obrigatório.');
         }
-
-        // Verifica duplicatas
-        $this->verificarDuplicidade($usuario, $id, $email, $telefone);
-
+    
+        // Verificar se usuário já existe
+        $this->verificarDuplicidade('usuario', $usuario, $id, 'Nome de usuário já está em uso.');
+    
         // Atualiza o usuário
         $query = <<<SQL
             UPDATE usuarios 
-                SET usuario = :usuario,
-                    email = :email,
-                    telefone = :telefone,
-                    tipousuario = :tipo_usuario
-SQL;
-        
+               SET usuario = :usuario,
+                   tipousuario = :tipo_usuario
+    SQL;
+    
         // Prepara os parâmetros para a atualização
         $params = [
             'id' => $id,
             'usuario' => $usuario,
-            'email' => $email,
-            'telefone' => $telefone,
             'tipo_usuario' => $tipo_usuario
         ];
-
+    
         if (!empty($senha)) {
             $query .= ", senha = :senha";
             $params['senha'] = password_hash($senha, PASSWORD_DEFAULT);
         }
-
+    
         // Finaliza a consulta com a cláusula WHERE
         $query .= " WHERE idusuario = :id";
-
+    
         // Executa a atualização no banco de dados
         $stmt = $this->conexao->prepare($query);
         $stmt->execute($params);
     }
-
-    private function verificarDuplicidade(string $usuario, int $usuario_id = null, string $email = null, string $telefone = null): void {
-        // Verificar duplicatas nos campos fornecidos
-        if ($email) {
-            $this->verificarDuplicidadeCampo('email', $email, $usuario_id, 'E-mail já está em uso.');
-        }
     
-        if ($telefone) {
-            $this->verificarDuplicidadeCampo('telefone', $telefone, $usuario_id, 'Telefone já está em uso.');
-        }
-    
-        if ($usuario) {
-            $this->verificarDuplicidadeCampo('usuario', $usuario, $usuario_id, 'Nome de usuário já está em uso.');
-        }
-    }
-    
-    private function verificarDuplicidadeCampo(string $campo, string $valor, int $usuario_id = null, string $mensagem_erro): void {
+    private function verificarDuplicidade(string $campo, string $valor, int $usuario_id = null, string $mensagem_erro): void {
         // Preparar a consulta base
-        $query = "SELECT IdUsuario FROM usuarios WHERE {$campo} = :valor";
-        
+        $query = "SELECT idusuario FROM usuarios WHERE {$campo} = :valor";
+    
         // Excluir o usuário atual da verificação se for uma atualização
         if ($usuario_id) {
             $query .= " AND idusuario != :id";
@@ -110,7 +85,7 @@ SQL;
     
         // Preparar e executar a declaração
         $stmt = $this->conexao->prepare("SELECT EXISTS ($query LIMIT 1)");
-        
+    
         // Executar com os parâmetros adequados
         if ($usuario_id) {
             $stmt->execute(['valor' => $valor, 'id' => $usuario_id]);
@@ -124,7 +99,6 @@ SQL;
         }
     }
     
-
     public function excluir(int $id): void
     {        
         if (empty($id)) {

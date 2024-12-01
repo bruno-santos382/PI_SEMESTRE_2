@@ -19,8 +19,6 @@ include __DIR__ . '/../src/template/admin/header.php';
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
         $nome = null;
-        $email = null;
-        $telefone = null;
         $senha = null;
         $tipo_usuario = null;
         
@@ -32,8 +30,6 @@ include __DIR__ . '/../src/template/admin/header.php';
 
             if ($usuario) {
                 $nome = $usuario['Usuario'];
-                $email = $usuario['Email'];
-                $telefone = $usuario['Telefone'];
                 $senha = $usuario['Senha'];
                 $tipo_usuario = $usuario['TipoUsuario'];
             } else {
@@ -50,18 +46,6 @@ include __DIR__ . '/../src/template/admin/header.php';
         <div class="mb-3">
             <label for="nome" class="form-label fw-bold text-muted">Nome do Usuário:</label>
             <input type="text" value="<?= $nome ?>" class="form-control" id="usuario" name="usuario" placeholder="Digite o nome do usuário" required>
-        </div>
-
-        <!-- E-mail -->
-        <div class="mb-3">
-            <label for="email" class="form-label fw-bold text-muted">E-mail (opcional):</label>
-            <input type="email" value="<?= $email ?>" class="form-control" id="email" name="email" placeholder="Digite o e-mail do usuário">
-        </div>
-
-        <!-- Telefone -->
-        <div class="mb-3">
-            <label for="telefone" class="form-label fw-bold text-muted">Telefone (opcional):</label>
-            <input type="tel" value="<?= $telefone ?>" class="form-control" id="telefone" name="telefone" placeholder="Digite o telefone do usuário">
         </div>
 
         <!-- Senha -->

@@ -71,24 +71,6 @@ SQL;
         ]);
     }
 
-    public function buscar(string $termo): array
-    {
-        $query = <<<SQL
-            SELECT p.* 
-            FROM produtos p
-            WHERE p.nome LIKE CONCAT(:nome, '%')
-            AND DataExclusao IS NULL
-SQL;
-
-        $stmt = $this->conexao->prepare($query);
-        $stmt->execute([
-            'nome' => $termo,
-            'marca' => $termo
-        ]);
-
-        return $stmt->fetchAll(Conexao::FETCH_ASSOC);
-    }
-
     public function buscaPorId(int $id): array|false
     {
         $query = <<<SQL

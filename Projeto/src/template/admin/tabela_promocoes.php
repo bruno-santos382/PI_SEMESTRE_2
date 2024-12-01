@@ -1,6 +1,6 @@
 <!-- promocoes_tabela.php -->
 
-<table class="table table-centered table-hover table-bordered ">
+<table class="table table-centered table-sm table-hover table-borderless ">
 	<thead class="<?= $template['promocoes_expiradas'] ? 'table-danger' : 'table-secondary'; ?> ">
 		<tr>
 			<th scope="col">Produto</th>
@@ -39,10 +39,10 @@
 						data-data-inicio="<?= $item['DataInicio'] ?>" 
 						data-data-fim="<?= $item['DataFim'] ?>"
 						data-desconto="<?= $item['Desconto'] ?>">
-						Editar
+						<i class="bi bi-pencil me-1"></i> Editar
 					</button>
-					<button type="button" class="btn btn-sm btn-danger" onclick="removerPromocao(this, '<?= $item['IdPromocao'] ?>')">
-						Excluir
+					<button type="button"  class="btn btn-sm btn-danger" onclick="removerPromocao(this, '<?= $item['IdPromocao'] ?>')">
+						<i class="bi bi-trash me-1"></i> Excluir
 					</button>
 				</td>
 			</tr>

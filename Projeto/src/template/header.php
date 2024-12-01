@@ -23,9 +23,8 @@
     <?php endif; ?>
 </head>
 <body>
-
 <!-- Navbar -->
- <?php if (empty($template['esconder_navbar'])): ?>
+<?php if (empty($template['esconder_navbar'])): ?>
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -35,6 +34,7 @@
             <div class="d-flex align-items-center">
 
                 <?php if ($usuario = $autentica->usuarioLogado()): ?>
+             
                     <?php if (in_array('acesso_admin', $usuario['permissoes'])): ?>
                         <a href="admin/" class="icon-text mx-3">
                             <img src="static/img/admin.png" alt="admin" class="icon-image">
@@ -62,9 +62,18 @@
                     <img src="static/img/casinha.png" alt="Localização" class="icon-image">
                     <span>Inicio</span>
                 </a>
+
+                <?php if (!empty($usuario)): ?>
+                    <div class="icon-text mx-3">
+                        <img src="static/img/login..png" alt="Usuário" class="icon-image">
+                        <span><?= htmlspecialchars($usuario['nome']) ?></span>
+                    </div>
+                <?php endif; ?>
+
             </div>
         </div>
     </nav>
 <?php endif; ?>
+
 
 <div class="container-fluid px-0">

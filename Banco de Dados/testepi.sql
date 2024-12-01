@@ -9,7 +9,7 @@
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = 'America/Sao_Paulo';
 
 CREATE DATABASE IF NOT EXISTS mercado;
 USE mercado;
@@ -79,12 +79,23 @@ CREATE TABLE `usuarios` (
   Senha VARCHAR(255) NOT NULL,
   DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP(),
   DataExclusao DATETIME DEFAULT NULL,
+  TipoUsuario ENUM('cliente', 'funcionario') NOT NULL DEFAULT 'cliente',
+  UNIQUE KEY `idx_usuario` (`Usuario`),
   UNIQUE KEY `idx_email` (`Email`),
   UNIQUE KEY `idx_telefone` (`Telefone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Usuario padrão, usuario: admin, senha: admin
-INSERT INTO usuarios (Usuario, Senha) VALUES ('admin', '$2y$10$I5cV9q6YCgQkUMPA1e83seoNnpAvlwO4oil84KMACnLfFWPLswnkO');
+INSERT INTO usuarios (IdUsuario, Usuario, Senha, TipoUsuario) VALUES (1, 'admin', '$2y$10$I5cV9q6YCgQkUMPA1e83seoNnpAvlwO4oil84KMACnLfFWPLswnkO', 'funcionario');
+
+-- Usuários dos clientes
+INSERT INTO usuarios (IdUsuario, Usuario, Email, Telefone, Senha) VALUES
+(2, 'joao.silva', 'joao@email.com', '19912345671', '$2y$10$rb8Akhc4NYSl1EZrv3BCNunNewOjM6W.UKBIoeUftwNgNs2LGvaRO'), -- senha: joao123
+(3, 'maria.oliveira', 'maria@email.com', '19912345672', '$2y$10$NTp9CI39LaCvheFVXubL.OG.epk06ugP0Dchdepr7w24O6OAuOvTG'), -- senha: maria123
+(4, 'carlos.souza', 'carlos@email.com', '19912345673', '$2y$10$/tbYKKpuaQ943MErhGir5.VMidwEnb13oljqRGeJgkvXJMUiGr5G.'), -- senha: carlos123
+(5, 'ana.lima', 'ana@email.com', '19912345674', '$2y$10$N560.SNe27hjDZR3.3TE3.ybbu6mdhgmcF.9xXDnm9Wby4KpfGd/K'); -- senha: ana123
+
+
 
 --
 -- Estrutura tabela de permissões dos usuários
@@ -107,20 +118,47 @@ INSERT INTO permissao_usuarios (IdUsuario, Permissao) VALUES (1, 'acesso_admin')
 --
 
 CREATE TABLE `clientes` (
-  `Nome` varchar(40) DEFAULT NULL,
+  `Nome` varchar(150) DEFAULT NULL,
   `IdCliente` int(11) NOT NULL,
-  `Contato` varchar(40) DEFAULT NULL
+  `Contato` varchar(40) DEFAULT NULL,
+  DataExclusao DATETIME DEFAULT NULL,
+  IdUsuario INT DEFAULT NULL,
+  FOREIGN KEY (IdUsuario) REFERENCES usuarios(IdUsuario)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Despejando dados para a tabela `clientes`
 --
 
-INSERT INTO `clientes` (`Nome`, `IdCliente`, `Contato`) VALUES
-('João Silva', 1, 'joao@email.com'),
-('Maria Oliveira', 2, 'maria@email.com'),
-('Carlos Souza', 3, 'carlos@email.com'),
-('Ana Lima', 4, 'ana@email.com');
+INSERT INTO `clientes` (`Nome`, `IdCliente`, `Contato`, IdUsuario) VALUES
+('João Silva', 1, '19912345678', 2),
+('Maria Oliveira', 2, '19912345678', 3),
+('Carlos Souza', 3, '19912345678', 4),
+('Ana Lima', 4, '19912345678', 5);
+
+
+--
+-- Estrutura para tabela `funcionario`
+--
+
+CREATE TABLE `funcionario` (
+  `IdFuncionario` INT AUTO_INCREMENT PRIMARY KEY,
+  `Nome` VARCHAR(150) DEFAULT NULL,
+  `Contato` VARCHAR(40) DEFAULT NULL,
+  DataExclusao DATETIME DEFAULT NULL,
+  IdUsuario INT DEFAULT NULL,
+  FOREIGN KEY (IdUsuario) REFERENCES usuarios(IdUsuario)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `funcionarios`
+--
+
+INSERT INTO funcionario (IdFuncionario, Nome, Contato, IdUsuario) VALUES
+(1, 'Administrador', '19912345678', 1);
+
+
 
 -- --------------------------------------------------------
 
@@ -330,13 +368,13 @@ INSERT INTO promocoes (IdProduto, DataInicio, DataFim, Desconto) VALUES
     (7, '2024-01-01', '2025-12-31', 12.00),  -- Brócolis com 12% de desconto
     (8, '2024-01-01', '2025-12-31', 25.00),  -- Carne Moída com 25% de desconto
     (9, '2024-01-01', '2025-12-31', 5.00),   -- Cebolinha com 5% de desconto
-    (10, '2024-12-01', '2024-12-15', 18.00),  -- Cenoura com 18% de desconto
-    (11, '2024-12-06', '2024-12-20', 10.00),  -- Cereja com 10% de desconto
-    (12, '2024-12-03', '2024-12-18', 8.00),   -- Couve com 8% de desconto
-    (13, '2024-12-10', '2024-12-24', 5.00),   -- Escarola com 5% de desconto
-    (14, '2024-12-05', '2024-12-22', 15.00),  -- Espinafre com 15% de desconto
-    (15, '2024-12-09', '2024-12-21', 20.00),  -- Frango com 20% de desconto
-    (16, '2024-12-13', '2024-12-27', 10.00),  -- Kiwi com 10% de desconto
+    (10, '2024-09-01', '2024-11-15', 18.00),  -- Cenoura com 18% de desconto
+    (11, '2024-09-06', '2024-11-20', 10.00),  -- Cereja com 10% de desconto
+    (12, '2024-09-03', '2024-11-18', 8.00),   -- Couve com 8% de desconto
+    (13, '2024-09-10', '2024-11-24', 5.00),   -- Escarola com 5% de desconto
+    (14, '2024-09-05', '2024-11-22', 15.00),  -- Espinafre com 15% de desconto
+    (15, '2024-09-09', '2024-11-21', 20.00),  -- Frango com 20% de desconto
+    (16, '2024-09-13', '2024-11-27', 10.00),  -- Kiwi com 10% de desconto
     (17, '2024-12-02', '2024-12-17', 12.00),  -- Maçã com 12% de desconto
     (18, '2024-12-11', '2024-12-28', 5.00),   -- Mamão com 5% de desconto
     (19, '2024-12-07', '2024-12-23', 8.00),   -- Mandioca com 8% de desconto

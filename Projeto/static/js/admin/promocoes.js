@@ -28,9 +28,11 @@ function htmlPromocao(promocao) {
                    data-data-inicio="${promocao.DataInicio}" 
                    data-data-fim="${promocao.DataFim}"
                    data-desconto="${promocao.Desconto}">
-                   Editar
+                   <i class="bi bi-pencil me-1"></i> Editar
                 </a>
-                <a href="#" class="btn btn-sm btn-danger">Excluir</a>
+                <a href="#" style="width: 100px;" class="btn btn-sm btn-danger">
+                    <i class="bi bi-trash me-1"></i> Excluir
+                </a>
             </td>
         </tr>
     `;
@@ -92,8 +94,6 @@ async function removerPromocao(btnExcluir, id) {
     }
     
     btnExcluir.setAttribute('disabled', true);
-    const html = btnExcluir.innerHTML;
-    btnExcluir.innerHTML = 'Removendo';
     
     try {
         const formData = new FormData();
@@ -116,7 +116,6 @@ async function removerPromocao(btnExcluir, id) {
     }
 
     btnExcluir.removeAttribute('disabled');
-    btnExcluir.innerHTML = html;
 }
 
 function editarPromocao(event) {

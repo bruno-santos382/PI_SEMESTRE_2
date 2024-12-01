@@ -66,7 +66,7 @@ class Autentica
         }
 
         session_regenerate_id(true);
-        $_SESSION['usuario'] = array('id' => $row->IdUsuario);
+        $_SESSION['usuario'] = array('id' => $row->IdUsuario, 'nome' => $row->Usuario);
     }
 
     

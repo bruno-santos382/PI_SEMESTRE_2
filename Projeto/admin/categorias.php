@@ -64,7 +64,7 @@ include __DIR__ . '/../src/template/admin/header.php';
 
     <hr>
 
-    <table class="table table-centered table-hover table-borderless">
+    <table class="table table-centered table-hover table-sm table-borderless">
         <thead class="table-secondary">
             <tr>
                 <th scope="col" style="width: 50px;">Código</th>

@@ -28,10 +28,10 @@ function htmlPromocao(promocao) {
                    data-data-inicio="${promocao.DataInicio}" 
                    data-data-fim="${promocao.DataFim}"
                    data-desconto="${promocao.Desconto}">
-                   <i class="bi bi-pencil me-1"></i> Editar
+                   <i class="bi bi-pencil-fill me-1"></i> Editar
                 </a>
                 <a href="#" style="width: 100px;" class="btn btn-sm btn-danger">
-                    <i class="bi bi-trash me-1"></i> Excluir
+                    <i class="bi bi-trash-fill me-1"></i> Excluir
                 </a>
             </td>
         </tr>

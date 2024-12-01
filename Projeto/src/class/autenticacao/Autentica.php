@@ -59,7 +59,7 @@ class Autentica
 
         $stmt = $this->conexao->prepare($query);
         $stmt->execute(['login' => $login]);
-        $row = $stmt->fetch(Conexao::FETCH_OBJ);
+        $row = $stmt->fetch(\PDO::FETCH_OBJ);
 
         if (!$row || !password_verify($senha, $row->Senha)) {
             throw new ValidacaoException('Usuario ou senha inválidos.');

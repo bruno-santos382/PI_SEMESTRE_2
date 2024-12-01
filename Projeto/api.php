@@ -10,6 +10,7 @@ require_once __DIR__.'/src/class/promocao/Controller.php';
 require_once __DIR__.'/src/class/usuario/Controller.php';
 require_once __DIR__.'/src/class/cliente/Controller.php';
 require_once __DIR__.'/src/class/funcionario/Controller.php';
+require_once __DIR__.'/src/class/pedido/Controller.php';
 require_once __DIR__.'/src/class/validacao/ValidacaoException.php';
 
 header('Content-Type: application/json');
@@ -26,6 +27,7 @@ try {
     $usuario = new UsuarioController();
     $cliente = new ClienteController();
     $funcionario = new FuncionarioController();
+    $pedido = new PedidoController();
     
     $funcao = [
         // Rotas de produto
@@ -69,6 +71,12 @@ try {
          'funcionario/cadastrar' => [$funcionario, 'cadastrarFuncionario'],
          'funcionario/atualizar' => [$funcionario, 'atualizarFuncionario'],
          'funcionario/excluir' => [$funcionario, 'excluirFuncionario'],
+
+         // Rotas de pedido
+        'pedido/cadastrar' => [$pedido, 'cadastrarPedido'],
+        'pedido/cancelar' => [$pedido, 'cancelarPedido'],
+        'pedido/finalizar' => [$pedido, 'finalizarPedido'],
+        'pedido/lista_itens' => [$pedido, 'listaItensPedido'],
     ];
     
     if (!isset($funcao[$rota])) {

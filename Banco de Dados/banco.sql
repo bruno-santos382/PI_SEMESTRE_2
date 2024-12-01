@@ -45,25 +45,6 @@ INSERT INTO `adicionados` (`Quantidade`, `fk_Carrinho_IdCarrinho`, `fk_Produtos_
 (4, 2, 2),
 (1, 3, 5);
 
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `carrinho`
---
-
-CREATE TABLE `carrinho` (
-  `IdCarrinho` int(11) NOT NULL,
-  `fk_Clientes_IdCliente` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `carrinho`
---
-
-INSERT INTO `carrinho` (`IdCarrinho`, `fk_Clientes_IdCliente`) VALUES
-(1, 1),
-(2, 2),
-(3, 4);
 
 -- --------------------------------------------------------
 
@@ -114,13 +95,14 @@ INSERT INTO permissao_usuarios (IdUsuario, Permissao) VALUES (1, 'acesso_admin')
 --
 
 CREATE TABLE `clientes` (
-  `IdCliente` int(11) NOT NULL,
+  `IdCliente` int(11) NOT NULL AUTO_INCREMENT,
   `Nome` varchar(150) NOT NULL,
   Email VARCHAR(100) NOT NULL,
   Telefone VARCHAR(20) NOT NULL,
   DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP(),
   DataExclusao DATETIME DEFAULT NULL,
   IdUsuario INT NOT NULL,
+  PRIMARY KEY (IdCliente),
   FOREIGN KEY (IdUsuario) REFERENCES usuarios(IdUsuario)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -163,50 +145,23 @@ INSERT INTO funcionarios (IdFuncionario, Nome, Email, Telefone, IdUsuario) VALUE
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pedidos`
+-- Estrutura para tabela `carrinho`
 --
 
-CREATE TABLE `pedidos` (
-  `IdPedido` int(11) NOT NULL,
-  `DataPedido` date DEFAULT NULL,
-  `DataRetirada` date DEFAULT NULL,
-  `ValorTotal` float DEFAULT NULL,
-  `Estado` varchar(40) DEFAULT NULL,
-  `fk_Clientes_IdCliente` int(11) DEFAULT NULL
+CREATE TABLE `carrinho` (
+  IdCarrinho int(11) NOT NULL,
+  IdCliente int(11) NOT NULL,
+  FOREIGN KEY (IdCliente) REFERENCES clientes(IdCliente)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
--- Despejando dados para a tabela `pedidos`
---
-
-INSERT INTO `pedidos` (`IdPedido`, `DataPedido`, `DataRetirada`, `ValorTotal`, `Estado`, `fk_Clientes_IdCliente`) VALUES
-(1, '2024-10-10', '2024-10-12', 45, 'Finalizado', 1),
-(2, '2024-10-15', '2024-10-16', 20, 'Em Andamento', 2),
-(3, '2024-10-20', '2024-10-22', 33.5, 'Cancelado', 3),
-(4, '2024-10-25', NULL, 10, 'Em Andamento', 1);
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `possuem`
+-- Despejando dados para a tabela `carrinho`
 --
 
-CREATE TABLE `possuem` (
-  `fk_Pedidos_IdPedido` int(11) DEFAULT NULL,
-  `fk_Produtos_IdProduto` int(11) DEFAULT NULL,
-  `Quantidade` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `carrinho` (`IdCarrinho`, `IdCliente`) VALUES
+(1, 1),
+(2, 2),
+(3, 4);
 
---
--- Despejando dados para a tabela `possuem`
---
-
-INSERT INTO `possuem` (`fk_Pedidos_IdPedido`, `fk_Produtos_IdProduto`, `Quantidade`) VALUES
-(1, 1, 2),
-(1, 2, 3),
-(2, 3, 5),
-(3, 4, 1),
-(4, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -293,7 +248,7 @@ VALUES
 CREATE TABLE `produtos` (
   `IdProduto` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `Nome` VARCHAR(40) DEFAULT NULL,
-  `Preco` FLOAT DEFAULT NULL,
+  `Preco` DECIMAL(10,2) DEFAULT NULL,
   `Marca` VARCHAR(40) DEFAULT NULL,
   `Estoque` INT(11) DEFAULT NULL,
   `DataCriacao` DATETIME DEFAULT CURRENT_TIMESTAMP(),
@@ -391,6 +346,59 @@ INSERT INTO promocoes (IdProduto, DataInicio, DataFim, Desconto) VALUES
     (30, '2024-12-03', '2024-12-16', 8.00),   -- Uva Francesa com 8% de desconto
     (31, '2024-12-07', '2024-12-20', 10.00);   -- Uva Verde com 10% de desconto
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `IdPedido` int(11) NOT NULL,
+  `DataPedido` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `DataRetirada` DATETIME DEFAULT NULL,
+  DataExclusao DATETIME DEFAULT NULL,
+  `ValorTotal` DECIMAL(10,2) NOT NULL,
+  `Status` ENUM('Em Andamento', 'Finalizado', 'Cancelado') DEFAULT 'Em Andamento',
+  `IdCliente` int(11) NOT NULL,
+  PRIMARY KEY (IdPedido),
+  FOREIGN KEY (IdCliente) REFERENCES clientes(IdCliente)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `pedidos`
+--
+
+INSERT INTO `pedidos` (`IdPedido`, `DataPedido`, `DataRetirada`, `ValorTotal`, `Status`, `IdCliente`) VALUES
+(1, '2024-10-10', '2024-10-12', 45, 'Finalizado', 1),
+(2, '2024-10-15', '2024-10-16', 20, 'Finalizado', 2),
+(3, '2024-10-20', NULL, 33.5, 'Cancelado', 3),
+(4, '2024-10-25', NULL, 10, 'Em Andamento', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `pedido_produtos`
+--
+
+CREATE TABLE `pedido_produtos` (
+  `IdPedido` INT(11) NOT NULL,
+  `IdProduto` INT(11) NOT NULL,
+  `Quantidade` INT(11) NOT NULL,
+  `PrecoUnitario` DECIMAL(10,2) NOT NULL,
+  CONSTRAINT `fk_pedido` FOREIGN KEY (`IdPedido`) REFERENCES `pedidos` (`IdPedido`),
+  CONSTRAINT `fk_produto` FOREIGN KEY (`IdProduto`) REFERENCES `produtos` (`IdProduto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `pedido_produtos`
+--
+
+INSERT INTO `pedido_produtos` (`IdPedido`, `IdProduto`, `Quantidade`, `PrecoUnitario`) VALUES
+(1, 1, 2, 3.50),
+(1, 2, 3, 7.20),
+(2, 3, 5, 5.80),
+(3, 4, 1, 2.10),
+(4, 5, 1, 9.40);
 
 --
 -- Índices para tabelas despejadas
@@ -402,22 +410,13 @@ INSERT INTO promocoes (IdProduto, DataInicio, DataFim, Desconto) VALUES
 ALTER TABLE `carrinho`
   ADD PRIMARY KEY (`IdCarrinho`),
   MODIFY `IdCarrinho` INT AUTO_INCREMENT;
---
--- Índices de tabela `clientes`
---
-ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`IdCliente`),
-  MODIFY `IdCliente` INT AUTO_INCREMENT;
-
---
--- Índices de tabela `pedidos`
---
-ALTER TABLE `pedidos`
-  ADD PRIMARY KEY (`IdPedido`),
-  MODIFY `IdPedido` INT AUTO_INCREMENT;
-
 
 -------------------------------------------------------------------------------
+
+
+-- ===========================================
+-- SEÇÃO: TRIGGERS
+-- ===========================================
 
 DELIMITER $$
 
@@ -461,6 +460,26 @@ DELIMITER ;
 
 DELIMITER $$
 
+-- Descrição: Este trigger é responsável por atualizar o status dos pedidos para 'Cancelado'
+-- quando a DataExclusao de um cliente é definida, mas apenas se o status do pedido for 'Em Andamento'.
+CREATE TRIGGER TRG_CANCELAR_PEDIDOS_ON_CLIENTE_EXCLUIDO
+AFTER UPDATE ON clientes
+FOR EACH ROW
+BEGIN
+    -- Verifica se a DataExclusao do cliente foi alterada para não nula
+    IF NEW.DataExclusao IS NOT NULL AND OLD.DataExclusao IS NULL THEN
+        -- Atualiza o status dos pedidos associados ao cliente para 'Cancelado' se estiverem 'Em Andamento'
+        UPDATE pedidos
+        SET Status = 'Cancelado'
+        WHERE IdCliente = NEW.IdCliente AND Status = 'Em Andamento';
+    END IF;
+END $$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
 -- Descrição: Este trigger é responsável por definir o campo IdCategoria como NULL em todos os produtos
 -- que estão referenciando uma categoria quando a DataExclusao da categoria é definida.
 CREATE TRIGGER TRG_SET_PRODUTO_CATEGORIA_NULL_ON_EXCLUSAO
@@ -478,6 +497,12 @@ END $$
 
 DELIMITER ;
 
+
+
+
+-- ===========================================
+-- SEÇÃO: FUNÇÕES
+-- ===========================================
 
 DELIMITER $$
 
@@ -501,6 +526,12 @@ END $$
 
 DELIMITER ;
 
+
+
+
+-- ===========================================
+-- SEÇÃO: VIEWS
+-- ===========================================
 
 DELIMITER $$
 
@@ -532,8 +563,30 @@ DELIMITER ;
 
 DELIMITER $$
 
--- Criação de view para produtos ativos
-CREATE VIEW VW_PRODUTOS_ATIVOS AS
+-- Criação da view para pedidos dos clientes
+CREATE VIEW VW_PEDIDOS_CLIENTE AS
+SELECT 
+    p.IdPedido, 
+    c.Nome AS ClienteNome,
+    c.Email AS ClienteEmail,
+    p.IdCliente,
+    p.DataPedido, 
+    p.DataRetirada, 
+    p.ValorTotal,
+    p.Status
+FROM pedidos p
+JOIN clientes c ON p.IdCliente = c.IdCliente
+WHERE p.DataExclusao IS NULL
+
+$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+
+-- Criação de view para consultar todos os produtos cadastrados
+CREATE VIEW VW_PRODUTOS AS
 SELECT 
     p.*, 
     img.caminho AS Imagem,
@@ -546,7 +599,17 @@ LEFT JOIN promocoes pr
   ON pr.idproduto = p.idproduto 
   AND pr.dataexclusao IS NULL
   AND CURDATE() BETWEEN pr.datainicio AND pr.datafim
-WHERE p.dataexclusao IS NULL
+
+$$
+DELIMITER ;
+
+
+DELIMITER $$
+
+-- Criação de view para consultar todos os produtos ativos
+CREATE VIEW VW_PRODUTOS_ATIVOS AS
+SELECT * FROM VW_PRODUTOS
+WHERE dataexclusao IS NULL
 
 $$
 DELIMITER ;

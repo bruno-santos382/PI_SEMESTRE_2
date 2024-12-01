@@ -18,12 +18,12 @@ include __DIR__ . '/../src/template/admin/header.php';
 
 <div id="alertaEditando" class="slide-down mb-2">
 	<span class="text-success">
-		<i class="bi bi-pencil-square"></i> Editando promoção do produto <strong id="produtoSelecionado"></strong>
+		<i class="bi bi-pencil-fill-square"></i> Editando promoção do produto <strong id="produtoSelecionado"></strong>
 	</span>
 </div>
 
 <!-- Formulário para gerenciar promoções -->
-<form id="formCadastro" action="#" method="POST" class="mb-4">
+<form id="formCadastro" action="#" method="POST" class="mb-5">
 	<input type="number" name="id" id="codigo" hidden value="">
 
 	<?php
@@ -69,7 +69,7 @@ include __DIR__ . '/../src/template/admin/header.php';
 <hr>
 
 <!-- Botões para alternar entre Promoções Ativas e Expiradas -->
-<ul class="nav nav-tabs justify-content-center mb-3 gap-3" role="tablist">
+<ul class="nav nav-tabs justify-content-center my-5 mb-3 gap-3" role="tablist">
     <li  role="presentation">
         <a href="#promocoes-ativas" class="active" id="abas-promocoes-ativas" role="tab" data-bs-toggle="tab" aria-controls="promocoes-ativas" aria-selected="true">
             <button type="button" class="btn btn-primary">Promoções Ativas</button>

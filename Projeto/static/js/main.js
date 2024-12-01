@@ -1,4 +1,5 @@
 const Alerta = {
+    timer: null,
     exibir: function(container, tipo_alerta, mensagem) {
         // Seleciona o contêiner de alertas com base no seletor passado
         const element = document.querySelector(container);
@@ -14,6 +15,15 @@ const Alerta = {
                 alert.classList.remove('d-none');
             }
             element.firstElementChild.style.maxHeight = '60px'; // Ajuste de altura do container, para animação
+
+            // Esconder após intervalo
+            if (Alerta.timer) {
+                clearTimeout(Alerta.timer)
+            }
+            
+            Alerta.timer = setTimeout(() => {
+                element.firstElementChild.style.maxHeight = '0px';
+            }, 5000)
         }
     },
     erro: (container, mensagem) => Alerta.exibir(container, 'erro', mensagem),

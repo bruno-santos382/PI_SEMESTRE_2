@@ -30,7 +30,7 @@ include __DIR__ . '/../src/template/admin/header.php';
 
     <div id="alertaEditando" class="slide-down mb-2">
         <span class="text-success">
-            <i class="bi bi-pencil-square"></i> Editando categoria <strong id="categoriaSelecionada"></strong>
+            <i class="bi bi-pencil-fill-square"></i> Editando categoria <strong id="categoriaSelecionada"></strong>
         </span>
     </div>
 
@@ -86,10 +86,10 @@ include __DIR__ . '/../src/template/admin/header.php';
                     <td>
                         <button type="button" class="btn btn-warning btn-sm" title="Editar" 
                                 onclick="editarCategoria('<?= $item['IdCategoria'] ?>', '<?= $item['Nome'] ?>', '<?= $item['Pagina'] ?>')">
-                            <i class="bi bi-pencil me-1"></i> Editar
+                            <i class="bi bi-pencil-fill me-1"></i> Editar
                         </button>
                         <button type="button" class="btn btn-danger btn-sm" onclick="removerCategoria(this, '<?= $item['IdCategoria'] ?>')" title="Remover">
-                            <i class="bi bi-trash me-1"></i> Remover
+                            <i class="bi bi-trash-fill me-1"></i> Excluír
                         </button>
                     </td>
                 </tr>

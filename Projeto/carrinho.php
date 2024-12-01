@@ -112,7 +112,7 @@ include __DIR__ . '/src/template/header.php';
                                 data-id-produto="<?= $item['IdProduto'] ?>"
                                 data-preco-unitario="<?= $item['PrecoComDesconto'] ?? $item['Preco'] ?>"
                                 onclick="Carrinho.removerProduto(event)" >
-                                <i class="bi bi-trash"></i> Remover
+                                <i class="bi bi-trash-fill"></i> Remover
                             </button>
                         </div>
                     </div>
@@ -121,7 +121,7 @@ include __DIR__ . '/src/template/header.php';
             <!-- Total do Carrinho -->
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <h4>Total:</h4>
-                <span><strong data-valor-total="<?= $valor_total ?>" class="total-compra">R$ <?= number_format($valor_total, 2, ',', '.') ?></strong></span>
+                <h4 data-valor-total="<?= $valor_total ?>" class="total-compra">R$ <?= number_format($valor_total, 2, ',', '.') ?></h4>
             </div>
             <!-- Botão de esvaziar o carrinho -->
             <button type="button" class="btn btn-danger mt-3" style="width: 150px;" onclick="Carrinho.esvaziarCarrinho(event)">Esvaziar Carrinho</button>

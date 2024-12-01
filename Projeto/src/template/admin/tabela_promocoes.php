@@ -39,10 +39,10 @@
 						data-data-inicio="<?= $item['DataInicio'] ?>" 
 						data-data-fim="<?= $item['DataFim'] ?>"
 						data-desconto="<?= $item['Desconto'] ?>">
-						<i class="bi bi-pencil me-1"></i> Editar
+						<i class="bi bi-pencil-fill me-1"></i> Editar
 					</button>
 					<button type="button"  class="btn btn-sm btn-danger" onclick="removerPromocao(this, '<?= $item['IdPromocao'] ?>')">
-						<i class="bi bi-trash me-1"></i> Excluir
+						<i class="bi bi-trash-fill me-1"></i> Excluir
 					</button>
 				</td>
 			</tr>

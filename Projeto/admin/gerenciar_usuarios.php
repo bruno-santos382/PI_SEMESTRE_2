@@ -38,10 +38,10 @@ include __DIR__ . '/../src/template/admin/header.php';
                 <td><?= date('d/m/Y H:i', strtotime($item['DataCriacao'])) ?></td>
                 <td>
                     <a href="admin/cadastro_usuario.php?id=<?= $item['IdUsuario'] ?>" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil me-1"></i> Editar
+                        <i class="bi bi-pencil-fill me-1"></i> Editar
                     </a>
                     <button type="button" class="btn btn-danger btn-sm" onclick="removerUsuario(this, '<?= $item['IdUsuario'] ?>')">
-                        <i class="bi bi-trash me-1"></i> Remover
+                        <i class="bi bi-trash-fill me-1"></i> Excluír
                     </button>
                 </td>
             </tr>

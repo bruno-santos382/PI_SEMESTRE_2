@@ -17,10 +17,10 @@ function htmlCategoria(categoria) {
             <td>
                 <button type="button" class="btn btn-warning btn-sm" title="Editar" 
                         onclick="editarCategoria('${categoria.IdCategoria}', '${categoria.Nome}', '${categoria.Pagina}')">
-                    <i class="bi bi-pencil me-1"></i> Editar
+                    <i class="bi bi-pencil-fill me-1"></i> Editar
                 </button>
                 <button type="button" class="btn btn-danger btn-sm" onclick="removerCategoria(this, '${categoria.IdCategoria}')" title="Remover">
-                    <i class="bi bi-trash me-1"></i> Remover
+                    <i class="bi bi-trash-fill me-1"></i> Excluír
                 </button>
             </td>
         </tr>

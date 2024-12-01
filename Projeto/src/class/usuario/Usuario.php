@@ -2,13 +2,17 @@
 
 require_once __DIR__.'/../Conexao.php';
 require_once __DIR__.'/../validacao/ValidacaoException.php';
+require_once __DIR__.'/../autenticacao/Autentica.php';
 
 class Usuario 
 {
     protected Conexao $conexao;
 
+    protected Autentica $autentica;
+
     public function __construct() {
         $this->conexao = new Conexao();
+        $this->autentica = new Autentica();
     }
 
     public function cadastrar(
@@ -99,7 +103,7 @@ class Usuario
         }
     }
     
-    public function excluir(int $id): void
+    public function excluir(int $id): array
     {        
         if (empty($id)) {
             throw new \Exception('O código do usuário é obrigatório.');
@@ -114,6 +118,14 @@ SQL;
         $stmt->execute([
             'id' => $id
         ]);
+
+        $logado = $this->autentica->usuarioLogado();
+        if ($logado['id'] == $id) {
+            $this->autentica->logout();
+            return ['logout' => true];
+        }
+
+        return ['logout' => false];
     }
 
     public function buscaPorId(int $id): array|false
@@ -135,9 +147,23 @@ SQL;
         $query = <<<SQL
 
         SELECT * FROM usuarios
+        WHERE DataExclusao IS NULL
         ORDER BY Usuario
 SQL;
         $stmt = $this->conexao->query($query);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function listarPorTipo(string $tipo_usuario): array
+    {
+        $query = <<<SQL
+
+        SELECT * FROM usuarios
+        WHERE DataExclusao IS NULL AND TipoUsuario = :tipo_usuario
+        ORDER BY Usuario
+SQL;
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute(['tipo_usuario' => $tipo_usuario]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

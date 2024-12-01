@@ -59,24 +59,27 @@ if (empty($template['menu_atual'])) {
 
                 <!-- Produtos -->
                 <li class="nav-item">
-                    <a href="#produtosSubmenu" class="nav-link link-dark" data-bs-toggle="collapse">
+                    <a href="#produtosSubmenu" class="nav-link link-dark" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="produtosSubmenu">
                         <i class="bi bi-box me-2"></i> Produtos
                     </a>
-                    <ul class="collapse list-unstyled show" id="produtosSubmenu">
-                        <li>
-                            <a href="admin/cadastro_produto.php"
-                                class="nav-link ms-4 <?= $template['menu_atual'] == 'cadastro_produto' ? 'active' : 'link-dark' ?>">
-                                <i class="bi bi-plus me-2"></i> Novo
-                            </a>
-                        </li>
-                        <li>
-                            <a href="admin/gerenciar_produtos.php"
-                                class="nav-link ms-4 <?= $template['menu_atual'] == 'gerenciar_produtos' ? 'active' : 'link-dark' ?>">
-                                <i class="bi bi-plus me-2"></i> Gerenciar
-                            </a>
-                        </li>
-                    </ul>
+                    <div >
+                        <ul id="produtosSubmenu" class="collapse list-unstyled show">
+                            <li>
+                                <a href="admin/cadastro_produto.php"
+                                    class="nav-link ms-4 <?= $template['menu_atual'] == 'cadastro_produto' ? 'active' : 'link-dark' ?>">
+                                    <i class="bi bi-plus me-2"></i> Novo
+                                </a>
+                            </li>
+                            <li>
+                                <a href="admin/gerenciar_produtos.php"
+                                    class="nav-link ms-4 <?= $template['menu_atual'] == 'gerenciar_produtos' ? 'active' : 'link-dark' ?>">
+                                    <i class="bi bi-plus me-2"></i> Gerenciar
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
+
 
                 <!-- Categorias -->
                 <li class="nav-item">
@@ -112,6 +115,49 @@ if (empty($template['menu_atual'])) {
                         </li>
                     </ul>
                 </li>
+
+                <!-- Clientes -->
+                <li class="nav-item">
+                    <a href="#clientesSubmenu" class="nav-link link-dark" data-bs-toggle="collapse">
+                        <i class="bi bi-person me-2"></i> Clientes
+                    </a>
+                    <ul class="collapse list-unstyled show" id="clientesSubmenu">
+                        <li>
+                            <a href="admin/cadastro_cliente.php"
+                                class="nav-link ms-4 <?= $template['menu_atual'] == 'cadastro_cliente' ? 'active' : 'link-dark' ?>">
+                                <i class="bi bi-plus me-2"></i> Novo
+                            </a>
+                        </li>
+                        <li>
+                            <a href="admin/gerenciar_clientes.php"
+                                class="nav-link ms-4 <?= $template['menu_atual'] == 'gerenciar_clientes' ? 'active' : 'link-dark' ?>">
+                                <i class="bi bi-plus me-2"></i> Gerenciar
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Funcionários -->
+                <li class="nav-item">
+                    <a href="#funcionariosSubmenu" class="nav-link link-dark" data-bs-toggle="collapse">
+                        <i class="bi bi-person me-2"></i> Funcionários
+                    </a>
+                    <ul class="collapse list-unstyled show" id="funcionariosSubmenu">
+                        <li>
+                            <a href="admin/cadastro_funcionario.php"
+                                class="nav-link ms-4 <?= $template['menu_atual'] == 'cadastro_funcionario' ? 'active' : 'link-dark' ?>">
+                                <i class="bi bi-plus me-2"></i> Novo
+                            </a>
+                        </li>
+                        <li>
+                            <a href="admin/gerenciar_funcionarios.php"
+                                class="nav-link ms-4 <?= $template['menu_atual'] == 'gerenciar_funcionarios' ? 'active' : 'link-dark' ?>">
+                                <i class="bi bi-plus me-2"></i> Gerenciar
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
 
             <hr>

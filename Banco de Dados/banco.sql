@@ -73,27 +73,23 @@ INSERT INTO `carrinho` (`IdCarrinho`, `fk_Clientes_IdCliente`) VALUES
 
 CREATE TABLE `usuarios` (
   IdUsuario INT AUTO_INCREMENT PRIMARY KEY,
-  Usuario VARCHAR(50) DEFAULT NULL,
-  Email VARCHAR(100) DEFAULT NULL,
-  Telefone VARCHAR(20) DEFAULT NULL,
+  Usuario VARCHAR(50) NOT NULL,
   Senha VARCHAR(255) NOT NULL,
   DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP(),
   DataExclusao DATETIME DEFAULT NULL,
   TipoUsuario ENUM('cliente', 'funcionario') NOT NULL DEFAULT 'cliente',
-  UNIQUE KEY `idx_usuario` (`Usuario`),
-  UNIQUE KEY `idx_email` (`Email`),
-  UNIQUE KEY `idx_telefone` (`Telefone`)
+  UNIQUE KEY `idx_usuario` (`Usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Usuario padrão, usuario: admin, senha: admin
 INSERT INTO usuarios (IdUsuario, Usuario, Senha, TipoUsuario) VALUES (1, 'admin', '$2y$10$I5cV9q6YCgQkUMPA1e83seoNnpAvlwO4oil84KMACnLfFWPLswnkO', 'funcionario');
 
 -- Usuários dos clientes
-INSERT INTO usuarios (IdUsuario, Usuario, Email, Telefone, Senha) VALUES
-(2, 'joao.silva', 'joao@email.com', '19912345671', '$2y$10$rb8Akhc4NYSl1EZrv3BCNunNewOjM6W.UKBIoeUftwNgNs2LGvaRO'), -- senha: joao123
-(3, 'maria.oliveira', 'maria@email.com', '19912345672', '$2y$10$NTp9CI39LaCvheFVXubL.OG.epk06ugP0Dchdepr7w24O6OAuOvTG'), -- senha: maria123
-(4, 'carlos.souza', 'carlos@email.com', '19912345673', '$2y$10$/tbYKKpuaQ943MErhGir5.VMidwEnb13oljqRGeJgkvXJMUiGr5G.'), -- senha: carlos123
-(5, 'ana.lima', 'ana@email.com', '19912345674', '$2y$10$N560.SNe27hjDZR3.3TE3.ybbu6mdhgmcF.9xXDnm9Wby4KpfGd/K'); -- senha: ana123
+INSERT INTO usuarios (IdUsuario, Usuario, Senha) VALUES
+(2, 'joao.silva', '$2y$10$rb8Akhc4NYSl1EZrv3BCNunNewOjM6W.UKBIoeUftwNgNs2LGvaRO'), -- senha: joao123
+(3, 'maria.oliveira', '$2y$10$NTp9CI39LaCvheFVXubL.OG.epk06ugP0Dchdepr7w24O6OAuOvTG'), -- senha: maria123
+(4, 'carlos.souza', '$2y$10$/tbYKKpuaQ943MErhGir5.VMidwEnb13oljqRGeJgkvXJMUiGr5G.'), -- senha: carlos123
+(5, 'ana.lima', '$2y$10$N560.SNe27hjDZR3.3TE3.ybbu6mdhgmcF.9xXDnm9Wby4KpfGd/K'); -- senha: ana123
 
 
 
@@ -118,11 +114,13 @@ INSERT INTO permissao_usuarios (IdUsuario, Permissao) VALUES (1, 'acesso_admin')
 --
 
 CREATE TABLE `clientes` (
-  `Nome` varchar(150) DEFAULT NULL,
   `IdCliente` int(11) NOT NULL,
-  `Contato` varchar(40) DEFAULT NULL,
+  `Nome` varchar(150) NOT NULL,
+  Email VARCHAR(100) NOT NULL,
+  Telefone VARCHAR(20) NOT NULL,
+  DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP(),
   DataExclusao DATETIME DEFAULT NULL,
-  IdUsuario INT DEFAULT NULL,
+  IdUsuario INT NOT NULL,
   FOREIGN KEY (IdUsuario) REFERENCES usuarios(IdUsuario)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -131,23 +129,25 @@ CREATE TABLE `clientes` (
 -- Despejando dados para a tabela `clientes`
 --
 
-INSERT INTO `clientes` (`Nome`, `IdCliente`, `Contato`, IdUsuario) VALUES
-('João Silva', 1, '19912345678', 2),
-('Maria Oliveira', 2, '19912345678', 3),
-('Carlos Souza', 3, '19912345678', 4),
-('Ana Lima', 4, '19912345678', 5);
+INSERT INTO clientes (IdCliente, Nome, Email, Telefone, IdUsuario) VALUES
+(1, 'João Silva', 'joao@email.com', '19912345671', 2),
+(2, 'Maria Oliveira', 'maria@email.com', '19912345672', 3),
+(3, 'Carlos Souza', 'carlos@email.com', '19912345673', 4),
+(4, 'Ana Lima', 'ana@email.com', '19912345674', 5);
 
 
 --
--- Estrutura para tabela `funcionario`
+-- Estrutura para tabela `funcionarios`
 --
 
-CREATE TABLE `funcionario` (
+CREATE TABLE `funcionarios` (
   `IdFuncionario` INT AUTO_INCREMENT PRIMARY KEY,
-  `Nome` VARCHAR(150) DEFAULT NULL,
-  `Contato` VARCHAR(40) DEFAULT NULL,
+  `Nome` VARCHAR(150) NOT NULL,
+  Email VARCHAR(100) NOT NULL,
+  Telefone VARCHAR(20) NOT NULL,
+  DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP(),
   DataExclusao DATETIME DEFAULT NULL,
-  IdUsuario INT DEFAULT NULL,
+  IdUsuario INT NOT NULL,
   FOREIGN KEY (IdUsuario) REFERENCES usuarios(IdUsuario)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -155,8 +155,8 @@ CREATE TABLE `funcionario` (
 -- Despejando dados para a tabela `funcionarios`
 --
 
-INSERT INTO funcionario (IdFuncionario, Nome, Contato, IdUsuario) VALUES
-(1, 'Administrador', '19912345678', 1);
+INSERT INTO funcionarios (IdFuncionario, Nome, Email, Telefone, IdUsuario) VALUES
+(1, 'Administrador', 'admin@exemplo.com', '19912345678', 1);
 
 
 
@@ -547,6 +547,39 @@ LEFT JOIN promocoes pr
   AND pr.dataexclusao IS NULL
   AND CURDATE() BETWEEN pr.datainicio AND pr.datafim
 WHERE p.dataexclusao IS NULL
+
+$$
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE VIEW VW_USUARIOS_ATIVOS AS
+/* 
+    Esta VIEW combina informações da tabela de usuarios com suas respectivas entidades
+    (funcionarios ou clientes), retornando Nome, Email e Telefone conforme o tipo do usuário.
+*/
+SELECT 
+    u.IdUsuario, /* Identificador único do usuário */
+    u.Usuario, /* Nome de usuário para login */
+    u.Senha, /* Senha criptografada */
+    u.DataCriacao, /* Data de criação do registro */
+    u.DataExclusao AS DataExclusaoUsuario, /* Data de exclusão do usuário */
+    u.TipoUsuario, /* Tipo do usuário: 'funcionario' ou 'cliente' */
+    COALESCE(f.IdFuncionario, c.IdCliente) AS IdPessoa,
+    COALESCE(f.Nome, c.Nome) AS Nome, /* Nome do funcionário ou cliente */
+    COALESCE(f.Email, c.Email) AS Email, /* Email do funcionário ou cliente */
+    COALESCE(f.Telefone, c.Telefone) AS Telefone /* Telefone do funcionário ou cliente */
+FROM 
+    usuarios u
+/* Associação com a tabela de funcionarios, caso o TipoUsuario seja 'funcionario' */
+LEFT JOIN 
+    funcionarios f ON u.IdUsuario = f.IdUsuario AND u.TipoUsuario = 'funcionario' AND f.DataExclusao IS NULL
+/* Associação com a tabela de clientes, caso o TipoUsuario seja 'cliente' */
+LEFT JOIN 
+    clientes c ON u.IdUsuario = c.IdUsuario AND u.TipoUsuario = 'cliente' AND c.DataExclusao IS NULL
+    
+WHERE u.dataexclusao IS NULL AND COALESCE(f.IdFuncionario, c.IdCliente) IS NOT NULL;
 
 $$
 DELIMITER ;

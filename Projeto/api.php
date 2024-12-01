@@ -8,6 +8,8 @@ require_once __DIR__.'/src/class/carrinho/Controller.php';
 require_once __DIR__.'/src/class/categoria/Controller.php';
 require_once __DIR__.'/src/class/promocao/Controller.php';
 require_once __DIR__.'/src/class/usuario/Controller.php';
+require_once __DIR__.'/src/class/cliente/Controller.php';
+require_once __DIR__.'/src/class/funcionario/Controller.php';
 require_once __DIR__.'/src/class/validacao/ValidacaoException.php';
 
 header('Content-Type: application/json');
@@ -22,6 +24,8 @@ try {
     $categoria = new CategoriaController();
     $promocao = new PromocaoController();
     $usuario = new UsuarioController();
+    $cliente = new ClienteController();
+    $funcionario = new FuncionarioController();
     
     $funcao = [
         // Rotas de produto
@@ -55,6 +59,16 @@ try {
         'usuario/cadastrar' => [$usuario, 'cadastrarUsuario'],
         'usuario/atualizar' => [$usuario, 'atualizarUsuario'],
         'usuario/excluir' => [$usuario, 'excluirUsuario'],
+
+         // Rotas de cliente
+         'cliente/cadastrar' => [$cliente, 'cadastrarCliente'],
+         'cliente/atualizar' => [$cliente, 'atualizarCliente'],
+         'cliente/excluir' => [$cliente, 'excluirCliente'],
+
+         // Rotas de funcionario
+         'funcionario/cadastrar' => [$funcionario, 'cadastrarFuncionario'],
+         'funcionario/atualizar' => [$funcionario, 'atualizarFuncionario'],
+         'funcionario/excluir' => [$funcionario, 'excluirFuncionario'],
     ];
     
     if (!isset($funcao[$rota])) {

@@ -66,7 +66,11 @@ class Autentica
         }
 
         session_regenerate_id(true);
-        $_SESSION['usuario'] = array('id' => $row->IdUsuario, 'nome' => $row->Usuario);
+        $_SESSION['usuario'] = array(
+            'id' => $row->IdUsuario, 
+            'nome' => $row->Usuario, 
+            'id_pessoa' => $row->IdPessoa
+        );
     }
 
     
@@ -95,15 +99,25 @@ class Autentica
         if (empty($usuario)) 
         {
             $usuario = $_SESSION['usuario'] ?? false;
-            
-            if ($usuario) 
-            {
-                // Carregar permissões do usuário
-                $query = "SELECT Permissao FROM permissao_usuarios WHERE IdUsuario = :id AND DataExclusao IS NULL";
-                $stmt = $this->conexao->prepare($query);
-                $stmt->execute(['id' => $usuario['id']]);
-                $usuario['permissoes'] = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+
+            if (!$usuario) {
+                return false;
             }
+            
+            // Verificar se usuario é válido
+            $query = "SELECT EXISTS(SELECT 1 FROM VW_USUARIOS_ATIVOS WHERE idusuario = :idusuario LIMIT 1)";
+            $stmt = $this->conexao->prepare($query);
+            $stmt->execute(['idusuario' => $usuario['id']]);
+
+            if ($stmt->fetchColumn() != '1') {
+                return false;
+            }
+            
+            // Carregar permissões do usuário
+            $query = "SELECT Permissao FROM permissao_usuarios WHERE IdUsuario = :id AND DataExclusao IS NULL";
+            $stmt = $this->conexao->prepare($query);
+            $stmt->execute(['id' => $usuario['id']]);
+            $usuario['permissoes'] = $stmt->fetchAll(\PDO::FETCH_COLUMN);
         }
 
         return $usuario;

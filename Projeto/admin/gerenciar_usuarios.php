@@ -2,7 +2,7 @@
 
 $template = array(
     'titulo' =>  'Gerenciar Usuários &mdash; Admin',
-    'scripts' => ['./static/js/admin/usuarios.js'],
+    'scripts' => ['./static/js/admin/gerenciar_usuarios.js'],
     'menu_atual' => 'gerenciar_usuarios',
 );
 
@@ -11,7 +11,7 @@ include __DIR__ . '/../src/template/admin/header.php';
 
 <h2 class="text-center my-4">Gerenciar Usuários</h2>
 
-<div id="alertaUsuario">
+<div id="alertaUsuario" class="mb-3">
     <?php include __DIR__ . '/../src/template/alertas.php'; ?>
 </div>
 

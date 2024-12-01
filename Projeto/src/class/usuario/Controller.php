@@ -21,11 +21,6 @@ class UsuarioController extends BaseController
                 'filter' => FILTER_DEFAULT, 
                 'erro' => 'O nome do usuário é obrigatório e não pode estar em branco.'
             ],
-            'email' => [
-                'filter' => FILTER_VALIDATE_EMAIL, 
-                'erro' => 'O email deve ser um endereço de email válido.',
-                'obrigatorio' => false
-            ],
             'senha' => [
                 'filter' => FILTER_DEFAULT, 
                 'erro' => 'A senha do usuário é obrigatória.'
@@ -33,11 +28,6 @@ class UsuarioController extends BaseController
             'id_permissao' => [
                 'filter' => FILTER_DEFAULT, 
                 'erro' => 'As permissões do usuário são obrigatórias.',
-                'obrigatorio' => false
-            ],
-            'telefone' => [
-                'filter' => FILTER_DEFAULT, 
-                'erro' => 'O telefone do usuário é obrigatório.',
                 'obrigatorio' => false
             ],
             'tipo_usuario' => [
@@ -64,11 +54,6 @@ class UsuarioController extends BaseController
                 'filter' => FILTER_DEFAULT, 
                 'erro' => 'O nome do usuário é obrigatório e não pode estar em branco.'
             ],
-            'email' => [
-                'filter' => FILTER_VALIDATE_EMAIL, 
-                'erro' => 'O email deve ser um endereço de email válido.',
-                'obrigatorio' => false
-            ],
             'senha' => [
                 'filter' => FILTER_DEFAULT, 
                 'erro' => 'A senha do usuário é obrigatória.',
@@ -77,11 +62,6 @@ class UsuarioController extends BaseController
             'id_permissao' => [
                 'filter' => FILTER_DEFAULT, 
                 'erro' => 'As permissões do usuário são obrigatórias.',
-                'obrigatorio' => false
-            ],
-            'telefone' => [
-                'filter' => FILTER_DEFAULT, 
-                'erro' => 'O telefone do usuário é obrigatório.',
                 'obrigatorio' => false
             ],
             'tipo_usuario' => [

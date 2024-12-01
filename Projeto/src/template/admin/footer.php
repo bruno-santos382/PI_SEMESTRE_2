@@ -4,7 +4,7 @@
 
 
 <script src="static/js/main.js"></script>
-<script src="static/lib/bootstrap-5.3.3/js/bootstrap.min.js"></script>
+<!-- <script src="static/lib/bootstrap-5.3.3/js/bootstrap.min.js"></script> -->
 <script src="static/lib/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>
 
 

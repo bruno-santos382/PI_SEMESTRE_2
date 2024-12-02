@@ -23,7 +23,7 @@ const Alerta = {
             
             Alerta.timer = setTimeout(() => {
                 element.firstElementChild.style.maxHeight = '0px';
-            }, 5000)
+            }, 4000)
         }
     },
     erro: (container, mensagem) => Alerta.exibir(container, 'erro', mensagem),

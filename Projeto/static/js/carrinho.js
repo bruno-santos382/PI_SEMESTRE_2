@@ -21,10 +21,10 @@ const Carrinho = {
      * @param {Function} onError Função de erro.
      */
     processarCarrinho: async function (route, event, onSucesso, onErro) {
+        event.preventDefault();
+
         const button = event.currentTarget;
         button.setAttribute('disabled', true);
-        const html = button.innerHTML;
-        button.textContent = 'Carregando...';
 
         try {
             const dadosForm = new FormData();
@@ -36,7 +36,7 @@ const Carrinho = {
 
             const json = await resposta.json();
             if (json.status === 'ok') {
-                onSucesso(button);
+                onSucesso(json.dados);
             } else {
                 onErro(json.mensagem);
             }
@@ -45,7 +45,6 @@ const Carrinho = {
             onErro('Erro ao processar o carrinho.');
         } finally {
             button.removeAttribute('disabled');
-            button.innerHTML = html;
         }
     },
 
@@ -95,9 +94,10 @@ const Carrinho = {
         Carrinho.processarCarrinho(
             'carrinho/remover',
             event,
-            (button) => {
+            () => {
                 Alerta.sucesso('#alertaCarrinho', 'Produto removido com sucesso!');
-                
+
+                const button = event.currentTarget;
                 const cardItem = button.closest('.cart-item');
                 const inputQuantidade = cardItem.querySelector('.input-quantidade');
                 const quantidadeAtual = parseInt(inputQuantidade.value);
@@ -137,9 +137,9 @@ const Carrinho = {
         
         // Atualiza a quantidade, aplicando o incremento
         const quantidadeAtual = parseInt(inputQuantidade.value);
-        if (incremento < 0 && quantidadeAtual <= 0) return; // Impede diminuir a quantidade para valores negativos
+        if (incremento < 0 && quantidadeAtual <= 1) return; // Impede diminuir a quantidade para valores negativos
 
-        const novaQuantidade = quantidadeAtual + incremento;
+        const novaQuantidade = Math.min(quantidadeAtual + incremento, inputQuantidade.max);
         inputQuantidade.value = novaQuantidade;
 
         // Calcula o novo preço total com base na quantidade e no preço unitário
@@ -162,7 +162,52 @@ const Carrinho = {
 
     diminuirQuantidade: function (event) {
         Carrinho.atualizarQuantidade(event, -1);  // Diminui a quantidade
-    }
+    },
+
+    realizarCheckout: async function(event) {
+        // Impede o comportamento padrão do formulário (caso esteja sendo usado)
+        event.preventDefault();
+    
+        // Desabilita o botão de envio para evitar múltiplos cliques
+        const button = event.currentTarget;
+        button.setAttribute('disabled', true);
+    
+        try {
+            // Prepara os dados a serem enviados na requisição
+            const formData = new FormData();
+
+            // Adiciona os dados do formulário ao FormData
+            document.querySelectorAll('.cart-item-selected').forEach((produto, index) => {
+                formData.append(`produtos[${index}][IdProduto]`, produto.dataset.idProduto);
+                formData.append(`produtos[${index}][Quantidade]`, produto.querySelector('.input-quantidade').value);
+            });
+            
+            // Realiza a requisição para o servidor com fetch
+            const response = await fetch('api.php?route=pedido/checkout', {
+                method: 'POST',
+                body: formData
+            });
+    
+            // Converte a resposta em JSON
+            const json = await response.json();
+    
+            // Verifica se a resposta contém a URL para redirecionamento
+            if (json.status === 'ok') {
+                // Redireciona o usuário para a URL fornecida
+                window.location.replace(json.dados.redirecionar_url);
+            } else {
+                // Caso não haja URL, exibe um erro
+                Alerta.erro('#alertaCarrinho', json.mensagem ||'Erro ao processar o checkout.');
+            }
+        } catch (error) {
+            // Exibe o erro caso haja problemas durante a requisição
+            console.error(error);
+            Alerta.erro('#alertaCarrinho', 'Erro ao realizar checkout.');
+        } finally {
+            // Reabilita o botão após a requisição
+            button.removeAttribute('disabled');
+        }
+    }    
 };
 
 document.addEventListener('DOMContentLoaded', () => {

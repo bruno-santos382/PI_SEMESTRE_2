@@ -53,10 +53,12 @@
                     </a>
                 <?php endif ?>
 
-                <a href="carrinho.php" class="icon-text mx-3">
-                    <img src="static/img/compras.png" alt="Carrinho" class="icon-image">
-                    <span>Carrinho</span>
-                </a>
+                <?php if (empty($usuario) || $usuario['tipo'] == 'cliente'): ?>
+                    <a href="carrinho.php" class="icon-text mx-3">
+                        <img src="static/img/compras.png" alt="Carrinho" class="icon-image">
+                        <span>Carrinho</span>
+                    </a>
+                <?php endif; ?>
                 
                 <a href="index.php" class="icon-text mx-3">
                     <img src="static/img/casinha.png" alt="Localização" class="icon-image">
@@ -66,7 +68,7 @@
                 <?php if (!empty($usuario)): ?>
                     <div class="icon-text mx-3">
                         <img src="static/img/login..png" alt="Usuário" class="icon-image">
-                        <span><?= htmlspecialchars($usuario['nome']) ?></span>
+                        <span><?= htmlspecialchars($usuario['usuario']) ?></span>
                     </div>
                 <?php endif; ?>
 

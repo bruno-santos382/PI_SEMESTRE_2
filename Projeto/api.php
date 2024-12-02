@@ -62,21 +62,23 @@ try {
         'usuario/atualizar' => [$usuario, 'atualizarUsuario'],
         'usuario/excluir' => [$usuario, 'excluirUsuario'],
 
-         // Rotas de cliente
-         'cliente/cadastrar' => [$cliente, 'cadastrarCliente'],
-         'cliente/atualizar' => [$cliente, 'atualizarCliente'],
-         'cliente/excluir' => [$cliente, 'excluirCliente'],
+        // Rotas de cliente
+        'cliente/cadastrar' => [$cliente, 'cadastrarCliente'],
+        'cliente/atualizar' => [$cliente, 'atualizarCliente'],
+        'cliente/excluir' => [$cliente, 'excluirCliente'],
 
-         // Rotas de funcionario
-         'funcionario/cadastrar' => [$funcionario, 'cadastrarFuncionario'],
-         'funcionario/atualizar' => [$funcionario, 'atualizarFuncionario'],
-         'funcionario/excluir' => [$funcionario, 'excluirFuncionario'],
+        // Rotas de funcionario
+        'funcionario/cadastrar' => [$funcionario, 'cadastrarFuncionario'],
+        'funcionario/atualizar' => [$funcionario, 'atualizarFuncionario'],
+        'funcionario/excluir' => [$funcionario, 'excluirFuncionario'],
 
          // Rotas de pedido
         'pedido/cadastrar' => [$pedido, 'cadastrarPedido'],
         'pedido/cancelar' => [$pedido, 'cancelarPedido'],
         'pedido/finalizar' => [$pedido, 'finalizarPedido'],
         'pedido/lista_itens' => [$pedido, 'listaItensPedido'],
+        'pedido/checkout' => [$pedido, 'realizarCheckout'],
+        'pedido/confirmar' => [$pedido, 'confirmarPedido'],
     ];
     
     if (!isset($funcao[$rota])) {

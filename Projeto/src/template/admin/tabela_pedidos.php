@@ -6,10 +6,11 @@
         <tr>
             <th scope="col">N° Pedido</th>
             <th scope="col">Cliente</th>
-            <th scope="col">Data Pedido</th>
+            <th scope="col">Data de Entrega Solicitada</th>
             <th scope="col">Data Retirada</th>
-            <th scope="col">Produtos</th>
             <th scope="col">Valor Total</th>
+            <th scope="col">Detalhes</th>
+            <th scope="col">Produtos</th>
 
             <?php if ($template['acoes_pedido']): ?>
                 <th scope="col" style="width: 290px">Ações</th>
@@ -21,8 +22,9 @@
         <?php foreach ($template['pedidos'] as $item): ?>
             <tr data-id-pedido="<?= $item['IdPedido'] ?>">
                 <td><?php echo htmlspecialchars($item['IdPedido']); ?></td>
+
                 <td><?php echo htmlspecialchars($item['ClienteNome']); ?></td>
-                <td><?php echo date('d/m/Y', strtotime($item['DataPedido'])); ?></td>
+                <td><?= empty($item['DataAgendada']) ? '<i class="text-muted">(Retirada no mercado)</i>' : date('d/m/Y', strtotime($item['DataAgendada'])); ?></td>
                 <td>
                     <?php 
                     if (!empty($item['DataRetirada'])) {
@@ -33,6 +35,25 @@
                     ?>
                 </td>
                 <td>
+                    <?php echo 'R$ ' . number_format($item['ValorTotal'], 2, ',', '.'); ?>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-link" 
+                            data-bs-target="#modalDetalhesPedido" 
+                            data-bs-toggle="modal"
+                            data-id-pedido="<?= htmlspecialchars($item['IdPedido'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                            data-data-pedido="<?= htmlspecialchars($item['DataPedido'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                            data-data-agendada="<?= htmlspecialchars($item['DataAgendada'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                            data-endereco-entrega="<?= htmlspecialchars($item['EnderecoEntrega'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                            data-metodo-pagamento="<?= htmlspecialchars($item['MetodoPagamento'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                            data-valor-total="<?= htmlspecialchars($item['ValorTotal'] ?? '0.00', ENT_QUOTES, 'UTF-8') ?>"
+                            data-status="<?= htmlspecialchars($item['Status'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                            onclick="verDetalhesPedido(event)">
+                        Ver detalhes
+                    </button>
+                </td>
+
+                <td>
                     <button type="button" class="btn btn-link" 
                             data-bs-toggle="modal" 
                             data-bs-target="#modalItensPedido" 
@@ -41,9 +62,8 @@
                         Ver itens
                     </button>
                 </td>
-                <td>
-                    <?php echo 'R$ ' . number_format($item['ValorTotal'], 2, ',', '.'); ?>
-                </td>
+               
+                
                 <?php if ($template['acoes_pedido']): ?>
                     <td>
                         <button type="button" class="btn btn-sm btn-warning" onclick="editarPedido(event)" 

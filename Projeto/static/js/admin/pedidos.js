@@ -254,6 +254,36 @@ async function verItensPedido(event) {
     }
 }
 
+function verDetalhesPedido(event) {
+    // Obtém o botão que disparou o evento
+    const button = event.currentTarget;
+    
+    // Acessa os dados via atributos data-*
+    const idPedido = button.getAttribute('data-id-pedido');
+    const dataPedido = button.getAttribute('data-data-pedido');
+    const dataAgendada = button.getAttribute('data-data-agendada');
+    const enderecoEntrega = button.getAttribute('data-endereco-entrega');
+    const metodoPagamento = button.getAttribute('data-metodo-pagamento');
+    const valorTotal = button.getAttribute('data-valor-total');
+    const statusPedido = button.getAttribute('data-status');
+    
+    // Preenche os campos do modal com os dados
+    document.getElementById('detalhePedidoId').textContent = idPedido;
+    document.getElementById('detalheDataPedido').textContent = new Date(dataPedido).toLocaleDateString();
+    document.getElementById('detalheDataAgendada').textContent = dataAgendada ? new Date(dataAgendada).toLocaleDateString() : 'Retirada no mercado';
+    document.getElementById('detalheEnderecoEntrega').textContent = enderecoEntrega || 'Não informado';
+    document.getElementById('detalheValorTotal').textContent = parseFloat(valorTotal).toFixed(2);
+    document.getElementById('detalheStatusPedido').textContent = statusPedido;
+
+    const descricaoMetodoPagamento = {
+        'Cartao': 'Pagamento com Cartão',
+        'Pix': 'Pagamento via Pix',
+        'Dinheiro': 'Pagamento em Dinheiro',
+    };
+    document.getElementById('detalheMetodoPagamento').textContent = descricaoMetodoPagamento[metodoPagamento] || 'Não informado';
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const formCadastro = document.getElementById('formCadastro')
     formCadastro.addEventListener('submit', cadastrarPedido);

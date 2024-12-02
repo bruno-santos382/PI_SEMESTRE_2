@@ -1,4 +1,17 @@
-<!-- Homepage do site -->
+<!-- Página de Carrinho -->
+<?php
+
+// Apenas clientes podem acessar
+require_once __DIR__.'/src/class/autenticacao/Autentica.php';
+$autentica = new Autentica();
+$usuario = $autentica->usuarioLogado();
+if ($usuario && $usuario['tipo'] !== 'cliente') {
+    header('Location: index.php');
+    exit;
+}
+
+?>
+
 <?php
 
 $template = array(
@@ -54,10 +67,10 @@ include __DIR__ . '/src/template/header.php';
                         <strong>Ação</strong>
                     </div>
                 </div>
+                
                 <!-- Exibição dos itens do carrinho -->
-                <?php foreach ($produtos as $item): ?>
-            
-                    <div class="cart-item d-grid justify-content-between align-items-center py-2 border-bottom" class="d-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr 1fr;">
+                <?php foreach (array_filter($produtos, fn($item) => $item['Estoque'] > 0) as $item): ?>
+                    <div data-id-produto="<?= $item['IdProduto'] ?>" class="cart-item cart-item-selected d-grid justify-content-between align-items-center py-2 border-bottom" class="d-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr 1fr;">
                         <div class="d-flex align-items-center">
                             <!-- Imagem do produto -->
                             <img src="<?= $item['Imagem'] ?? 'static/img/galeria.png' ?>" alt="<?= $item['Nome'] ?>" class="img-fluid" style="width: 60px; height: 60px;">
@@ -68,27 +81,30 @@ include __DIR__ . '/src/template/header.php';
                             </div>
                         </div>
                         <!-- Quantidade -->
-                        <div class="quantity d-flex align-items-center">
-                            <button
-                                type="button"
-                                class="btn btn-sm btn-success me-2"
-                                title="Diminuir quantidade"
-                                data-preco-unitario="<?= $item['PrecoComDesconto'] ?? $item['Preco'] ?>"
-                                data-id-produto="<?= $item['IdProduto'] ?>"
-                                onclick="Carrinho.diminuirQuantidade(event)" >
-                                <i class="bi bi-dash h6"></i>
-                            </button>
-                            <input type="number" value="<?= $item['Quantidade'] ?>" class="form-control form-control-sm input-quantidade" style="width: 50px;" readonly>
-            
-                            <button
-                                type="button"
-                                class="btn btn-sm btn-success ms-2"
-                                title="Diminuir quantidade"
-                                data-preco-unitario="<?= $item['PrecoComDesconto'] ?? $item['Preco'] ?>"
-                                data-id-produto="<?= $item['IdProduto'] ?>"
-                                onclick="Carrinho.aumentarQuantidade(event)" >
-                                <i class="bi bi-plus h6"></i>
-                            </button>
+                        <div class="text-center">
+                            <div class="d-flex align-items-center">
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-success me-2"
+                                    title="Diminuir quantidade"
+                                    data-preco-unitario="<?= $item['PrecoComDesconto'] ?? $item['Preco'] ?>"
+                                    data-id-produto="<?= $item['IdProduto'] ?>"
+                                    onclick="Carrinho.diminuirQuantidade(event)" >
+                                    <i class="bi bi-dash h6"></i>
+                                </button>
+                                <input type="number" value="<?= $item['Quantidade'] ?>" class="form-control form-control-sm input-quantidade" style="width: 50px;" max="<?= $item['Estoque'] ?>" readonly>
+                
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-success ms-2"
+                                    title="Diminuir quantidade"
+                                    data-preco-unitario="<?= $item['PrecoComDesconto'] ?? $item['Preco'] ?>"
+                                    data-id-produto="<?= $item['IdProduto'] ?>"
+                                    onclick="Carrinho.aumentarQuantidade(event)" >
+                                    <i class="bi bi-plus h6"></i>
+                                </button>
+                            </div>
+                            <small class="text-muted">Estoque: <?= $item['Estoque'] ?></small>
                         </div>
                         <!-- Preço unitário -->
                         <div class="text-center">
@@ -117,14 +133,59 @@ include __DIR__ . '/src/template/header.php';
                         </div>
                     </div>
                 <?php endforeach; ?>
+
+
+                <!-- Exibição dos itens fora do estoque -->
+                <?php foreach (array_filter($produtos, fn($item) => $item['Estoque'] < 1) as $item): ?>
+            
+                    <div class="cart-item d-grid justify-content-between align-items-center py-2 border-bottom" class="d-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr 1fr;">
+                        <div class="d-flex align-items-center">
+                            <!-- Imagem do produto -->
+                            <img src="<?= $item['Imagem'] ?? 'static/img/galeria.png' ?>" alt="<?= $item['Nome'] ?>" class="img-fluid" style="width: 60px; height: 60px;">
+                            <div class="ms-3">
+                                <!-- Nome do produto -->
+                                <h5 class="mb-0"><?= $item['Nome'] ?></h5>
+                                <small class="text-muted"><?= $item['Marca'] ?></small>
+                            </div>
+                        </div>
+
+                        <!-- Quantidade -->
+                        <div class="text-center">
+                            <span class="badge bg-danger">Fora de Estoque</span>
+                        </div>
+
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+
+                        <!-- Remover produto -->
+                        <div class="text-center justify-self-end ">
+                            <button
+                                class="btn btn-sm btn-danger"
+                                data-id-produto="<?= $item['IdProduto'] ?>"
+                                data-preco-unitario="<?= $item['PrecoComDesconto'] ?? $item['Preco'] ?>"
+                                onclick="Carrinho.removerProduto(event)" >
+                                <i class="bi bi-trash-fill"></i> Remover
+                            </button>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
+
+            <hr>
+            
             <!-- Total do Carrinho -->
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <h4>Total:</h4>
                 <h4 data-valor-total="<?= $valor_total ?>" class="total-compra">R$ <?= number_format($valor_total, 2, ',', '.') ?></h4>
             </div>
-            <!-- Botão de esvaziar o carrinho -->
-            <button type="button" class="btn btn-danger mt-3" style="width: 150px;" onclick="Carrinho.esvaziarCarrinho(event)">Esvaziar Carrinho</button>
+
+            <div class="text-center">
+                <!-- Botão realizar pedido -->
+                <button type="button" onclick="Carrinho.realizarCheckout(event)" class="btn btn-success mt-3" style="width: 150px;">Realizar pedido</button>
+
+                <!-- Botão de esvaziar o carrinho -->
+                <button type="button" class="btn btn-danger mt-3" style="width: 150px;" onclick="Carrinho.esvaziarCarrinho(event)">Esvaziar Carrinho</button>
+            </div>
         </div>
     <?php endif; ?>
 </div>

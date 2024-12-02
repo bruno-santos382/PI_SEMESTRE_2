@@ -133,5 +133,6 @@ include __DIR__ . '/../src/template/admin/header.php';
     </div>
 </div>
 
+<?php include __DIR__ . '/../src/template/admin/modal_detalhes_pedido.php'; ?>
 <?php include __DIR__ . '/../src/template/admin/modal_lista_itens_pedido.php'; ?>
 <?php include __DIR__ . '/../src/template/admin/footer.php'; ?>

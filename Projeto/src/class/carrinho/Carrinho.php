@@ -56,7 +56,7 @@ class Carrinho
         unset($_SESSION['carrinho']);
     }
 
-    public function obterItens(): array
+    public function obterItens(bool $inluir_sem_estoque = true): array
     {        
         $produtos = $_SESSION['carrinho'] ?? [];
 
@@ -72,16 +72,14 @@ class Carrinho
         WITH carrinho(idproduto, quantidade) AS (VALUES $placeholders)
         SELECT 
             p.*, 
-            img.caminho AS Imagem, 
-            c.quantidade AS Quantidade, 
-            (COALESCE(p.PrecoComDesconto, p.Preco) * c.quantidade) AS PrecoTotal
-        FROM 
-            carrinho c
-        JOIN 
-            VW_PRODUTOS_ATIVOS p ON p.idproduto = c.idproduto
-        LEFT JOIN 
-            imagens img ON img.idimagem = p.idimagem;
+            LEAST(p.estoque, c.quantidade) AS Quantidade,
+            (COALESCE(p.PrecoComDesconto, p.Preco) * LEAST(p.estoque, c.quantidade)) AS PrecoTotal
+        FROM carrinho c
+        JOIN VW_PRODUTOS_ATIVOS p ON p.idproduto = c.idproduto
 SQL;
+        if (!$inluir_sem_estoque) {
+            $query .= " WHERE p.Estoque > 0";
+        }
 
         // Preparar a consulta
         $stmt = $this->conexao->prepare($query);

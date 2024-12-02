@@ -353,10 +353,13 @@ INSERT INTO promocoes (IdProduto, DataInicio, DataFim, Desconto) VALUES
 --
 
 CREATE TABLE `pedidos` (
-  `IdPedido` int(11) NOT NULL,
+  `IdPedido` int(11) NOT NULL AUTO_INCREMENT,
   `DataPedido` DATETIME DEFAULT CURRENT_TIMESTAMP(),
   `DataRetirada` DATETIME DEFAULT NULL,
   DataExclusao DATETIME DEFAULT NULL,
+  DataAgendada DATETIME DEFAULT NULL,
+  EnderecoEntrega VARCHAR(255) DEFAULT NULL,
+  MetodoPagamento ENUM('Cartao', 'Pix', 'Dinheiro') DEFAULT NULL,
   `ValorTotal` DECIMAL(10,2) NOT NULL,
   `Status` ENUM('Em Andamento', 'Finalizado', 'Cancelado') DEFAULT 'Em Andamento',
   `IdCliente` int(11) NOT NULL,
@@ -368,11 +371,11 @@ CREATE TABLE `pedidos` (
 -- Despejando dados para a tabela `pedidos`
 --
 
-INSERT INTO `pedidos` (`IdPedido`, `DataPedido`, `DataRetirada`, `ValorTotal`, `Status`, `IdCliente`) VALUES
-(1, '2024-10-10', '2024-10-12', 45, 'Finalizado', 1),
-(2, '2024-10-15', '2024-10-16', 20, 'Finalizado', 2),
-(3, '2024-10-20', NULL, 33.5, 'Cancelado', 3),
-(4, '2024-10-25', NULL, 10, 'Em Andamento', 1);
+INSERT INTO `pedidos` (`IdPedido`, `DataPedido`, `DataRetirada`, `ValorTotal`, `Status`, `IdCliente`, `DataAgendada`) VALUES
+(1, '2024-10-10', '2024-10-12', 45, 'Finalizado', 1, '2024-10-15'),
+(2, '2024-10-15', '2024-10-16', 20, 'Finalizado', 2, '2024-10-15'),
+(3, '2024-10-20', NULL, 33.5, 'Cancelado', 3, '2024-10-15'),
+(4, '2024-10-25', NULL, 10, 'Em Andamento', 1, '2024-10-15');
 
 -- --------------------------------------------------------
 
@@ -566,14 +569,9 @@ DELIMITER $$
 -- Criação da view para pedidos dos clientes
 CREATE VIEW VW_PEDIDOS_CLIENTE AS
 SELECT 
-    p.IdPedido, 
+    p.*, 
     c.Nome AS ClienteNome,
-    c.Email AS ClienteEmail,
-    p.IdCliente,
-    p.DataPedido, 
-    p.DataRetirada, 
-    p.ValorTotal,
-    p.Status
+    c.Email AS ClienteEmail
 FROM pedidos p
 JOIN clientes c ON p.IdCliente = c.IdCliente
 WHERE p.DataExclusao IS NULL

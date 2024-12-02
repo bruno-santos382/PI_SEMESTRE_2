@@ -68,8 +68,12 @@ class Autentica
         session_regenerate_id(true);
         $_SESSION['usuario'] = array(
             'id' => $row->IdUsuario, 
-            'nome' => $row->Usuario, 
-            'id_pessoa' => $row->IdPessoa
+            'usuario' => $row->Usuario, 
+            'id_pessoa' => $row->IdPessoa,
+            'nome' => $row->Nome,
+            'email' => $row->Email,
+            'telefone' => $row->Telefone,
+            'tipo' => $row->TipoUsuario
         );
     }
 

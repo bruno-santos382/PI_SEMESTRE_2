@@ -20,20 +20,20 @@ async function efetuarLogin(event) {
             throw new Error('Falha ao enviar o formulário');  // Falha ao processar
         }
 
-        const dados = await resposta.json(); // Faz o parsing da resposta
+        const json = await resposta.json(); // Faz o parsing da resposta
 
-        if (dados.status === 'ok') {
+        if (json.status === 'ok') {
             Alerta.sucesso('#alertaLogin', 'Login efetuado com sucesso!');
             submitButton.textContent = 'Entrar';
 
             setTimeout(function() {
-                window.location.href = 'index.php'; // Redireciona em caso de sucesso depois de um intervalo
+                window.location.href = json.dados.url_redirecionamento; // Redireciona em caso de sucesso depois de um intervalo
             }, 1000)
 
             return;
         } 
     
-        Alerta.erro('#alertaLogin', dados.mensagem || 'Falha no login'); // Caso contrário, exibe mensagem de erro
+        Alerta.erro('#alertaLogin', json.mensagem || 'Falha no login'); // Caso contrário, exibe mensagem de erro
     } catch (error) {
         console.error('#alertaLogin', 'Erro ao efetuar login:', error); // Loga o erro
         Alerta.erro('#alertaLogin', 'Ocorreu um erro inesperado.'); // Mensagem genérica de erro

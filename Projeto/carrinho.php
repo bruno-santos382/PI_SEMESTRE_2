@@ -1,17 +1,4 @@
-<!-- Página de Carrinho -->
-<?php
-
-// Apenas clientes podem acessar
-require_once __DIR__.'/src/class/autenticacao/Autentica.php';
-$autentica = new Autentica();
-$usuario = $autentica->usuarioLogado();
-if ($usuario && $usuario['tipo'] !== 'cliente') {
-    header('Location: index.php');
-    exit;
-}
-
-?>
-
+<!-- Página do Carrinho -->
 <?php
 
 $template = array(

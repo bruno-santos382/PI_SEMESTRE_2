@@ -23,8 +23,8 @@ class Cliente
     
         // Insere o novo cliente
         $query = <<<SQL
-            INSERT INTO clientes (nome, email, telefone, idusuario) 
-            VALUES (:nome, :email, :telefone, :idusuario);
+            INSERT INTO pessoas (nome, email, telefone, idusuario, tipo) 
+            VALUES (:nome, :email, :telefone, :idusuario, 'cliente');
 SQL;
         $stmt = $this->conexao->prepare($query);
         $stmt->execute([
@@ -52,7 +52,7 @@ SQL;
     
         // Atualiza o cliente
         $query = <<<SQL
-            UPDATE clientes 
+            UPDATE pessoas 
                SET nome = :nome,
                    email = :email,
                    telefone = :telefone,
@@ -69,7 +69,7 @@ SQL;
         ];
     
         // Finaliza a consulta com a cláusula WHERE
-        $query .= " WHERE idcliente = :id";
+        $query .= " WHERE IdPessoa = :id";
     
         // Executa a atualização no banco de dados
         $stmt = $this->conexao->prepare($query);
@@ -78,11 +78,11 @@ SQL;
     
     private function verificarDuplicidade(string $campo, string $valor, int $cliente_id = null, string $mensagem_erro): void {
         // Preparar a consulta base
-        $query = "SELECT idcliente FROM clientes WHERE {$campo} = :valor";
+        $query = "SELECT IdPessoa from pessoas WHERE {$campo} = :valor";
     
         // Excluir o cliente atual da verificação se for uma atualização
         if ($cliente_id) {
-            $query .= " AND idcliente != :id";
+            $query .= " AND IdPessoa != :id";
         }
     
         // Preparar e executar a declaração
@@ -110,7 +110,7 @@ SQL;
         $query = <<<SQL
             UPDATE clientes
             SET DataExclusao = CURRENT_TIMESTAMP()
-            WHERE idcliente = :id
+            WHERE IdPessoa = :id
 SQL;
         $stmt = $this->conexao->prepare($query);
         $stmt->execute([
@@ -122,8 +122,8 @@ SQL;
     {
         $query = <<<SQL
 
-        SELECT * FROM clientes
-        WHERE idcliente = :id
+        SELECT * from pessoas
+        WHERE IdPessoa = :id
 SQL;
         $stmt = $this->conexao->prepare($query);
         $stmt->execute([
@@ -137,7 +137,7 @@ SQL;
         $query = <<<SQL
 
         SELECT c.*, u.Usuario
-        FROM clientes c
+        from pessoas c
         JOIN usuarios u ON u.idusuario = c.idusuario AND u.DataExclusao IS NULL
         WHERE c.DataExclusao IS NULL
         ORDER BY c.nome

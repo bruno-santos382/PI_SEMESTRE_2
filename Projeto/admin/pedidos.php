@@ -38,7 +38,7 @@ include __DIR__ . '/../src/template/admin/header.php';
 				<option value="">Selecione um cliente</option>
 
 				<?php foreach ($cliente->listarTudo() as $item): ?>
-					<option value="<?= $item['IdCliente'] ?>"><?= $item['Nome'] ?></option>
+					<option value="<?= $item['IdPessoa'] ?>"><?= $item['Nome'] ?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>

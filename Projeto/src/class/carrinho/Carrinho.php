@@ -56,7 +56,7 @@ class Carrinho
         unset($_SESSION['carrinho']);
     }
 
-    public function obterItens(bool $inluir_sem_estoque = true): array
+    public function obterItens(): array
     {        
         $produtos = $_SESSION['carrinho'] ?? [];
 
@@ -77,9 +77,6 @@ class Carrinho
         FROM carrinho c
         JOIN VW_PRODUTOS_ATIVOS p ON p.idproduto = c.idproduto
 SQL;
-        if (!$inluir_sem_estoque) {
-            $query .= " WHERE p.Estoque > 0";
-        }
 
         // Preparar a consulta
         $stmt = $this->conexao->prepare($query);

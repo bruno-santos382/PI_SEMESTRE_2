@@ -27,8 +27,8 @@ class Funcionario
 	
 		// Insere o novo funcionário
 		$query = <<<SQL
-			INSERT INTO funcionarios (nome, email, telefone, idusuario) 
-			VALUES (:nome, :email, :telefone, :idusuario);
+			INSERT INTO funcionarios (nome, email, telefone, idusuario, tipo) 
+			VALUES (:nome, :email, :telefone, :idusuario, 'funcionario');
 SQL;
 		$stmt = $this->conexao->prepare($query);
 		$stmt->execute([
@@ -73,7 +73,7 @@ SQL;
 		];
 	
 		// Finaliza a consulta com a cláusula WHERE
-		$query .= " WHERE idfuncionario = :id";
+		$query .= " WHERE idpessoa = :id";
 	
 		// Executa a atualização no banco de dados
 		$stmt = $this->conexao->prepare($query);
@@ -82,11 +82,11 @@ SQL;
 	
 	private function verificarDuplicidade(string $campo, string $valor, int $funcionario_id = null, string $mensagem_erro): void {
 		// Preparar a consulta base
-		$query = "SELECT idfuncionario FROM funcionarios WHERE {$campo} = :valor";
+		$query = "SELECT idpessoa from pessoas WHERE {$campo} = :valor";
 	
 		// Excluir o funcionário atual da verificação se for uma atualização
 		if ($funcionario_id) {
-			$query .= " AND idfuncionario != :id";
+			$query .= " AND idpessoa != :id";
 		}
 	
 		// Preparar e executar a declaração
@@ -115,7 +115,7 @@ SQL;
 		$query = <<<SQL
 			UPDATE funcionarios
 			SET DataExclusao = CURRENT_TIMESTAMP()
-			WHERE idfuncionario = :id
+			WHERE idpessoa = :id
 SQL;
 		
 		// Executa a exclusão no banco de dados
@@ -134,8 +134,8 @@ SQL;
 		// Busca um funcionário pelo ID
 		$query = <<<SQL
 
-		SELECT * FROM funcionarios
-		WHERE idfuncionario = :id AND DataExclusao IS NULL
+		SELECT * from pessoas
+		WHERE idpessoa = :id AND DataExclusao IS NULL
 SQL;
 		
 		// Prepara e executa a consulta
@@ -153,7 +153,7 @@ SQL;
 		$query = <<<SQL
 
 		SELECT f.*, u.Usuario 
-		FROM funcionarios f 
+		from pessoas f 
 		JOIN usuarios u ON u.idusuario = f.idusuario AND u.DataExclusao IS NULL 
 		WHERE f.DataExclusao IS NULL 
 		ORDER BY f.nome

@@ -1,16 +1,16 @@
 <!-- Página de Checkout -->
-
 <?php
+    // Veriificar se o usuário esta logado
+    require_once __DIR__ . '/src/class/autenticacao/Autentica.php';
+    
+    $autentica = new Autentica();
+    $usuario = $autentica->usuarioLogado();
 
-// Apenas clientes podem acessar
-require_once __DIR__.'/src/class/autenticacao/Autentica.php';
-$autentica = new Autentica();
-$usuario = $autentica->usuarioLogado();
-if ($usuario && $usuario['tipo'] !== 'cliente') {
-    header('Location: index.php');
-    exit;
-}
-
+    if (!$usuario) {
+        $_SESSION['redirecionar_apos_login'] = 'checkout.php';
+        header('Location: /login.php');
+        exit;
+    }
 ?>
 
 <?php

@@ -16,7 +16,7 @@ $usuario = $autentica->usuarioLogado();
 $pedido_obj = new Pedido();
 $pedido = $pedido_obj->buscaPorId($pedido_id);
 
-if (!$usuario || $pedido['IdCliente'] !== $usuario['id_pessoa']) {
+if (!$usuario || $pedido['IdPessoa'] !== $usuario['id_pessoa']) {
     header('Location: index.php');
     exit;
 }

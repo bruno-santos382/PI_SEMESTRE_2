@@ -20,7 +20,7 @@ include __DIR__ . '/../src/template/admin/header.php';
 
         $nome = null;
         $senha = null;
-        $tipo_usuario = null;
+        $permissoes_usuario = [];
         
         if (!empty($id)) 
         {
@@ -31,7 +31,7 @@ include __DIR__ . '/../src/template/admin/header.php';
             if ($usuario) {
                 $nome = $usuario['Usuario'];
                 $senha = $usuario['Senha'];
-                $tipo_usuario = $usuario['TipoUsuario'];
+                $permissoes_usuario = $usuario['permissoes'];
             } else {
                 $id = null;
             }
@@ -58,15 +58,33 @@ include __DIR__ . '/../src/template/admin/header.php';
             <?php endif; ?>
         </div>
 
-        <!-- Tipo de Usuário -->
-        <div class="mb-3">
-            <label for="tipo_usuario" class="form-label fw-bold text-muted">Tipo de Usuário:</label>
-            <select name="tipo_usuario" id="tipo_usuario" class="form-select" required>
-                <option value="" disabled selected>Selecione o tipo de usuário</option>
-                <option value="cliente" <?= $tipo_usuario === 'cliente' ? 'selected' : '' ?>>Cliente</option>
-                <option value="funcionario" <?= $tipo_usuario === 'funcionario' ? 'selected' : '' ?>>Funcionário</option>
-            </select>
+        <?php
+            // Permissões disponíveis
+            $todas_permissoes = [
+                'acesso_admin' => 'Acesso ao painel de administração',
+            ];
+        ?>
+
+         <!-- Permissões -->
+         <div class="mb-3">
+            <label class="form-label fw-bold text-muted">Permissões:</label>
+            <div class="border rounded p-3">
+                <?php foreach ($todas_permissoes as $chave => $descricao): ?>
+                    <div class="form-check">
+                        <input 
+                            type="checkbox" 
+                            class="form-check-input" 
+                            id="permissao_<?= $chave ?>" 
+                            name="permissoes[]" 
+                            value="<?= $chave ?>"
+                            <?= in_array($chave, $permissoes_usuario) ? 'checked' : '' ?>
+                        >
+                        <label for="permissao_<?= $chave ?>" class="form-check-label"><?= $descricao ?></label>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
+
 
         <!-- Botão de Cadastrar -->
         <div class="d-grid">

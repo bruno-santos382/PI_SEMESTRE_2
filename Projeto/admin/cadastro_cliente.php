@@ -43,7 +43,7 @@ include __DIR__ . '/../src/template/admin/header.php';
         // Buscando usuários para preencher o select
         require __DIR__.'/../src/class/usuario/Usuario.php';
         $usuario_obj = new Usuario();
-        $usuarios = $usuario_obj->listarPorTipo('cliente'); // Método que deve retornar todos os usuários
+        $usuarios = $usuario_obj->listarTudo(); // Método que deve retornar todos os usuários
     ?>
 
     <form id="formCadastro" class="mb-3" action="" method="POST">

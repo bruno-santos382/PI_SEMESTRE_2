@@ -19,6 +19,11 @@ async function cadastrarUsuario(event) {
 
         const json = await resposta.json();
         if (json.status === 'ok') {
+            if (json.dados.url_redirecionamento) {
+                window.location.replace(json.dados.url_redirecionamento);
+                return;
+            }
+
             const mensagem = atualizar ? 
                 'Usuário atualizado com sucesso!' : 
                 'Usuário cadastrado com sucesso!';

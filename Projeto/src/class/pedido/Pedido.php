@@ -26,7 +26,7 @@ class Pedido
         string $data_retirada = null,
         int $id = null
     ): array {
-        $query = 'INSERT INTO pedidos (IdCliente, DataPedido, DataRetirada, ValorTotal) 
+        $query = 'INSERT INTO pedidos (IdPessoa, DataPedido, DataRetirada, ValorTotal) 
                   VALUES (:cliente, :data_pedido, :data_retirada, :valor_total)';
         $params = [
             'cliente' => $cliente,
@@ -37,7 +37,7 @@ class Pedido
     
         if (!empty($id)) {
             $query = 'UPDATE pedidos 
-                      SET IdCliente = :cliente, 
+                      SET IdPessoa = :cliente, 
                           DataPedido = :data_pedido, 
                           DataRetirada = :data_retirada, 
                           ValorTotal = :valor_total 
@@ -56,6 +56,7 @@ class Pedido
     }
     
     public function cancelar(int $id): array {
+        // Cancela o pedido
         $query = <<<SQL
 
         UPDATE pedidos
@@ -64,6 +65,17 @@ class Pedido
 SQL;
         $stmt = $this->conexao->prepare($query);
         $stmt->execute(['id' => $id]);
+
+        // Restaura o estoque
+        $query = <<<SQL
+
+        UPDATE produtos p
+        JOIN pedido_produtos pp ON p.IdProduto = pp.IdProduto
+        SET p.Estoque = p.Estoque + pp.Quantidade
+        WHERE pp.IdPedido = :idpedido;
+SQL;
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute(['idpedido' => $id]);
 
         return $this->buscaPorId($id);
     }
@@ -112,7 +124,7 @@ SQL;
         // Criar pedido
         $sql = <<<SQL
 
-        INSERT INTO pedidos (IdCliente, MetodoPagamento, ValorTotal, EnderecoEntrega, DataAgendada)
+        INSERT INTO pedidos (IdPessoa, MetodoPagamento, ValorTotal, EnderecoEntrega, DataAgendada)
         VALUES (:id_cliente, :metodo_pagamento, :total, :endereco, :data_entrega)
 SQL;
 
@@ -133,7 +145,6 @@ SQL;
         INSERT INTO pedido_produtos (IdPedido, IdProduto, Quantidade, PrecoUnitario)
         VALUES (:id_pedido, :id_produto, :quantidade, :preco_unitario)
 SQL;
-
         $stmt = $this->conexao->prepare($sql);
         foreach ($produtos as $produto) {
             $stmt->execute([
@@ -141,6 +152,24 @@ SQL;
                 'id_produto' => $produto['IdProduto'],
                 'quantidade' => $produto['Quantidade'],
                 'preco_unitario' => $produto['Preco']
+            ]);
+        }
+
+
+        // Atualizar estoque
+        $sql = <<<SQL
+        
+        UPDATE produtos
+        SET Estoque = Estoque - :quantidade
+        WHERE IdProduto = :id_produto
+SQL;
+        $stmt = $this->conexao->prepare($sql);
+
+        foreach ($produtos as $produto) {
+         
+            $stmt->execute([
+                'quantidade' => $produto['Quantidade'],
+                'id_produto' => $produto['IdProduto']
             ]);
         }
 

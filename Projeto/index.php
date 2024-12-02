@@ -93,7 +93,7 @@ include __DIR__ . '/src/template/header.php';
             <?php
                 require_once __DIR__.'/src/class/promocao/Promocao.php';
                 $promocao = new Promocao();
-                $promocoes = $promocao->listarPromocoesSeemana();
+                $promocoes = $promocao->listarPromocoesSemana();
             ?>
 
             <?php foreach ($promocoes as $promocao): ?>

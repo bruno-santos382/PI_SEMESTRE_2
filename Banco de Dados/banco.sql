@@ -58,12 +58,11 @@ CREATE TABLE `usuarios` (
   Senha VARCHAR(255) NOT NULL,
   DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP(),
   DataExclusao DATETIME DEFAULT NULL,
-  TipoUsuario ENUM('cliente', 'funcionario') NOT NULL DEFAULT 'cliente',
   UNIQUE KEY `idx_usuario` (`Usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Usuario padrão, usuario: admin, senha: admin
-INSERT INTO usuarios (IdUsuario, Usuario, Senha, TipoUsuario) VALUES (1, 'admin', '$2y$10$I5cV9q6YCgQkUMPA1e83seoNnpAvlwO4oil84KMACnLfFWPLswnkO', 'funcionario');
+-- Usuario administrador padrão, usuario: admin, senha: admin
+INSERT INTO usuarios (IdUsuario, Usuario, Senha) VALUES (1, 'admin', '$2y$10$I5cV9q6YCgQkUMPA1e83seoNnpAvlwO4oil84KMACnLfFWPLswnkO');
 
 -- Usuários dos clientes
 INSERT INTO usuarios (IdUsuario, Usuario, Senha) VALUES
@@ -87,58 +86,45 @@ CREATE TABLE `permissao_usuarios` (
   FOREIGN KEY (IdUsuario) REFERENCES usuarios(IdUsuario) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Permissão do usuário 'admin'
 INSERT INTO permissao_usuarios (IdUsuario, Permissao) VALUES (1, 'acesso_admin');
 
 
 --
--- Estrutura para tabela `clientes`
+-- Estrutura para tabela `pessoas`
 --
 
-CREATE TABLE `clientes` (
-  `IdCliente` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pessoas` (
+  `IdPessoa` int(11) NOT NULL AUTO_INCREMENT,
   `Nome` varchar(150) NOT NULL,
   Email VARCHAR(100) NOT NULL,
   Telefone VARCHAR(20) NOT NULL,
   DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `Tipo` ENUM('funcionario', 'cliente') NOT NULL,
   DataExclusao DATETIME DEFAULT NULL,
   IdUsuario INT NOT NULL,
-  PRIMARY KEY (IdCliente),
+  PRIMARY KEY (IdPessoa),
   FOREIGN KEY (IdUsuario) REFERENCES usuarios(IdUsuario)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 --
--- Despejando dados para a tabela `clientes`
+-- Inserir pessoas na tabela `pessoas`
 --
 
-INSERT INTO clientes (IdCliente, Nome, Email, Telefone, IdUsuario) VALUES
-(1, 'João Silva', 'joao@email.com', '19912345671', 2),
-(2, 'Maria Oliveira', 'maria@email.com', '19912345672', 3),
-(3, 'Carlos Souza', 'carlos@email.com', '19912345673', 4),
-(4, 'Ana Lima', 'ana@email.com', '19912345674', 5);
+INSERT INTO pessoas (IdPessoa, Nome, Email, Telefone, IdUsuario, Tipo) VALUES
+(2, 'João Silva', 'joao@email.com', '19912345671', 2, 'cliente'),
+(3, 'Maria Oliveira', 'maria@email.com', '19912345672', 3, 'cliente'),
+(4, 'Carlos Souza', 'carlos@email.com', '19912345673', 4, 'cliente'),
+(5, 'Ana Lima', 'ana@email.com', '19912345674', 5, 'cliente');
 
 
 --
--- Estrutura para tabela `funcionarios`
+-- Inserir funcionários na tabela `pessoas`
 --
 
-CREATE TABLE `funcionarios` (
-  `IdFuncionario` INT AUTO_INCREMENT PRIMARY KEY,
-  `Nome` VARCHAR(150) NOT NULL,
-  Email VARCHAR(100) NOT NULL,
-  Telefone VARCHAR(20) NOT NULL,
-  DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP(),
-  DataExclusao DATETIME DEFAULT NULL,
-  IdUsuario INT NOT NULL,
-  FOREIGN KEY (IdUsuario) REFERENCES usuarios(IdUsuario)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `funcionarios`
---
-
-INSERT INTO funcionarios (IdFuncionario, Nome, Email, Telefone, IdUsuario) VALUES
-(1, 'Administrador', 'admin@exemplo.com', '19912345678', 1);
+INSERT INTO pessoas (IdPessoa, Nome, Email, Telefone, IdUsuario, Tipo) VALUES
+(1, 'Administrador', 'admin@exemplo.com', '19912345678', 1, 'funcionario');
 
 
 
@@ -150,17 +136,17 @@ INSERT INTO funcionarios (IdFuncionario, Nome, Email, Telefone, IdUsuario) VALUE
 
 CREATE TABLE `carrinho` (
   IdCarrinho int(11) NOT NULL,
-  IdCliente int(11) NOT NULL,
-  FOREIGN KEY (IdCliente) REFERENCES clientes(IdCliente)
+  IdPessoa int(11) NOT NULL,
+  FOREIGN KEY (IdPessoa) REFERENCES pessoas(IdPessoa)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 --
 -- Despejando dados para a tabela `carrinho`
 --
 
-INSERT INTO `carrinho` (`IdCarrinho`, `IdCliente`) VALUES
-(1, 1),
-(2, 2),
-(3, 4);
+INSERT INTO `carrinho` (`IdCarrinho`, `IdPessoa`) VALUES
+(2, 1),
+(3, 2),
+(4, 4);
 
 
 -- --------------------------------------------------------
@@ -362,20 +348,20 @@ CREATE TABLE `pedidos` (
   MetodoPagamento ENUM('Cartao', 'Pix', 'Dinheiro') DEFAULT NULL,
   `ValorTotal` DECIMAL(10,2) NOT NULL,
   `Status` ENUM('Em Andamento', 'Finalizado', 'Cancelado') DEFAULT 'Em Andamento',
-  `IdCliente` int(11) NOT NULL,
+  `IdPessoa` int(11) NOT NULL,
   PRIMARY KEY (IdPedido),
-  FOREIGN KEY (IdCliente) REFERENCES clientes(IdCliente)
+  FOREIGN KEY (IdPessoa) REFERENCES pessoas(IdPessoa)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `pedidos`
 --
 
-INSERT INTO `pedidos` (`IdPedido`, `DataPedido`, `DataRetirada`, `ValorTotal`, `Status`, `IdCliente`, `DataAgendada`) VALUES
-(1, '2024-10-10', '2024-10-12', 45, 'Finalizado', 1, '2024-10-15'),
-(2, '2024-10-15', '2024-10-16', 20, 'Finalizado', 2, '2024-10-15'),
-(3, '2024-10-20', NULL, 33.5, 'Cancelado', 3, '2024-10-15'),
-(4, '2024-10-25', NULL, 10, 'Em Andamento', 1, '2024-10-15');
+INSERT INTO `pedidos` (`IdPedido`, `DataPedido`, `DataRetirada`, `ValorTotal`, `Status`, `IdPessoa`, `DataAgendada`) VALUES
+(1, '2024-10-10', '2024-10-12', 45, 'Finalizado', 2, '2024-10-15'),
+(2, '2024-10-15', '2024-10-16', 20, 'Finalizado', 3, '2024-10-15'),
+(3, '2024-10-20', NULL, 33.5, 'Cancelado', 4, '2024-10-15'),
+(4, '2024-10-25', NULL, 10, 'Em Andamento', 5, '2024-10-15');
 
 -- --------------------------------------------------------
 
@@ -466,7 +452,7 @@ DELIMITER $$
 -- Descrição: Este trigger é responsável por atualizar o status dos pedidos para 'Cancelado'
 -- quando a DataExclusao de um cliente é definida, mas apenas se o status do pedido for 'Em Andamento'.
 CREATE TRIGGER TRG_CANCELAR_PEDIDOS_ON_CLIENTE_EXCLUIDO
-AFTER UPDATE ON clientes
+AFTER UPDATE ON pessoas
 FOR EACH ROW
 BEGIN
     -- Verifica se a DataExclusao do cliente foi alterada para não nula
@@ -474,7 +460,7 @@ BEGIN
         -- Atualiza o status dos pedidos associados ao cliente para 'Cancelado' se estiverem 'Em Andamento'
         UPDATE pedidos
         SET Status = 'Cancelado'
-        WHERE IdCliente = NEW.IdCliente AND Status = 'Em Andamento';
+        WHERE IdPessoa = NEW.IdPessoa AND Status = 'Em Andamento';
     END IF;
 END $$
 
@@ -544,6 +530,7 @@ SELECT
     p.IdProduto, 
     p.Nome, 
     p.Marca,
+    p.Estoque,
     pr.IdPromocao,
     pr.DataInicio, 
     pr.DataFim, 
@@ -566,14 +553,14 @@ DELIMITER ;
 
 DELIMITER $$
 
--- Criação da view para pedidos dos clientes
+-- Criação da view para pedidos dos pessoas
 CREATE VIEW VW_PEDIDOS_CLIENTE AS
 SELECT 
     p.*, 
     c.Nome AS ClienteNome,
     c.Email AS ClienteEmail
 FROM pedidos p
-JOIN clientes c ON p.IdCliente = c.IdCliente
+JOIN pessoas c ON p.IdPessoa = c.IdPessoa
 WHERE p.DataExclusao IS NULL
 
 $$
@@ -618,29 +605,24 @@ DELIMITER $$
 CREATE VIEW VW_USUARIOS_ATIVOS AS
 /* 
     Esta VIEW combina informações da tabela de usuarios com suas respectivas entidades
-    (funcionarios ou clientes), retornando Nome, Email e Telefone conforme o tipo do usuário.
+    (funcionarios ou pessoas), retornando Nome, Email e Telefone conforme o tipo do usuário.
 */
 SELECT 
     u.IdUsuario, /* Identificador único do usuário */
     u.Usuario, /* Nome de usuário para login */
     u.Senha, /* Senha criptografada */
     u.DataCriacao, /* Data de criação do registro */
-    u.DataExclusao AS DataExclusaoUsuario, /* Data de exclusão do usuário */
-    u.TipoUsuario, /* Tipo do usuário: 'funcionario' ou 'cliente' */
-    COALESCE(f.IdFuncionario, c.IdCliente) AS IdPessoa,
-    COALESCE(f.Nome, c.Nome) AS Nome, /* Nome do funcionário ou cliente */
-    COALESCE(f.Email, c.Email) AS Email, /* Email do funcionário ou cliente */
-    COALESCE(f.Telefone, c.Telefone) AS Telefone /* Telefone do funcionário ou cliente */
+    u.DataExclusao, /* Data de exclusão do usuário */
+    p.IdPessoa,
+    p.Nome, /* Nome do funcionário ou cliente */
+    p.Email, /* Email do funcionário ou cliente */
+    p.Telefone /* Telefone do funcionário ou cliente */
 FROM 
     usuarios u
-/* Associação com a tabela de funcionarios, caso o TipoUsuario seja 'funcionario' */
-LEFT JOIN 
-    funcionarios f ON u.IdUsuario = f.IdUsuario AND u.TipoUsuario = 'funcionario' AND f.DataExclusao IS NULL
-/* Associação com a tabela de clientes, caso o TipoUsuario seja 'cliente' */
-LEFT JOIN 
-    clientes c ON u.IdUsuario = c.IdUsuario AND u.TipoUsuario = 'cliente' AND c.DataExclusao IS NULL
-    
-WHERE u.dataexclusao IS NULL AND COALESCE(f.IdFuncionario, c.IdCliente) IS NOT NULL;
+/* Associação com a tabela de pessoas */
+JOIN pessoas p ON u.IdUsuario = p.IdUsuario AND p.DataExclusao IS NULL
+
+WHERE u.dataexclusao IS NULL
 
 $$
 DELIMITER ;

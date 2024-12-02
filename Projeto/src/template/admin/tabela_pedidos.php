@@ -68,7 +68,7 @@
                     <td>
                         <button type="button" class="btn btn-sm btn-warning" onclick="editarPedido(event)" 
                             data-id="<?= $item['IdPedido'] ?>" 
-                            data-id-cliente="<?= $item['IdCliente'] ?>" 
+                            data-id-cliente="<?= $item['IdPessoa'] ?>" 
                             data-data-pedido="<?= $item['DataPedido'] ?>" 
                             data-data-retirada="<?= $item['DataRetirada'] ?>"
                             data-valor-total="<?= $item['ValorTotal'] ?>" 

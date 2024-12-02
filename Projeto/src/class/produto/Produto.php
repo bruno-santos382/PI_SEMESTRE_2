@@ -110,6 +110,7 @@ SQL;
         FROM VW_PRODUTOS_ATIVOS
         WHERE dataexclusao IS NULL
             AND categoria = :categoria
+            AND estoque > 0
         ORDER BY idproduto ASC, nome ASC;
 SQL;
 

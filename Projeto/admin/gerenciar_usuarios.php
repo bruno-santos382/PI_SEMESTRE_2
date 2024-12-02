@@ -20,7 +20,6 @@ include __DIR__ . '/../src/template/admin/header.php';
         <tr>
             <th scope="col" style="width: 50px;">ID</th>
             <th scope="col">Usuário</th>
-            <th scope="col">Tipo</th>
             <th scope="col" style="width: 200px;">Cadastrado em</th>
             <th scope="col" style="width: 200px;">Ações</th>
         </tr>
@@ -34,7 +33,6 @@ include __DIR__ . '/../src/template/admin/header.php';
             <tr>
                 <td><?= $item['IdUsuario'] ?></td>
                 <td><?= $item['Usuario'] ?></td>
-                <td><?= ucfirst($item['TipoUsuario']) ?></td>
                 <td><?= date('d/m/Y H:i', strtotime($item['DataCriacao'])) ?></td>
                 <td>
                     <a href="admin/cadastro_usuario.php?id=<?= $item['IdUsuario'] ?>" class="btn btn-warning btn-sm">

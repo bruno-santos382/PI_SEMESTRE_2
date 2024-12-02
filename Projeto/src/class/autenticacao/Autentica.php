@@ -40,7 +40,7 @@ class Autentica
      * @param string $senha Senha do usuário
      * @return void
      */
-    public function login(string $login, string $senha): void
+    public function login(string $login, string $senha): array
     {
         $query = "SELECT * FROM VW_USUARIOS_ATIVOS WHERE usuario = :login";
 
@@ -73,8 +73,17 @@ class Autentica
             'nome' => $row->Nome,
             'email' => $row->Email,
             'telefone' => $row->Telefone,
-            'tipo' => $row->TipoUsuario
+            'tipo' => $row->Tipo
         );
+
+
+        if (isset($_SESSION['redirecionar_apos_login'])) {
+            $url_redirecionamento = $_SESSION['redirecionar_apos_login'];
+            unset($_SESSION['redirecionar_apos_login']);
+            return ['url_redirecionamento' => $url_redirecionamento];
+        }
+
+        return ['url_redirecionamento' => 'index.php'];
     }
 
     

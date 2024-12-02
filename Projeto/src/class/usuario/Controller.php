@@ -25,15 +25,11 @@ class UsuarioController extends BaseController
                 'filter' => FILTER_DEFAULT, 
                 'erro' => 'A senha do usuário é obrigatória.'
             ],
-            'id_permissao' => [
-                'filter' => FILTER_DEFAULT, 
+            'permissoes' => [
+                'flags' => FILTER_REQUIRE_ARRAY, 
                 'erro' => 'As permissões do usuário são obrigatórias.',
                 'obrigatorio' => false
             ],
-            'tipo_usuario' => [
-                'filter' => FILTER_DEFAULT, 
-                'erro' => 'O tipo de usuário é obrigatório.',
-            ]
         ]);
 
         return [
@@ -59,15 +55,11 @@ class UsuarioController extends BaseController
                 'erro' => 'A senha do usuário é obrigatória.',
                 'obrigatorio' => false
             ],
-            'id_permissao' => [
-                'filter' => FILTER_DEFAULT, 
+            'permissoes' => [
+                'flags' => FILTER_REQUIRE_ARRAY, 
                 'erro' => 'As permissões do usuário são obrigatórias.',
                 'obrigatorio' => false
             ],
-            'tipo_usuario' => [
-                'filter' => FILTER_DEFAULT, 
-                'erro' => 'O tipo de usuário é obrigatório.',
-            ]
         ]);
 
         return [

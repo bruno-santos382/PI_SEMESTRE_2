@@ -56,11 +56,11 @@ class Promocao
         $stmt->execute(['id' => $id]);
     }
 
-    public function listarPromocoesSeemana(): array {
+    public function listarPromocoesSemana(): array {
         $query = <<<SQL
 
         SELECT * FROM VW_PROMOCOES_PRODUTO_ATIVAS
-        WHERE Status = 'Ativo' AND CURDATE() BETWEEN DataInicio AND DataFim
+        WHERE Status = 'Ativo' AND Estoque > 0 AND CURDATE() BETWEEN DataInicio AND DataFim 
         ORDER BY DataInicio, DataFim
 SQL;
 

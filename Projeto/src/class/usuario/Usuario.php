@@ -10,40 +10,41 @@ class Usuario
 
     protected Autentica $autentica;
 
+    protected array $config;
+
     public function __construct() {
         $this->conexao = new Conexao();
         $this->autentica = new Autentica();
+        $this->config = include __DIR__.'/../../includes/config.php';
     }
 
     public function cadastrar(
         string $usuario, 
         string $senha, 
-        string $tipo_usuario, 
-        array $id_permissao = []
+        array $permissoes = []
     ): void {
         // Verifica se usuário já existe
         $this->verificarDuplicidade('usuario', $usuario, null, 'Nome de usuário já está em uso.');
     
         // Insere o novo usuário
-        $query = <<<SQL
-            INSERT INTO usuarios (usuario, senha, tipousuario) 
-            VALUES (:usuario, :senha, :tipo_usuario);
-    SQL;
+        $query = "INSERT INTO usuarios (usuario, senha) VALUES (:usuario, :senha)";
         $stmt = $this->conexao->prepare($query);
         $stmt->execute([
             'usuario' => $usuario,
             'senha' => password_hash($senha, PASSWORD_DEFAULT),
-            'tipo_usuario' => $tipo_usuario
         ]);
-    }
+        $id_usuario = $this->conexao->lastInsertId();
     
+        // Insere permissões do usuário
+        $this->inserirPermissoes($id_usuario, $permissoes);
+    }
+
     public function atualizar(
         int $id, 
         string $usuario, 
-        string $tipo_usuario, 
         string $senha = null, 
-        array $id_permissao = []
-    ): void {
+        array $permissoes = []
+    ): array {
         if (empty($id)) {
             throw new \Exception('O código do usuário é obrigatório.');
         }
@@ -51,18 +52,13 @@ class Usuario
         // Verificar se usuário já existe
         $this->verificarDuplicidade('usuario', $usuario, $id, 'Nome de usuário já está em uso.');
     
-        // Atualiza o usuário
-        $query = <<<SQL
-            UPDATE usuarios 
-               SET usuario = :usuario,
-                   tipousuario = :tipo_usuario
-    SQL;
+        // Prepara a consulta de atualização de usuário
+        $query = "UPDATE usuarios SET usuario = :usuario";
     
-        // Prepara os parâmetros para a atualização
+        // Parâmetros para a atualização
         $params = [
             'id' => $id,
             'usuario' => $usuario,
-            'tipo_usuario' => $tipo_usuario
         ];
     
         if (!empty($senha)) {
@@ -73,9 +69,37 @@ class Usuario
         // Finaliza a consulta com a cláusula WHERE
         $query .= " WHERE idusuario = :id";
     
-        // Executa a atualização no banco de dados
+        // Executa a atualização do usuário
         $stmt = $this->conexao->prepare($query);
         $stmt->execute($params);
+
+        // Insere permissões do usuário
+        $this->inserirPermissoes($id, $permissoes);
+
+        // Usuário perdeu acesso ao painel de administração
+        if ($this->autentica->usuarioLogado()['id'] == $id && !in_array('acesso_admin', $permissoes)) {
+            return ['url_redirecionamento' => $this->config['app.url'].'/index.php'];
+        }
+
+        return [];
+    }
+
+    private function inserirPermissoes(int $id_usuario, array $permissoes): void {
+        // Excluir permissões antigas
+        $sql = "DELETE FROM permissao_usuarios WHERE IdUsuario = :IdUsuario";
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->execute(['IdUsuario' => $id_usuario]);
+    
+        // Inserir novas permissões
+        $sql = "INSERT INTO permissao_usuarios (IdUsuario, Permissao) VALUES (:IdUsuario, :Permissao)";
+        $stmt = $this->conexao->prepare($sql);
+
+        foreach ($permissoes as $permissao) {
+            $stmt->execute(params: [
+                'IdUsuario' => $id_usuario,
+                'Permissao' => $permissao,
+            ]);
+        }
     }
     
     private function verificarDuplicidade(string $campo, string $valor, int $usuario_id = null, string $mensagem_erro): void {
@@ -136,10 +160,20 @@ SQL;
         WHERE idusuario = :id
 SQL;
         $stmt = $this->conexao->prepare($query);
-        $stmt->execute([
-            'id' => $id
-        ]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        $stmt->execute(['id' => $id]);
+        $usuario =$stmt->fetch(\PDO::FETCH_ASSOC);
+
+        // Selecionar as permissões do usuário
+        $query = <<<SQL
+
+        SELECT Permissao FROM permissao_usuarios
+        WHERE IdUsuario = :id AND DataExclusao IS NULL
+SQL;
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $usuario['permissoes'] = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+
+        return $usuario;
     }
 
     public function listarTudo(): array
@@ -151,19 +185,6 @@ SQL;
         ORDER BY Usuario
 SQL;
         $stmt = $this->conexao->query($query);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    public function listarPorTipo(string $tipo_usuario): array
-    {
-        $query = <<<SQL
-
-        SELECT * FROM usuarios
-        WHERE DataExclusao IS NULL AND TipoUsuario = :tipo_usuario
-        ORDER BY Usuario
-SQL;
-        $stmt = $this->conexao->prepare($query);
-        $stmt->execute(['tipo_usuario' => $tipo_usuario]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

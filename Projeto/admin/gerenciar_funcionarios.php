@@ -34,17 +34,17 @@ include __DIR__ . '/../src/template/admin/header.php';
         ?>
         <?php foreach ($funcionario->listarTudo() as $item): ?>
             <tr>
-                <td><?= $item['IdFuncionario'] ?></td>
+                <td><?= $item['IdPessoa'] ?></td>
                 <td><?= $item['Nome'] ?></td>
                 <td><?= $item['Email'] ?></td>
                 <td><?= $item['Telefone'] ?></td>
                 <td><?= $item['Usuario'] ?? '<b class="text-danger">(Sem acesso)</b>' ?></td>
                 <td><?= date('d/m/Y H:i', strtotime($item['DataCriacao'])) ?></td>
                 <td>
-                    <a href="admin/cadastro_funcionario.php?id=<?= $item['IdFuncionario'] ?>" class="btn btn-warning btn-sm">
+                    <a href="admin/cadastro_funcionario.php?id=<?= $item['IdPessoa'] ?>" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-fill me-1"></i> Editar
                     </a>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="removerFuncionario(this, '<?= $item['IdFuncionario'] ?>')">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removerFuncionario(this, '<?= $item['IdPessoa'] ?>')">
                         <i class="bi bi-trash-fill me-1"></i> Excluír
                     </button>
                 </td>

@@ -1,5 +1,5 @@
 function htmlPedido(pedido) {
-    const dataPedidoFormatada = new Date(pedido.DataPedido).toLocaleDateString('pt-BR');
+    const dataEntregaSolicitada = new Date(pedido.DataAgendada).toLocaleDateString('pt-BR');
     const dataRetiradaFormatada = pedido.DataRetirada ? new Date(pedido.DataRetirada).toLocaleDateString('pt-BR') : '<b class="text-danger">(Não informada)</b>';
 
     let acoesPedido = '';
@@ -8,7 +8,7 @@ function htmlPedido(pedido) {
             <td>
                 <button type="button" class="btn btn-sm btn-warning" onclick="editarPedido(event)" 
                     data-id="${pedido.IdPedido}" 
-                    data-id-cliente="${pedido.IdCliente}" 
+                    data-id-cliente="${pedido.IdPessoa}" 
                     data-data-pedido="${pedido.DataPedido}" 
                     data-data-retirada="${pedido.DataRetirada}"
                     data-valor-total="${pedido.ValorTotal}" 
@@ -29,8 +29,26 @@ function htmlPedido(pedido) {
         <tr data-id-pedido="${pedido.IdPedido}">
             <td>${pedido.IdPedido}</td>
             <td>${pedido.ClienteNome}</td>
-            <td>${dataPedidoFormatada}</td>
+            <td>${dataEntregaSolicitada}</td>
             <td>${dataRetiradaFormatada}</td>
+            <td>
+                R$ ${parseFloat(pedido.ValorTotal).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </td>
+            <td>
+                <button type="button" class="btn btn-link" 
+                        data-bs-target="#modalDetalhesPedido" 
+                        data-bs-toggle="modal"
+                        data-id-pedido="${pedido.IdPedido}"
+                        data-data-pedido="${pedido.DataPedido}"
+                        data-data-agendada="${pedido.DataAgendada}"
+                        data-endereco-entrega="${pedido.EnderecoEntrega}"
+                        data-metodo-pagamento="${pedido.MetodoPagamento}"
+                        data-valor-total="${pedido.ValorTotal}"
+                        data-status="${pedido.Status}"
+                        onclick="verDetalhesPedido(event)">
+                    Ver detalhes
+                </button>
+            </td>
             <td>
                 <button type="button" class="btn btn-link" 
                         data-bs-toggle="modal" 
@@ -40,9 +58,7 @@ function htmlPedido(pedido) {
                     Ver itens
                 </button>
             </td>
-            <td>
-                R$ ${parseFloat(pedido.ValorTotal).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </td>
+            
             ${acoesPedido}
         </tr>
     `;
@@ -176,6 +192,8 @@ function editarPedido(event) {
     const campoCliente = document.querySelector('#cliente');
     campoCliente.value = dados.idCliente;
     campoCliente.focus();
+
+    console.log(dados, dados.idCliente, campoCliente.value);
 
     let [data, hora] = dados.dataPedido.split(' ');
     document.querySelector('#dataPedido').value = data;

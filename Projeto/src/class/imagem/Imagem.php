@@ -119,7 +119,7 @@ SQL;
             $tipo_arquivo = $_FILES['arquivo']['type']; // Tipo do arquivo
     
             // Especifica o diretório onde você deseja salvar o arquivo enviado
-            $diretorio_upload = './static/img/upload/';
+            $diretorio_upload = __DIR__.'/../../../static/img/upload/';
             $caminho_destino = $diretorio_upload . basename($nome_arquivo); // Caminho completo para o destino
     
             // Valida o tipo de arquivo (opcional)
@@ -127,13 +127,13 @@ SQL;
             if (!in_array($tipo_arquivo, $tipos_arquivos_permitidos)) {
                 throw new ValidacaoException('Tipo de arquivo não permitido. Apenas JPEG, PNG, GIF e WEBP são aceitos.');
             }
-    
+            
             // Move o arquivo para o diretório desejado
             if (!move_uploaded_file($caminho_temporario, $caminho_destino)) {
                 throw new ValidacaoException('Erro ao mover arquivo para o diretório destino.');
             }
 
-            return [$nome_arquivo, $caminho_destino];
+            return [$nome_arquivo, 'static/img/upload/'.basename($caminho_destino)];
         }
         
         // Verifica se uma URL foi submetida

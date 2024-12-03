@@ -168,7 +168,7 @@ include __DIR__ . '/../src/template/admin/header.php';
                                             src="<?=$img['Caminho'] ?>" 
                                             alt="<?= htmlspecialchars($img['NomeImagem']) ?>" 
                                             class="card-img-top mx-auto" 
-                                            style="width: 100px;" >
+                                            style="width: 100px; height: 100px; object-fit: contain;">
                                         <button 
                                             type="button" 
                                             class="btn btn-danger btn-sm btn-excluir-img" 

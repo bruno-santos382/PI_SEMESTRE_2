@@ -94,10 +94,12 @@ const Carrinho = {
         Carrinho.processarCarrinho(
             'carrinho/remover',
             event,
-            () => {
+            (dados) => {
+                console.log(event, dados)
                 Alerta.sucesso('#alertaCarrinho', 'Produto removido com sucesso!');
 
-                const button = event.currentTarget;
+                const button = event.currentTarget || event.target;
+                console.log(button, button.closest('.cart-item'));
                 const cardItem = button.closest('.cart-item');
                 const inputQuantidade = cardItem.querySelector('.input-quantidade');
                 const quantidadeAtual = parseInt(inputQuantidade.value);

@@ -51,6 +51,12 @@ class AutenticaController extends BaseController
         ];
     }
 
+    /**
+     * Registra um novo usuário.
+     * 
+     * @return array Retorna um array com o status, dados do registro e mensagem de sucesso.
+     * @throws ValidacaoException Caso os dados fornecidos para registro sejam inválidos.
+     */
     public function registrar(): array
     {
         $retorno = $this->realizarAcao([$this->autentica, 'registrar'], [
@@ -63,11 +69,19 @@ class AutenticaController extends BaseController
 
         return [
             'status' => 'ok', 
+
             'dados' => $retorno,
             'mensagem' => 'Cadastro efetuado com sucesso!'
         ];
     }
 
+    
+    /**
+     * Recupera a senha do usuário.
+     * 
+     * @return array Retorna um array com o status, dados de recuperação de senha e mensagem de sucesso.
+     * @throws ValidacaoException Caso o email fornecido seja inválido.
+     */
     public function recuperarSenha(): array
     {
         $retorno = $this->realizarAcao([$this->autentica, 'recuperarSenha'], [

@@ -61,6 +61,13 @@ SQL;
         return $this->buscaPorId($id_pedido);
     }
 
+    /**
+     * Cancela um pedido de Frango Assado.
+     *
+     * @param int $id Identificador único do pedido a ser cancelado.
+     * 
+     * @return array Retorna os dados do pedido cancelado.
+     */
     public function cancelarPedido(int $id): array {
         // Cancela o pedido
         $query = <<<SQL
@@ -75,6 +82,13 @@ SQL;
         return $this->buscaPorId($id);
     }
 
+    /**
+     * Finaliza um pedido de Frango Assado.
+     * 
+     * @param int $id Identificador único do pedido a ser finalizado.
+     * 
+     * @return array Retorna os dados do pedido finalizado.
+     */
     public function finalizarPedido(int $id): array {
         $query = <<<SQL
 
@@ -88,12 +102,20 @@ SQL;
         return $this->buscaPorId($id);
     }
 
+    /**
+     * Busca um pedido de Frango Assado pelo seu identificador único.
+     * 
+     * @param int $id Identificador único do pedido.
+     * 
+     * @return array Retorna os dados do pedido.
+     */
     public function buscaPorId(int $id): array {
         $query = "SELECT * FROM frango_assado_pedidos WHERE IdPedido = :id";
         $stmt = $this->conexao->prepare($query);
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+    
    /**
      * Consulta os pedidos pendentes de frango assado.
      * 

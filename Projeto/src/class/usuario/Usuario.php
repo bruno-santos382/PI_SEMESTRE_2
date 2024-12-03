@@ -12,12 +12,32 @@ class Usuario
 
     protected array $config;
 
+   
+    /**
+     * Constroi um novo objeto Usuario.
+     * 
+     * @param Conexao $conexao inst ncia da classe Conexao
+     * @param Autentica $autentica inst ncia da classe Autentica
+     */
     public function __construct(Conexao $conexao=null, Autentica $autentica=null) {
         $this->conexao = $conexao ?? new Conexao();
         $this->autentica = $autentica ?? new Autentica($this->conexao, null, $this);
         $this->config = include __DIR__.'/../../includes/config.php';
     }
 
+    /**
+     * Cadastra um novo usuário no banco de dados.
+     * 
+     * O nome de usuário e a senha são obrigatórios. Caso o nome de usuário 
+     * esteja em uso, uma exce o   lançada.
+     * 
+     * @param string $usuario nome do usu rio
+     * @param string $senha senha do usu rio
+     * @param array $permissoes permiss es do usu rio. Caso seja um array vazio,
+     *                          n o ser o adicionado nenhuma permiss o.
+     * @return array o usu rio cadastrado
+     * @throws ValidacaoException caso o nome de usu rio j  esteja em uso
+     */
     public function cadastrar(
         string $usuario, 
         string $senha, 
@@ -41,6 +61,21 @@ class Usuario
         return $this->buscaPorId($id_usuario);
     }
 
+    /**
+     * Atualiza um usuário existente no sistema.
+     * 
+     * O código do usuário e o nome de usuário são obrigatórios. Caso o nome de
+     * usuário esteja em uso por outro usuário, uma exce o   lançada.
+     * 
+     * @param int $id C digo do usu rio.
+     * @param string $usuario Novo nome do usu rio.
+     * @param string $senha Nova senha do usu rio, opcional.
+     * @param array $permissoes Permiss es do usu rio. Caso seja um array vazio,
+     *                          n o ser o adicionado nenhuma permiss o.
+     * @return array Contendo a URL de redirecionamento após a atualiza o, se o usu rio
+     *               perdeu acesso ao painel de administra o.
+     * @throws ValidacaoException Caso o nome de usu rio j  esteja em uso
+     */
     public function atualizar(
         int $id, 
         string $usuario, 
@@ -86,6 +121,14 @@ class Usuario
         return [];
     }
 
+    /**
+     * Insere as permissões do usuário no banco de dados.
+     * 
+     * Remove todas as permissões antigas e insere as novas permissões.
+     * 
+     * @param int $id_usuario C digo do usu rio.
+     * @param array $permissoes Permiss es do usu rio.
+     */
     private function inserirPermissoes(int $id_usuario, array $permissoes): void {
         // Excluir permissões antigas
         $sql = "DELETE FROM permissao_usuarios WHERE IdUsuario = :IdUsuario";
@@ -104,6 +147,18 @@ class Usuario
         }
     }
     
+    /**
+     * Verifica se um determinado valor em um campo do banco de dados 
+     * (usuários) já existe.
+     * 
+     * @param string $campo Campo do banco de dados que deve ser verificado.
+     * @param string $valor Valor que deve ser verificado.
+     * @param int $usuario_id [optional] C digo do usu rio que est  sendo atualizado.
+     *                        Se for passado, o usu rio atual ser  exclu do da verific a o.
+     * @param string $mensagem_erro [optional] Mensagem de erro que ser  mostrada caso o valor j  exista.
+     *                              Se n o for passado, a mensagem padr o ser  "Valor j  existe".
+     * @throws ValidacaoException Caso o valor j  exista.
+     */
     private function verificarDuplicidade(string $campo, string $valor, int $usuario_id = null, string $mensagem_erro): void {
         // Preparar a consulta base
         $query = "SELECT idusuario FROM usuarios WHERE {$campo} = :valor AND dataexclusao IS NULL";
@@ -129,6 +184,18 @@ class Usuario
         }
     }
     
+    /**
+     * Exclui um usuário existente.
+     * 
+     * Marca o usuário como excluído (soft delete) no banco de dados. 
+     * Se o usuário excluído for o usuário logado, efetua logout.
+     * 
+     * @param int $id O ID do usuário a ser excluído.
+     * 
+     * @throws \Exception Se o ID do usuário não for fornecido.
+     * 
+     * @return array Um array com a chave 'logout' que indica se o logout foi efetuado.
+     */
     public function excluir(int $id): array
     {        
         if (empty($id)) {
@@ -154,6 +221,13 @@ SQL;
         return ['logout' => false];
     }
 
+    /**
+     * Busca um usuário pelo seu ID.
+     * 
+     * @param int $id O ID do usuário a ser buscado.
+     * 
+     * @return array|false Um array com os dados do usuário, incluindo suas permissões, ou false se não encontrado.
+     */
     public function buscaPorId(int $id): array|false
     {
         $query = <<<SQL
@@ -178,6 +252,13 @@ SQL;
         return $usuario;
     }
 
+    /**
+     * Retorna todos os usu rios existentes.
+     * 
+     * Os usu rios s o retornados em ordem alfab tica.
+     * 
+     * @return array Um array com os dados dos usu rios.
+     */
     public function listarTudo(): array
     {
         $query = <<<SQL

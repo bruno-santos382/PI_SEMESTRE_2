@@ -6,10 +6,29 @@ class Promocao
 {
     protected Conexao $conexao;
 
+    /**
+     * Constroi um novo objeto Promocao.
+     * 
+     * Instancia uma nova conex o com o banco de dados.
+     */
     public function __construct() {
         $this->conexao = new Conexao();
     }
 
+
+    /**
+     * Cadastra ou atualiza uma promoção no banco de dados.
+     *
+     * Insere uma nova promoção se o ID não for fornecido, ou atualiza uma promoção existente
+     * se o ID estiver presente. Após a operação, retorna os detalhes da promoção atualizada ou inserida.
+     *
+     * @param int|null $id O ID da promoção (opcional para inserção).
+     * @param int $produto O ID do produto.
+     * @param string $data_inicio A data de início da promoção.
+     * @param string $data_fim A data de fim da promoção.
+     * @param float $desconto O percentual de desconto aplicado.
+     * @return array Os detalhes da promoção cadastrada ou atualizada.
+     */
     public function cadastrar(
         int $id = null, 
         int $produto, 
@@ -46,6 +65,15 @@ class Promocao
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
     
+    /**
+     * Marca uma promoção como excluída no banco de dados.
+     * 
+     * Atualiza o campo DataExclusao da promoção com a data e hora atuais.
+     * 
+     * @param int $id O ID da promoção a ser excluída.
+     * 
+     * @return void
+     */
     public function excluir(int $id): void {
         $query = <<<SQL
         UPDATE promocoes
@@ -56,6 +84,14 @@ class Promocao
         $stmt->execute(['id' => $id]);
     }
 
+    /**
+     * Lista as promoções ativas para a semana atual.
+     *
+     * Consulta e retorna as promoções que estão ativas, possuem estoque disponível,
+     * e cujas datas de início e fim incluem a data atual.
+     *
+     * @return array Retorna um array com as promoções ativas da semana.
+     */
     public function listarPromocoesSemana(): array {
         $query = <<<SQL
 
@@ -69,6 +105,13 @@ SQL;
     }
     
 
+    /**
+     * Lista as promo es ativas.
+     *
+     * Consulta e retorna as promo es que est o ativas, ou seja, cujas datas de in cio e fim incluem a data atual.
+     *
+     * @return array Retorna um array com as promo es ativas.
+     */
     public function listarPromocoesAtivas(): array {
         $query = <<<SQL
 
@@ -81,6 +124,14 @@ SQL;
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Lista as promo es expiradas.
+     *
+     * Consulta e retorna as promo es que est o expiradas, ou seja, cujas datas de in cio e fim
+     * s o menores que a data atual.
+     *
+     * @return array Retorna um array com as promo es expiradas.
+     */
     public function listarPromocoesExpiradas(): array {
         $query = <<<SQL
 

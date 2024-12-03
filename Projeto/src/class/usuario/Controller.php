@@ -7,6 +7,11 @@ class UsuarioController extends BaseController
 {
     private Usuario $usuario;
 
+    /**
+     * Construtor da classe UsuarioController.
+     * 
+     * Inicializa a classe Usuario e chama o construtor da classe pai BaseController.
+     */
     public function __construct() 
     {
         parent::__construct();
@@ -14,6 +19,18 @@ class UsuarioController extends BaseController
         $this->usuario = new Usuario();
     }
 
+    /**
+     * Atualiza um usuário existente.
+     * 
+     * A atualização de um usuário requer os seguintes dados:
+     * - id: O código do usuário é obrigatório.
+     * - usuario: O nome do usuário é obrigatório e não pode estar em branco.
+     * - senha: A senha do usuário é obrigatória e deve ser um valor alfanumérico válido.
+     * - email: O e-mail do usuário é obrigatório e deve ser um endereço de e-mail válido.
+     * - telefone: O telefone do usuário é obrigatório e deve ser um número de telefone válido.
+     * 
+     * @return array Retorna os dados do usuário atualizado.
+     */
     public function cadastrarUsuario(): array
     {
         $retorno = $this->realizarAcao([$this->usuario, 'cadastrar'], [
@@ -39,6 +56,19 @@ class UsuarioController extends BaseController
         ];
     }
 
+    /**
+     * Atualiza um usuário existente.
+     * 
+     * A atualização de um usuário requer os seguintes dados:
+     * - id: O código do usuário é obrigatório.
+     * - usuario: O nome do usuário é obrigatório e não pode estar em branco.
+     * - senha: A senha do usuário é obrigatória e deve ser um valor alfanumérico válido.
+     * - email: O e-mail do usuário é obrigatório e deve ser um endereço de e-mail válido.
+     * - telefone: O telefone do usuário é obrigatório e deve ser um número de telefone válido.
+     * - permissoes: As permissões do usuário são obrigatórias e devem ser um array de valores numéricos válidos.
+     * 
+     * @return array Retorna os dados do usuário atualizado.
+     */
     public function atualizarUsuario(): array 
     {
         $retorno = $this->realizarAcao([$this->usuario, 'atualizar'], [
@@ -69,6 +99,13 @@ class UsuarioController extends BaseController
         ];
     }
 
+    /**
+     * Exclui um usuário existente.
+     * 
+     * A exclusão de um usuário requer o código do usuário, que é obrigatório.
+     * 
+     * @return array Retorna os dados do usuário excluído.
+     */
     public function excluirUsuario(): array 
     {
         $retorno = $this->realizarAcao([$this->usuario, 'excluir'], [

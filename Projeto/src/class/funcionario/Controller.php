@@ -7,6 +7,11 @@ class FuncionarioController extends BaseController
 {
     private Funcionario $funcionario;  // Instância da classe Funcionario
 
+    /**
+     * Construtor da classe FuncionarioController.
+     * 
+     * Inicializa a classe Funcionario e chama o construtor da classe pai BaseController.
+     */
     public function __construct() 
     {
         parent::__construct();
@@ -14,6 +19,11 @@ class FuncionarioController extends BaseController
         $this->funcionario = new Funcionario();  // Inicialização da classe Funcionario
     }
 
+    /**
+     * Realiza o cadastro de um novo funcionário.
+     * 
+     * @return array Um array contendo o status da operação, a mensagem de retorno e os dados do funcionário cadastrado.
+     */
     public function cadastrarFuncionario(): array 
     {
         $retorno = $this->realizarAcao([$this->funcionario, 'cadastrar'], [
@@ -45,6 +55,11 @@ class FuncionarioController extends BaseController
         ];
     }
 
+    /**
+     * Atualiza um funcionário existente.
+     * 
+     * @return array Um array contendo o status da operação, a mensagem de retorno e os dados do funcionário atualizado.
+     */
     public function atualizarFuncionario(): array 
     {
         $retorno = $this->realizarAcao([$this->funcionario, 'atualizar'], [
@@ -80,6 +95,11 @@ class FuncionarioController extends BaseController
         ];
     }
 
+    /**
+     * Exclui um funcionário existente.
+     * 
+     * @return array Um array contendo o status da operação, a mensagem de retorno e os dados relacionados à exclusão.
+     */
     public function excluirFuncionario(): array 
     {
         $retorno = $this->realizarAcao([$this->funcionario, 'excluir'], [
@@ -96,7 +116,13 @@ class FuncionarioController extends BaseController
         ];
     }
 
-    // Função para listar todos os funcionários
+    /**
+     * Retorna todos os funcionários ativos no banco de dados.
+     *
+     * Os funcionários são retornados em ordem alfabética.
+     *
+     * @return array Um array com os dados dos funcionários.
+     */
     public function listarFuncionarios(): array 
     {
         $funcionarios = $this->funcionario->listarTudo();

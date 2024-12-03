@@ -7,10 +7,22 @@ class Imagem
 {
     protected Conexao $conexao;
 
+    /**
+     * Constroi um novo objeto Imagem.
+     * 
+     * Instancia uma nova conex o com o banco de dados.
+     */
     public function __construct() {
         $this->conexao = new Conexao();
     }
     
+    /**
+     * Upload de uma imagem.
+     *
+     * Recebe um arquivo ou uma URL e salva a imagem no banco de dados.
+     *
+     * @return array com as informações da imagem cadastrada
+     */
     public function upload(): array 
     {
         [$nome_imagem, $caminho] = $this->uploadArquivo();
@@ -38,6 +50,15 @@ SQL;
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Exclui uma imagem existente.
+     * 
+     * Marca a imagem como excluida (soft delete) no banco de dados.
+     * 
+     * @param int $id O ID da imagem a ser excluida.
+     * 
+     * @return void
+     */
     public function excluir(int $id) {
         $query = <<<SQL
         
@@ -51,6 +72,13 @@ SQL;
         ]);
     }
 
+    /**
+     * Retorna todas as imagens não excluidas.
+     * 
+     * As imagens sao retornadas em ordem ascendente de ID e nome.
+     * 
+     * @return array Um array com os dados das imagens.
+     */
     public function listarTudo(): array
     {
         $query = <<<SQL
@@ -67,6 +95,16 @@ SQL;
         return $stmt->fetchAll(Conexao::FETCH_ASSOC);
     }
 
+    /**
+     * Faz o upload de uma imagem.
+     * 
+     * Verifica se um arquivo foi enviado via POST e o processa. Se nenhuma imagem
+     * for enviada, verifica se uma URL foi submetida e a baixa.
+     * 
+     * @return array Um array com o nome da imagem e o caminho do arquivo.
+     * 
+     * @throws \ValidacaoException Se ocorrer um erro durante o processamento.
+     */
     private function uploadArquivo(): array
     {
         // Verifica se um arquivo foi enviado

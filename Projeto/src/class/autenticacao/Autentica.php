@@ -120,6 +120,17 @@ class Autentica
         unset($_SESSION['usuario']);
     }
 
+    /**
+     * Registra um novo usuário e cliente no sistema.
+     *
+     * @param string $nome Nome do cliente.
+     * @param string $email Email do cliente.
+     * @param string $telefone Telefone do cliente.
+     * @param string $senha Senha do usuário.
+     * @param string $confirmar_senha Confirmação da senha.
+     * @throws \ValidacaoException Se as senhas não coincidirem.
+     * @return array Contendo a URL de redirecionamento após o registro.
+     */
     public function registrar(
         string $nome, 
         string $email, 
@@ -140,6 +151,13 @@ class Autentica
         return ['url_redirecionamento' => 'login.php'];
     }
 
+    /**
+     * Recupera a senha do usuário baseado no email fornecido.
+     *
+     * @param string $email Email do usuário.
+     * @throws \ValidacaoException Se o email não for encontrado.
+     * @return array Contendo a nova senha gerada.
+     */
     public function recuperarSenha(string $email): array
     {
         $query = "SELECT * FROM VW_USUARIOS_ATIVOS WHERE email = :email LIMIT 1";

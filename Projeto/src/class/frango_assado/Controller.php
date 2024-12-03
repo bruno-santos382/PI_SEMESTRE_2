@@ -7,6 +7,12 @@ class FrangoAssadoController extends BaseController
 {
     private FrangoAssado $frango_assado;
 
+    /**
+     * Construtor da classe FrangoAssadoController.
+     * 
+     * Cria uma inst ncia de FrangoAssado e a armazena em uma propriedade
+     * protegida.
+     */
     public function __construct() 
     {
         parent::__construct();
@@ -14,6 +20,11 @@ class FrangoAssadoController extends BaseController
         $this->frango_assado = new FrangoAssado();
     }
 
+    /**
+     * Realiza um novo pedido de Frango Assado.
+     * 
+     * @return array Retorna os dados do pedido inserido/atualizado.
+     */
     public function novoPedido(): array
     {
         $retorno = $this->realizarAcao([$this->frango_assado, 'novoPedido'], [
@@ -49,6 +60,11 @@ class FrangoAssadoController extends BaseController
         ];
     }
 
+    /**
+     * Cancela um pedido de Frango Assado.
+     * 
+     * @return array Retorna os dados do pedido cancelado.
+     */
     public function cancelarPedido(): array 
     {
         $retorno = $this->realizarAcao([$this->frango_assado, 'cancelarPedido'], [
@@ -62,6 +78,11 @@ class FrangoAssadoController extends BaseController
         ];
     }
 
+    /**
+     * Finaliza um pedido de Frango Assado.
+     * 
+     * @return array Retorna os dados do pedido finalizado.
+     */
     public function finalizarPedido(): array 
     {
         $retorno = $this->realizarAcao([$this->frango_assado, 'finalizarPedido'], [

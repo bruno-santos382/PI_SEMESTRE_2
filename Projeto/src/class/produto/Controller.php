@@ -7,13 +7,32 @@ class ProdutoController extends BaseController
 {
     private Produto $produto;
 
-    public function __construct() 
-    {
+    /**
+     * Método construtor da classe ProdutoController.
+     */
+    public function __construct() {
         parent::__construct();
         
         $this->produto = new Produto();
     }
 
+
+
+
+
+    /**
+     * Realiza o cadastro de um novo produto.
+     * 
+     * O cadastro de um produto requer os seguintes dados:
+     * - nome: O nome do produto é obrigatório e não pode estar em branco.
+     * - preco: O preço do produto é obrigatório e deve ser um valor numérico válido.
+     * - marca: A marca do produto é obrigatória.
+     * - categoria: A categoria do produto é obrigatória e deve ser um número inteiro.
+     * - estoque: A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.
+     * - id_imagem: O ID da imagem do produto é opcional e deve ser um número inteiro maior que zero.
+     * 
+     * @return array Retorna os dados do produto cadastrado.
+     */
     public function cadastrarProduto(): array
     {
         $retorno = $this->realizarAcao([$this->produto, 'cadastrar'], [
@@ -28,6 +47,20 @@ class ProdutoController extends BaseController
         return ['status' => 'ok', 'mensagem' => 'Produto cadastrado com sucesso!', 'dados' => $retorno];
     }
 
+    /**
+     * Atualiza um produto existente.
+     * 
+     * A atualização de um produto requer os seguintes dados:
+     * - id: O código do produto é obrigatório.
+     * - nome: O nome do produto é obrigatório e não pode estar em branco.
+     * - preco: O preço do produto é obrigatório e deve ser um valor numérico válido.
+     * - marca: A marca do produto é obrigatória.
+     * - categoria: A categoria do produto é obrigatória e deve ser um número inteiro.
+     * - estoque: A quantidade em estoque do produto é obrigatória e deve ser um número inteiro válido.
+     * - id_imagem: O ID da imagem do produto é opcional.
+     * 
+     * @return array Retorna os dados do produto atualizado.
+     */
     public function atualizarProduto(): array 
     {
         $retorno = $this->realizarAcao([$this->produto, 'atualizar'], [
@@ -43,6 +76,13 @@ class ProdutoController extends BaseController
         return ['status' => 'ok', 'mensagem' => 'Produto atualizado com sucesso!', 'dados' => $retorno];
     }
 
+    /**
+     * Exclui um produto existente.
+     * 
+     * A exclusão de um produto requer o código do produto, que é obrigatório.
+     * 
+     * @return array Retorna os dados do produto excluído.
+     */
     public function excluirProduto(): array 
     {
         $retorno = $this->realizarAcao([$this->produto, 'excluir'], [
@@ -51,6 +91,13 @@ class ProdutoController extends BaseController
         return ['status' => 'ok', 'mensagem' => 'Produto excluído com sucesso!', 'dados' => $retorno];
     }
 
+    /**
+     * Busca produtos pelo termo informado.
+     * 
+     * A busca de um produto requer o termo de busca, que é obrigatório.
+     * 
+     * @return array Retorna os dados dos produtos encontrados.
+     */
     public function buscarProduto(): array
     {
         $retorno = $this->realizarAcao([$this->produto, 'buscar'], [
@@ -60,6 +107,11 @@ class ProdutoController extends BaseController
         return ['status' => 'ok', 'dados' => $retorno];
     }
 
+    /**
+     * Retorna todos os produtos existentes.
+     * 
+     * @return array Retorna os dados dos produtos.
+     */
     public function listarProdutos(): array
     {
         $retorno = $this->realizarAcao([$this->produto, 'listar']);

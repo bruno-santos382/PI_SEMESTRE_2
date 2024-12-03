@@ -14,11 +14,27 @@ class Pedido
 
     protected Autentica $autentica;
 
+    /**
+     * Construtor da classe Pedido.
+     * 
+     * Inicializa uma nova conexão com o banco de dados e a instância de autenticação.
+     */
     public function __construct() {
         $this->conexao = new Conexao();
         $this->autentica = new Autentica();
     }
 
+    /**
+     * Cadastra um novo pedido ou edita um existente.
+     * 
+     * @param int $cliente O código do cliente.
+     * @param string $data_pedido A data do pedido.
+     * @param float $valor_total O valor total do pedido.
+     * @param string $data_retirada A data de retirada do pedido.
+     * @param int $id O código do pedido. Se não for informado, um novo pedido será criado.
+     * 
+     * @return array O pedido cadastrado ou editado.
+     */
     public function cadastrar(
         int $cliente, 
         string $data_pedido, 
@@ -55,6 +71,13 @@ class Pedido
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
     
+    /**
+     * Cancela um pedido e restaura o estoque dos produtos.
+     * 
+     * @param int $id O código do pedido a ser cancelado.
+     * 
+     * @return array Os dados do pedido cancelado.
+     */
     public function cancelar(int $id): array {
         // Cancela o pedido
         $query = <<<SQL
@@ -80,6 +103,13 @@ SQL;
         return $this->buscaPorId($id);
     }
 
+    /**
+     * Finaliza um pedido e marca como 'Finalizado'.
+     * 
+     * @param int $id O código do pedido a ser finalizado.
+     * 
+     * @return array Os dados do pedido finalizado.
+     */
     public function finalizar(int $id): array {
         $query = <<<SQL
 
@@ -93,12 +123,34 @@ SQL;
         return $this->buscaPorId($id);
     }
 
+    /**
+     * Armazena os produtos no carrinho de compras e redireciona para a página de checkout.
+     * 
+     * @param array $produtos A lista de produtos a serem armazenados no carrinho.
+     * 
+     * @return array Um array com a chave 'redirecionar_url' com o valor da URL para a qual o sistema deve redirecionar.
+     */
     public function checkout(array $produtos): array {
         $_SESSION['pedido_produtos'] = $produtos;
 
         return ['redirecionar_url' => 'checkout.php'];
     }
 
+    /**
+     * Confirma um pedido, criando um novo registro no banco de dados e atualizando o estoque.
+     *
+     * @param int $id_cliente O identificador do cliente que está realizando o pedido.
+     * @param string $metodo_pagamento O método de pagamento utilizado para o pedido.
+     * @param float $total O valor total do pedido.
+     * @param array $produtos Lista de produtos incluídos no pedido, cada um com IdProduto, Quantidade e Preco.
+     * @param bool $sem_entrega Define se o pedido não requer entrega. Se true, endereço e data de entrega são ignorados.
+     * @param string|null $endereco O endereço de entrega do pedido, se aplicável.
+     * @param string|null $data_entrega A data agendada para entrega, se aplicável.
+     *
+     * @throws ValidacaoException Se o endereço ou a data de entrega estiverem ausentes quando a entrega for necessária.
+     *
+     * @return array Retorna um array com a URL de redirecionamento após a confirmação do pedido.
+     */
     public function confirmar(
         int $id_cliente,
         string $metodo_pagamento,
@@ -179,6 +231,13 @@ SQL;
         return ['redirecionar_url' => "pedido_realizado.php?pedido={$id_pedido}"];
     }
 
+    /**
+     * Busca um pedido pelo seu identificador único.
+     * 
+     * @param int $id Identificador único do pedido.
+     * 
+     * @return array Retorna os dados do pedido.
+     */
     public function buscaPorId(int $id): array {
         $query = <<<SQL
 
@@ -191,6 +250,11 @@ SQL;
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Consulta os pedidos em andamento.
+     * 
+     * @return array Retorna os dados dos pedidos em andamento.
+     */
     public function listarPedidosEmAndamento(): array {
         $query = <<<SQL
 
@@ -203,6 +267,11 @@ SQL;
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
     
+    /**
+     * Consulta os pedidos finalizados.
+     * 
+     * @return array Retorna os dados dos pedidos finalizados.
+     */
     public function listarPedidosFinalizados(): array {
         $query = <<<SQL
 
@@ -215,6 +284,11 @@ SQL;
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Consulta os pedidos cancelados.
+     * 
+     * @return array Retorna os dados dos pedidos cancelados.
+     */
     public function listarPedidosCancelados(): array {
         $query = <<<SQL
 
@@ -227,6 +301,14 @@ SQL;
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retorna os itens de um pedido, incluindo a quantidade e o valor total de cada item.
+     * 
+     * @param int $id Identificador único do pedido.
+     * 
+     * @return array Retorna um array com a chave 'itens' contendo os dados dos itens do pedido,
+     *               e a chave 'total' com o valor total do pedido.
+     */
     public function listaItensPedido(int $id): array {
         $query = <<<SQL
 
@@ -246,6 +328,16 @@ SQL;
         ];
     }
 
+    /**
+     * Retorna um array com os dados dos produtos do carrinho, incluindo
+     * a quantidade e o valor total de cada item.
+     * 
+     * @return array Retorna um array com as chaves 'valor_total' e 'produtos'.
+     *               'valor_total'   um float com o valor total do carrinho.
+     *               'produtos'      um array de arrays com os produtos do carrinho,
+     *                               cada um contendo as chaves 'IdProduto', 'Nome',
+     *                               'Preco', 'Quantidade', 'PrecoTotal' e 'Estoque'.
+     */
     public function listaItensCheckout(): array {
         $produtos = $_SESSION['pedido_produtos'] ?? [];
 

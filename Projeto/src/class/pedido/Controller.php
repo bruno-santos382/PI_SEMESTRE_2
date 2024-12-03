@@ -7,6 +7,11 @@ class PedidoController extends BaseController
 {
     private Pedido $pedido;
 
+
+
+    /**
+     * Construtor da classe PedidoController.
+     */
     public function __construct() 
     {
         parent::__construct();
@@ -14,7 +19,11 @@ class PedidoController extends BaseController
         $this->pedido = new Pedido();
     }
 
-
+    /**
+     * Realiza o cadastro de um novo pedido.
+     * 
+     * @return array Retorna os dados do pedido inserido/atualizado.
+     */
     public function cadastrarPedido(): array
     {
         $retorno = $this->realizarAcao([$this->pedido, 'cadastrar'], [
@@ -48,6 +57,11 @@ class PedidoController extends BaseController
         ];
     }
 
+    /**
+     * Cancela um pedido.
+     * 
+     * @return array Retorna os dados do pedido cancelado.
+     */
     public function cancelarPedido(): array 
     {
         $retorno = $this->realizarAcao([$this->pedido, 'cancelar'], [
@@ -61,6 +75,11 @@ class PedidoController extends BaseController
         ];
     }
 
+    /**
+     * Finaliza um pedido.
+     * 
+     * @return array Retorna os dados do pedido finalizado.
+     */
     public function finalizarPedido(): array 
     {
         $retorno = $this->realizarAcao([$this->pedido, 'finalizar'], [
@@ -74,6 +93,11 @@ class PedidoController extends BaseController
         ];
     }
 
+    /**
+     * Lista os itens de um pedido.
+     * 
+     * @return array Retorna os dados dos itens do pedido.
+     */
     public function listaItensPedido(): array
     {
         $retorno = $this->realizarAcao([$this->pedido, 'listaItensPedido'], [
@@ -86,6 +110,11 @@ class PedidoController extends BaseController
         ];
     }
 
+    /**
+     * Realiza o processo de checkout de um pedido.
+     * 
+     * @return array Retorna um array com o status da operação e os dados do checkout.
+     */
     public function realizarCheckout(): array
     {
         $retorno = $this->realizarAcao([$this->pedido, 'checkout'], [
@@ -101,6 +130,11 @@ class PedidoController extends BaseController
         ];
     }
 
+    /**
+     * Confirma um pedido.
+     * 
+     * @return array Retorna os dados do pedido confirmado.
+     */
     public function confirmarPedido(): array 
     {
         $retorno = $this->realizarAcao([$this->pedido, 'confirmar'], [

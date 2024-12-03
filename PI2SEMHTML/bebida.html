@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM SuperMercado</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/categorias.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="img/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                GM SuperMercado
+            </a>
+            <!-- Ícones à direita da navbar -->
+            <div class="d-flex align-items-center">
+                <a href="login.html" class="icon-text mx-3">
+                    <img src="img/login..png" alt="Login" class="icon-image">
+                    <span>Login</span>
+                </a>
+                <a href="carrinho.html" class="icon-text mx-3">
+                    <img src="img/compras.png" alt="Carrinho" class="icon-image">
+                    <span>Carrinho</span>
+                </a>
+                <a href="index.html" class="icon-text mx-3">
+                    <img src="img/casa.png" alt="Localização" class="icon-image">
+                    <span>Inicio</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Procurar por Produto</h2>
+
+        <!-- Barra de pesquisa -->
+        <div class="input-group mb-4">
+            <input type="text" class="form-control" id="searchInput" placeholder="Digite o nome do produto" aria-label="Search">
+            <button class="btn btn-outline-success" onclick="searchProduct()">Buscar</button>
+        </div>
+
+        <div class="container my-5">
+            <h2 class="text-center mb-4">Setor de Bebidas</h2>
+
+            <!-- Categoria: Refrigerantes -->
+            <h3 class="mb-3">Refrigerantes</h3>
+            <div class="position-relative">
+                <button class="scroll-button scroll-left" onclick="scrollContainer('refrigerantes', -1)">&#10094;</button>
+                <div class="scroll-container" id="refrigerantes">
+                    <div class="card">
+                        <img src="img/coca (2).webp" class="card-img-top" alt="Coca-Cola">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Coca-Cola</h5>
+                            <p class="card-text">Coca-Cola 2L</p>
+                            <p class="text-danger"><strong>R$ 7,99</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="img/pepsi.jpg" class="card-img-top" alt="Pepsi">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pepsi</h5>
+                            <p class="card-text">Pepsi 2L</p>
+                            <p class="text-danger"><strong>R$ 6,99</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="img/fanta.webp" class="card-img-top" alt="Fanta">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Fanta</h5>
+                            <p class="card-text">Fanta Laranja 2L</p>
+                            <p class="text-danger"><strong>R$ 6,49</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="img/sprite.webp" class="card-img-top" alt="Sprite">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Sprite</h5>
+                            <p class="card-text">Sprite 2L</p>
+                            <p class="text-danger"><strong>R$ 7,49</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="img/moggi.jpg" class="card-img-top" alt="Mogi">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Mogi</h5>
+                            <p class="card-text">Mogi Abacaxi 2L</p>
+                            <p class="text-danger"><strong>R$ 4,49</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="img/fantauva.webp" class="card-img-top" alt="Fanta Uva">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Fanta Uva</h5>
+                            <p class="card-text">Fanta Uva  2L</p>
+                            <p class="text-danger"><strong>R$ 6,49</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="scroll-button scroll-right" onclick="scrollContainer('refrigerantes', 1)">&#10095;</button>
+            </div>
+
+            <!-- Categoria: Sucos -->
+            <h3 class="mb-3">Sucos</h3>
+            <div class="position-relative">
+                <button class="scroll-button scroll-left" onclick="scrollContainer('sucos', -1)">&#10094;</button>
+                <div class="scroll-container" id="sucos">
+                    <div class="card">
+                        <img src="img/suco.jpg" class="card-img-top" alt="Suco de Laranja">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Suco Natural</h5>
+                            <p class="card-text">Suco de Laranja  1L</p>
+                            <p class="text-danger"><strong>R$ 5,99</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="img/sucouva.webp" class="card-img-top" alt="Suco de Uva">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Suco de Uva</h5>
+                            <p class="card-text">Suco de Uva Integral 1L</p>
+                            <p class="text-danger"><strong>R$ 5,99</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="img/goiaba.png" class="card-img-top" alt="Suco de Acerola">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Suco de Goiaba</h5>
+                            <p class="card-text">Suco de Goiaba Valle 1L</p>
+                            <p class="text-danger"><strong>R$ 6,49</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="img/abacaxi.webp" class="card-img-top" alt="Suco de Abacaxi">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Suco de Abacaxi</h5>
+                            <p class="card-text">Suco de Abacaxi Valle 1L</p>
+                            <p class="text-danger"><strong>R$ 6,49</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="img/maracuja.webp" class="card-img-top" alt="Suco de Maracuja">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Suco de Maracuja</h5>
+                            <p class="card-text">Suco de Maracuja 1L</p>
+                            <p class="text-danger"><strong>R$ 8,49</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="scroll-button scroll-right" onclick="scrollContainer('sucos', 1)">&#10095;</button>
+            </div>
+
+            <!-- Categoria: Águas -->
+            <h3 class="mb-3">Águas</h3>
+            <div class="position-relative">
+                <button class="scroll-button scroll-left" onclick="scrollContainer('aguas', -1)">&#10094;</button>
+                <div class="scroll-container" id="aguas">
+                    <div class="card">
+                        <img src="img/gas.webp" class="card-img-top" alt="Água Sanitaria">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Água com Gás</h5>
+                            <p class="card-text">Água com Gás 500ml</p>
+                            <p class="text-danger"><strong>R$ 2,99</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="img/agua.webp" class="card-img-top" alt="Água Mineral">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Água Mineral</h5>
+                            <p class="card-text">Água Mineral 500ml</p>
+                            <p class="text-danger"><strong>R$ 1,99</strong></p>
+                            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="scroll-button scroll-right" onclick="scrollContainer('aguas', 1)">&#10095;</button>
+            </div>
+        </div>
+
+    </div>
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/categorias.js" defer></script>
+</body

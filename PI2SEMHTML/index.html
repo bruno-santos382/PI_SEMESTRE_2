@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja Online</title>
+    <title>GM SuperMercado</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/site.css">
@@ -11,29 +12,27 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
+        <div class="container-fluid d-flex justify-content-between">
             <a class="navbar-brand" href="#">
                 <img src="img/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 GM SuperMercado
             </a>
-            <div class="d-flex align-items-center">
+            <div class="d-flex">
                 <a href="login.html" class="icon-text mx-3">
                     <img src="img/login..png" alt="Login" class="icon-image">
                     <span>Login</span>
                 </a>
-                <div class="d-flex align-items-center">
-                    <a href="carrinho.html" class="icon-text mx-3">
-                        <img src="img/compras.png" alt="Login" class="icon-image">
-                        <span>Carrinho</span>
-                    </a>
-                    <div class="d-flex align-items-center">
-                        <a href="index.html" class="icon-text mx-3">
-                            <img src="img/casinha.png" alt="Localização" class="icon-image">
-                            <span>Inicio</span>
+                <a href="carrinho.html" class="icon-text mx-3">
+                    <img src="img/compras.png" alt="Carrinho" class="icon-image">
+                    <span>Carrinho</span>
+                </a>
+                <a href="index.html" class="icon-text mx-3">
+                    <img src="img/casinha.png" alt="Início" class="icon-image">
+                    <span>Início</span>
                 </a>
             </div>
         </div>
-    </nav>
+      </nav>
 
     <!-- Categorias -->
     <div class="container mt-5">
@@ -60,12 +59,12 @@
                 </a>
             </div>
             <div class="col-4 col-md-2">
-                <a href="mercenaria.html" class="category-link">
+                <a href="mercearia.html" class="category-link">
                     <div class="category-item">
                         <div class="icon-circle">
                             <img src="img/MERCENARIA.png" alt="mercenaria" class="category-image">
                         </div>
-                        <p>Mercenaria</p>
+                        <p>Mercearia</p>
                     </div>
                 </a>
             </div>
@@ -105,7 +104,7 @@
     <!-- Promoção -->
     
 
-    <header class="promo-header py-4" style="background-color: #FCBF49;">
+    <header class="promo-header py-4" style="background-color: #f5a52ef3;">
         <div class="container position-relative">
             <h2 class="text-center mb-4">Promoções Da Semana</h2>
 
@@ -163,6 +162,24 @@
                         <button class="btn btn-success">Adicionar ao Carrinho</button>
                     </div>
                 </div>
+                <div class="card h-100 mx-2">
+                    <img src="img/esp.webp" class="card-img-top" alt="Esponja">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Esponja</h5>
+                        <p class="card-text">Esponja Boombril - 4uni</p>
+                        <p class="text-danger"><strong>R$ 4,49</strong></p>
+                        <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                    </div>
+                </div>
+                <div class="card h-100 mx-2">
+                    <img src="img/pocafe.jpg" class="card-img-top" alt="Pó de Café">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Pó de Café</h5>
+                        <p class="card-text">Café torrado e moído - 500g</p>
+                        <p class="text-danger"><strong>R$ 10,99</strong></p>
+                        <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+                    </div>
+                </div>
          
                 <div class="card h-100 mx-2">
                     <img src="img/carnemoida.webp" class="card-img-top" alt="Carne Moída">
@@ -182,7 +199,7 @@
     <!-- JavaScript -->
     <script src="js/index.js" defer></script>
     <!--Promoçao Frango-->
-    <div class="container my-5 py-4 border rounded text-center" style="background-color: #FCBF49;">
+    <div class="container my-5 py-4 border rounded text-center" style="background-color: #f5a52ef3;">
         <h2 class="text-center mb-4">Domingo é dia de Frango!</h2>
         <div class="row justify-content-center align-items-center">
             <div class="col-md-5">
@@ -209,39 +226,40 @@
                     <h5>Ajuda e Suporte</h5>
                     <ul class="list-unstyled">
                         <li><a href="#" onclick="openFAQ()">FAQ</a></li>
-                        <li><a href="https://wa.me/55XX999999999" target="_blank">Suporte via WhatsApp</a></li>
+                        <li><a href="https://wa.me/5519974153552" target="_blank">Suporte via WhatsApp</a></li>
                         <li><a href="mailto:contato@gmsupermercado.com">Envie um Email</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
                     <h5>Contato</h5>
                     <ul class="list-unstyled">
-                        <li><a href="tel:+55XX999999999">Telefone: (XX) 9999-9999</a></li>
+                        <li><a href="tel:+5519974153552">Telefone:(19) 3132-1173</a></li>
                         <li><a href="mailto:contato@gmsupermercado.com">Email: @gmsupermercado.com</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
                     <h5>Localização</h5>
                     <ul class="list-unstyled">
-                        <li><a href="https://goo.gl/maps/example" target="_blank">Ver no Google Maps</a></li>
-                        <li>Rua Exemplo, 123</li>
-                        <li>Cidade, Estado</li>
+                        <li><a href="https://www.google.com/maps/place/R.+Irineu+Scamparini,+23+-+Jardim+Jose+Ometto+II,+Araras+-+SP,+13606-351/@-22.3505342,-47.3394581,17z/data=!3m1!4b1!4m6!3m5!1s0x94c8708c8413e487:0xe6ca6db1c384d53f!8m2!3d-22.3505342!4d-47.3368778!16s%2Fg%2F11dz56dzx_?entry=ttu&g_ep=EgoyMDI0MTExOC4wIKXMDSoASAFQAw%3D%3D" target="_blank">Ver no Google Maps</a></li>
+                        <li>
+                            Irineu scamparini n *23 José Ometto ll</li>
+                        <li> Araras, SP, Brazil</li>
                     </ul>
                 </div>
                 <div class="col-md-3">
                     <h5>Sobre Nós</h5>
                     <ul class="list-unstyled">
                         <li><a href="sobre.html">Nossa História</a></li>
-                        <li><a href="valores.html">Missão e Valores</a></li>
-                        <li><a href="equipe.html">Nossa Equipe</a></li>
+                        <li><a href="sobre.html">Missão e Valores</a></li>
+                        <li><a href="sobre.html">Nossa Equipe</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
                     <h5>Siga-nos</h5>
                     <ul class="list-unstyled social-icons">
-                        <li><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
-                        <li><a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
-                        <li><a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100057182540823" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="https://www.instagram.com/gmsupermercados?igsh=MWdvdWF5czYydzBwOA==" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+            
                     </ul>
                 </div>
             </div>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM SuperMercado</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/categorias.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="img/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                GM SuperMercado
+            </a>
+            <div class="d-flex align-items-center">
+                <a href="login.html" class="icon-text mx-3">
+                    <img src="img/login..png" alt="Login" class="icon-image">
+                    <span>Login</span>
+                </a>
+                <a href="carrinho.html" class="icon-text mx-3">
+                    <img src="img/compras.png" alt="Carrinho" class="icon-image">
+                    <span>Carrinho</span>
+                </a>
+                <a href="index.html" class="icon-text mx-3">
+                    <img src="img/casinha.png" alt="Inicio" class="icon-image">
+                    <span>Inicio</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Procurar por Produto</h2>
+        
+        <!-- Barra de pesquisa -->
+        <div class="input-group mb-4">
+            <input type="text" class="form-control" id="searchInput" placeholder="Digite o nome do produto" aria-label="Search">
+            <button class="btn btn-outline-success" onclick="searchProduct()">Buscar</button>
+        </div>
+<!-- Categoria: Mercearia -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">Setor de Mercearia</h2>
+
+
+
+<h4 class="mt-4 mb-3">Essencias</h4>
+<div class="position-relative">
+    <button class="scroll-button scroll-left" onclick="scrollContainer('essenciais', -1)">&#10094;</button>
+    <div class="scroll-container" id="Essencias">
+        <div class="card">
+            <img src="img/arroz.jpg" class="card-img-top" alt="Arroz">
+            <div class="card-body text-center">
+                <h5 class="card-title">Arroz</h5>
+                <p class="card-text">Arroz tipo 1 - 5kg</p>
+                <p class="text-danger"><strong>R$ 25,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/feijao.png" class="card-img-top" alt="Feijão">
+            <div class="card-body text-center">
+                <h5 class="card-title">Feijão</h5>
+                <p class="card-text">Feijão carioca - 1kg</p>
+                <p class="text-danger"><strong>R$ 7,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/açucar.webp" class="card-img-top" alt="Açúcar">
+            <div class="card-body text-center">
+                <h5 class="card-title">Açúcar</h5>
+                <p class="card-text">Açúcar refinado - 1kg</p>
+                <p class="text-danger"><strong>R$ 3,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/Sal.webp" class="card-img-top" alt="Sal">
+            <div class="card-body text-center">
+                <h5 class="card-title">Sal</h5>
+                <p class="card-text">Sal refinado - 1kg</p>
+                <p class="text-danger"><strong>R$ 2,50</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/macarrao.jpg" class="card-img-top" alt="Macarrão">
+            <div class="card-body text-center">
+                <h5 class="card-title">Macarrão</h5>
+                <p class="card-text">Macarrão espaguete - 500g</p>
+                <p class="text-danger"><strong>R$ 4,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/oleo.webp" class="card-img-top" alt="Óleo de Soja">
+            <div class="card-body text-center">
+                <h5 class="card-title">Óleo de Soja</h5>
+                <p class="card-text">Óleo de soja - 900ml</p>
+                <p class="text-danger"><strong>R$ 8,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+    </div>
+    <button class="scroll-button scroll-right" onclick="scrollContainer('graos', 1)">&#10095;</button>
+</div>
+
+<!-- Subcategoria: Derivados -->
+<h4 class="mt-4 mb-3">Derivados</h4>
+<div class="position-relative">
+    <button class="scroll-button scroll-left" onclick="scrollContainer('derivados', -1)">&#10094;</button>
+    <div class="scroll-container" id="derivados">
+        <div class="card">
+            <img src="img/moça.webp" class="card-img-top" alt="Leite Condensado">
+            <div class="card-body text-center">
+                <h5 class="card-title">Leite Condensado</h5>
+                <p class="card-text">Leite condensado - 395g</p>
+                <p class="text-danger"><strong>R$ 5,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/cremeleite.webp" class="card-img-top" alt="Creme de Leite">
+            <div class="card-body text-center">
+                <h5 class="card-title">Creme de Leite</h5>
+                <p class="card-text">Creme de leite - 200g</p>
+                <p class="text-danger"><strong>R$ 3,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/leiteintegral.jpg" class="card-img-top" alt="Leite Integral">
+            <div class="card-body text-center">
+                <h5 class="card-title">Leite Integral</h5>
+                <p class="card-text">Leite integral - 1L</p>
+                <p class="text-danger"><strong>R$ 4,49</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/leitedesnatado.webp" class="card-img-top" alt="Leite Normal">
+            <div class="card-body text-center">
+                <h5 class="card-title">Leite Desnatado</h5>
+                <p class="card-text">Leite desnatado - 1L</p>
+                <p class="text-danger"><strong>R$ 4,29</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+        <img src="img/po.webp" class="card-img-top" alt="Leite em pó">
+        <div class="card-body text-center">
+            <h5 class="card-title">Leite em Pó</h5>
+            <p class="card-text">Leite em Pó Ninho - 750gr</p>
+            <p class="text-danger"><strong>R$ 15,00</strong></p>
+            <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+        </div>
+    </div>
+    </div>
+    <button class="scroll-button scroll-right" onclick="scrollContainer('derivados', 1)">&#10095;</button>
+</div>
+
+
+<!-- Subcategoria: Óleos -->
+<h4 class="mt-4 mb-3">Grãos e Farinhas</h4>
+<div class="position-relative">
+    <button class="scroll-button scroll-left" onclick="scrollContainer('graos-e-farinhas', -1)">&#10094;</button>
+    <div class="scroll-container" id="graos-e-farinhas">
+        <div class="card">
+            <img src="img/pocafe.jpg" class="card-img-top" alt="Pó de Café">
+            <div class="card-body text-center">
+                <h5 class="card-title">Pó de Café</h5>
+                <p class="card-text">Café torrado e moído - 500g</p>
+                <p class="text-danger"><strong>R$ 10,99</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/farinhatrigo.jpg" class="card-img-top" alt="Farinha de Trigo">
+            <div class="card-body text-center">
+                <h5 class="card-title">Farinha de Trigo</h5>
+                <p class="card-text">Farinha de trigo - 1kg</p>
+                <p class="text-danger"><strong>R$ 5,50</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/rosca.webp" class="card-img-top" alt="Farinha de Rosca">
+            <div class="card-body text-center">
+                <h5 class="card-title">Farinha de Rosca</h5>
+                <p class="card-text">Farinha de rosca - 500g</p>
+                <p class="text-danger"><strong>R$ 4,20</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/mandioca (2).webp" class="card-img-top" alt="Farinha de Mandioca">
+            <div class="card-body text-center">
+                <h5 class="card-title">Farinha de Mandioca</h5>
+                <p class="card-text">Farinha de mandioca - 1kg</p>
+                <p class="text-danger"><strong>R$ 6,90</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="img/milho.webp" class="card-img-top" alt="Farinha de Milho">
+            <div class="card-body text-center">
+                <h5 class="card-title">Farinha de Milho</h5>
+                <p class="card-text">Farinha de milho - 500g</p>
+                <p class="text-danger"><strong>R$ 3,50</strong></p>
+                <a href="#" class="btn btn-success">Adicionar ao Carrinho</a>
+            </div>
+        </div>
+    </div>
+    <button class="scroll-button scroll-right" onclick="scrollContainer('graos-e-farinhas', 1)">&#10095;</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+<script src="js/categorias.js" defer></script>
+</body>
+</html>

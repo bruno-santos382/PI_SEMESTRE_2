@@ -1,0 +1,66 @@
+@startuml
+skinparam backgroundColor #F9F9F9
+skinparam activity {
+    StartColor #a8d5e2
+    EndColor #a8d5e2
+    DiamondBackgroundColor #FFDD88
+    DiamondBorderColor black
+    RectangleBackgroundColor #7DA8B5
+    RectangleBorderColor black
+    ArrowColor black
+    FontSize 12
+}
+
+start
+
+:Funcionário acessa o sistema;
+
+if (Funcionário está logado?) then (<color:green>Sim</color>)
+    :Redireciona para a página inicial;
+    :Funcionário clica para acessar o painel administrativo;
+else (<color:red>Não</color>)
+    :Exibe tela de login;
+    :Funcionário insere credenciais;
+    if (Credenciais válidas?) then (<color:green>Sim</color>)
+        :Autenticação bem-sucedida;
+        :Redireciona para a página inicial;
+        :Funcionário acessa o painel administrativo;
+    else (<color:red>Não</color>)
+        :Exibe mensagem de erro;
+        stop
+    endif
+endif
+
+:Exibe menu principal;
+
+while (Selecionar funcionalidade) is (<color:green>Sim</color>)
+    if (Gerenciar Usuários?) then (<color:green>Sim</color>)
+        :Acessa Gerenciar Usuários;
+        :CRUD de Usuários;
+    elseif (Gerenciar Produtos?) then (<color:green>Sim</color>)
+        :Acessa Gerenciar Produtos;
+        :CRUD de Produtos;
+    elseif (Gerenciar Pedidos?) then (<color:green>Sim</color>)
+        :Acessa Gerenciar Pedidos;
+        :CRUD de Pedidos;
+    elseif (Gerenciar Categorias?) then (<color:green>Sim</color>)
+        :Acessa Gerenciar Categorias;
+        :CRUD de Categorias;
+    elseif (Gerenciar Promoções?) then (<color:green>Sim</color>)
+        :Acessa Gerenciar Promoções;
+        :CRUD de Promoções;
+    else (<color:red>Não</color>)
+        :Retorna ao menu principal;
+    endif
+endwhile
+
+:Funcionário encerra sessão;
+stop
+
+legend right
+  <b>Legenda</b>
+  <color:#7DA8B5>CRUD</color> = Criar, visualizar, alterar e excluir
+  <color:green>Sim</color> = Fluxo positivo
+  <color:red>Não</color> = Fluxo negativo
+endlegend
+@enduml

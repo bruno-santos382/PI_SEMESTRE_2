@@ -1,0 +1,39 @@
+@startuml
+start
+
+:Cliente acessa o sistema;
+:Visualiza o catálogo de produtos;
+:Adiciona produtos ao carrinho;
+
+if (Cliente deseja remover algum produto?) is (<color:green>Sim) then
+    :Remove produto do carrinho;
+else (<color:red>Não)
+    :Continua com os produtos no carrinho;
+endif
+
+if (Cliente deseja finalizar a compra?) is (<color:green>Sim) then
+    if (Cliente está logado?) is (<color:green>Sim) then
+        :Processa o pedido;
+    else (<color:red>Não)
+        :Exibe tela de login;
+        :Realiza login;
+        :Processa o pedido;
+    endif
+else (<color:red>Não)
+    :Continua navegando;
+endif
+
+if (Cliente deseja imprimir a fatura?) is (<color:green>Sim) then
+    if (Cliente está logado?) is (<color:green>Sim) then
+        :Imprime a fatura;
+    else (<color:red>Não)
+        :Exibe tela de login;
+        :Realiza login;
+        :Imprime a fatura;
+    endif
+else (<color:red>Não)
+    :Fim da interação;
+endif
+
+stop
+@enduml

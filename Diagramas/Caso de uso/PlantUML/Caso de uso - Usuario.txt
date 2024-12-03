@@ -1,48 +1,50 @@
 @startuml
 left to right direction
+skinparam groupInheritance 3
 
-actor Usuario as User
+actor "Cliente" as Cliente
 
-package "Gerenciamento de Conta" {
-    usecase "Criar Conta" as UC1
-    usecase "Acessar Conta" as UC2
-    usecase "Recuperar Senha" as UC3
-    usecase "Desativar Conta" as UC4
+package "Autenticação" {
+    Cliente -- (Redefinir Senha)
+    note right of (Redefinir Senha) : Redefinição de senha em caso de esquecimento.
+    
+    Cliente -- (Registrar)
+    note right of (Registrar) : Criação de uma nova conta.
+    
+    Cliente -- (Login)
+    note right of (Login) : Acesso à conta do cliente.
 }
 
-package "Interação com Produtos" {
-    usecase "Pesquisar Produtos" as UC5
-    usecase "Visualizar Catálogo de Produtos" as UC6
-    usecase "Visualizar Detalhes do Produto" as UC7
+package "Catálogo" {
+    Cliente -- (Acessar Catálogo)
+    note right of (Acessar Catálogo) : Visualização de todos os produtos disponíveis.
 }
 
-package "Carrinho de Compras" {
-    usecase "Adicionar ao Carrinho" as UC8
-    usecase "Remover do Carrinho" as UC9
-    usecase "Atualizar Quantidade no Carrinho" as UC10
-    usecase "Confirmar Reserva" as UC11
-    usecase "Cancelar Reserva" as UC12
+package "Carrinho" {
+    Cliente -- (Adicionar Produto ao Carrinho)
+    note right of (Adicionar Produto ao Carrinho) : Adição de produtos ao carrinho.
+
+    Cliente -- (Remover Produto do Carrinho)
+    note right of (Remover Produto do Carrinho) : Remoção de produtos do carrinho.
 }
 
-package "Histórico e Notificações" {
-    usecase "Visualizar Histórico de Pedidos" as UC13
-    usecase "Receber Notificações de Promoções" as UC14
+package "Pedidos" {
+
+    
+    Cliente -- (Confirmar Pedido)
+    note right of (Confirmar Pedido) : Confirmar o pedido.
+
+    Cliente -- (Imprimir Comprovante)
+    note right of (Imprimir Comprovante) : Impressão do comprovante do pedido realizado.
+
+Cliente -- (Efetuar Pedido)
+    note right of (Efetuar Pedido) : Efetuar o pedido.
+
 }
 
-User --> UC1
-User --> UC2
-User --> UC3
-User --> UC4
-User --> UC5
-User --> UC6
-User --> UC7
-User --> UC8
-User --> UC9
-User --> UC10
-User --> UC13
-User --> UC14
 
-UC11 .u.> UC8 : include
-UC12 .d.> UC11 : depende de
+(Confirmar Pedido) .> Login : includes
+(Imprimir Comprovante) .> Login : includes
+
 
 @enduml

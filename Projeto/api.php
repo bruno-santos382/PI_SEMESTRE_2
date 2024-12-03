@@ -41,6 +41,8 @@ try {
         // Rotas de autenticação
         'autentica/login' => [$autentica, 'login'],
         'autentica/logout' => [$autentica, 'logout'],
+        'autentica/registrar' => [$autentica, 'registrar'],
+        'autentica/recuperar_senha' => [$autentica, 'recuperarSenha'],
 
         // Rotas de imagem
         'imagem/upload' => [$imagem, 'uploadImagem'],

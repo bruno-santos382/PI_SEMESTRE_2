@@ -37,3 +37,7 @@ h3 {
 }
 
 
+.btn-primary[disabled] {
+    background-color: #f49949;
+    cursor: not-allowed;
+}

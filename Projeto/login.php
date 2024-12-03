@@ -20,7 +20,7 @@ include __DIR__ . '/src/template/header.php';
             <h3 class="text-center">Bem-Vindo ao GM Supermercado, faça seu login!</h3>
 
             <!-- Caixa de alerta -->
-            <div id="alertaLogin">
+            <div id="alertaLogin" class="mb-3">
                 <?php include __DIR__ . '/src/template/alertas.php' ?>
             </div>
 
@@ -38,14 +38,16 @@ include __DIR__ . '/src/template/header.php';
                 </div>
             </form>
             <div class="text-center mt-3">
-                <a href="#">Esqueceu sua senha?</a>
+                <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalRecuperarSenha">Esqueceu sua senha?</button>
             </div>
         </div>
         <!-- Link para Registrar -->
         <div class="text-center mt-3">
-            <p>Não tem uma conta? <a href="#">Registre-se aqui</a></p>
+            <p>Não tem uma conta? <a href="cadastro.php">Registre-se aqui</a></p>
         </div>
     </div>
 </div>
 
+
+<?php include __DIR__ . '/src/template/modal_recuperar_senha.php'; ?>
 <?php include __DIR__ . '/src/template/footer.php'; ?>

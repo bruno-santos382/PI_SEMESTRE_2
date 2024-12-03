@@ -12,9 +12,9 @@ class Usuario
 
     protected array $config;
 
-    public function __construct() {
-        $this->conexao = new Conexao();
-        $this->autentica = new Autentica();
+    public function __construct(Conexao $conexao=null, Autentica $autentica=null) {
+        $this->conexao = $conexao ?? new Conexao();
+        $this->autentica = $autentica ?? new Autentica($this->conexao, null, $this);
         $this->config = include __DIR__.'/../../includes/config.php';
     }
 
@@ -22,7 +22,7 @@ class Usuario
         string $usuario, 
         string $senha, 
         array $permissoes = []
-    ): void {
+    ): array {
         // Verifica se usuário já existe
         $this->verificarDuplicidade('usuario', $usuario, null, 'Nome de usuário já está em uso.');
     
@@ -37,6 +37,8 @@ class Usuario
     
         // Insere permissões do usuário
         $this->inserirPermissoes($id_usuario, $permissoes);
+        
+        return $this->buscaPorId($id_usuario);
     }
 
     public function atualizar(

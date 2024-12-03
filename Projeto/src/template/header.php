@@ -66,7 +66,8 @@
                 <?php if (!empty($usuario)): ?>
                     <div class="icon-text mx-3">
                         <img src="static/img/login..png" alt="Usuário" class="icon-image">
-                        <span><?= htmlspecialchars($usuario['usuario']) ?></span>
+                        <?php [$nome] = explode(' ', $usuario['nome']); ?>
+                        <span><?= htmlspecialchars($nome) ?></span>
                     </div>
                 <?php endif; ?>
 

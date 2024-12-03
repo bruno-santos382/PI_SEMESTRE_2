@@ -3,6 +3,8 @@
 require_once __DIR__.'/../Conexao.php';
 require_once __DIR__.'/../validacao/ValidacaoException.php';
 require_once __DIR__.'/../carrinho/Carrinho.php';
+require_once __DIR__.'/../usuario/Usuario.php';
+require_once __DIR__.'/../cliente/Cliente.php';
 
 // Iniciar sessão caso esteja inativa
 if (session_status() != PHP_SESSION_ACTIVE) {
@@ -22,17 +24,27 @@ class Autentica
     
     private Carrinho $carrinho;
 
+    private Usuario $usuario;
+
+    private Cliente $cliente;
+
     /**
      * Construtor da classe.
      * 
      * Instancia uma nova conexão com o banco de dados.
      */
-    public function __construct(Conexao $conexao=null, Carrinho $carrinho=null)
-    {
+    public function __construct(
+        Conexao $conexao = null, 
+        Carrinho $carrinho = null, 
+        Usuario $usuario = null, 
+        Cliente $cliente = null
+    ) {
         $this->conexao = $conexao ?? new Conexao();
         // Passar dependencias por construtor para evitar loop infinito
         // pois Carrinho também instancia um  objeto Autentica
         $this->carrinho = $carrinho ?? new Carrinho($this->conexao, $this);
+        $this->usuario = $usuario ?? new Usuario($this->conexao, $this);
+        $this->cliente = $cliente ?? new Cliente($this->conexao);
     }
     
     
@@ -108,6 +120,47 @@ class Autentica
         unset($_SESSION['usuario']);
     }
 
+    public function registrar(
+        string $nome, 
+        string $email, 
+        string $telefone,
+        string $senha, 
+        string $confirmar_senha
+    ): array {
+        if ($senha !== $confirmar_senha) {
+            throw new ValidacaoException('As senhas devem ser iguais.');
+        }
+
+        $login = $email;
+        $this->conexao->beginTransaction();
+        $usuario = $this->usuario->cadastrar($login, $senha);
+        $pessoa = $this->cliente->cadastrar($nome, $email, $telefone, $usuario['IdUsuario']);
+        $this->conexao->commit();
+
+        return ['url_redirecionamento' => 'login.php'];
+    }
+
+    public function recuperarSenha(string $email): array
+    {
+        $query = "SELECT * FROM VW_USUARIOS_ATIVOS WHERE email = :email LIMIT 1";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute(['email' => $email]);
+        $row = $stmt->fetch(\PDO::FETCH_OBJ);
+
+        if (!$row) {
+            throw new ValidacaoException('Email inválido.');
+        }
+        
+        $nova_senha = password_hash('123456', PASSWORD_DEFAULT);
+        $query = "UPDATE usuarios SET Senha = :senha WHERE idusuario = :idusuario";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute([
+            'senha' => $nova_senha,
+            'idusuario' => $row->IdUsuario
+        ]);
+
+        return ['nova_senha' => '123456'];
+    }
 
     /**
      * Verifica se o usuário está logado e retorna seus dados.

@@ -50,4 +50,34 @@ class AutenticaController extends BaseController
             'mensagem' => 'Logout efetuado com sucesso!'
         ];
     }
+
+    public function registrar(): array
+    {
+        $retorno = $this->realizarAcao([$this->autentica, 'registrar'], [
+            'nome' => ['filter' => FILTER_DEFAULT, 'erro' => 'O campo nome é obrigatório.'],
+            'email' => ['filter' => FILTER_VALIDATE_EMAIL, 'erro' => 'O campo email é obrigatório.'],
+            'telefone' => ['filter' => FILTER_SANITIZE_NUMBER_INT, 'erro' => 'O campo telefone é obrigatório.'],
+            'senha' => ['filter' => FILTER_DEFAULT, 'erro' => 'A senha é obrigatória.'],
+            'confirmar_senha' => ['filter' => FILTER_DEFAULT, 'erro' => 'A confirmação da senha é obrigatória.']
+        ]);
+
+        return [
+            'status' => 'ok', 
+            'dados' => $retorno,
+            'mensagem' => 'Cadastro efetuado com sucesso!'
+        ];
+    }
+
+    public function recuperarSenha(): array
+    {
+        $retorno = $this->realizarAcao([$this->autentica, 'recuperarSenha'], [
+            'email' => ['filter' => FILTER_VALIDATE_EMAIL, 'erro' => 'O campo email é obrigatório.']
+        ]);
+
+        return [
+            'status' => 'ok', 
+            'dados' => $retorno,
+            'mensagem' => 'Email enviado com sucesso!'
+        ];
+    }
 }

@@ -7,8 +7,8 @@ class Cliente
 {
     protected Conexao $conexao;
 
-    public function __construct() {
-        $this->conexao = new Conexao();
+    public function __construct(Conexao $conexao = null) {
+        $this->conexao = $conexao ?? new Conexao();
     }
 
     public function cadastrar(
@@ -16,7 +16,7 @@ class Cliente
         string $email, 
         string $telefone, 
         int $id_usuario = null
-    ): void {
+    ): array {
         // Verifica se cliente já existe
         $this->verificarDuplicidade('email', $email, null, 'E-mail já está em uso.');
         $this->verificarDuplicidade('telefone', $telefone, null, 'Telefone já está em uso.');
@@ -33,6 +33,10 @@ SQL;
             'telefone' => $telefone,
             'idusuario' => $id_usuario
         ]);
+
+        $id_cliente = $this->conexao->lastInsertId();
+
+        return $this->buscaPorId($id_cliente);
     }
     
     public function atualizar(

@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f7c029, #ff5733); /* Gradiente diagonal com 3 cores */
+    min-height: 100vh;
+    color: #333;
+}
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+/* 
+.icon-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    color: black;
+    text-align: center;
+}
+
+.icon-text .icon-image {
+    font-size: 1.5em;
+    margin-bottom: 3px;
+    width: 30px;
+    height: 30px;
+}
+
+.icon-text span {
+    font-size: 0.8em;
+} */
+
+.category-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    background-color: rgba(233, 229, 229, 0.952);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(2, 1, 1, 0.938);
+    max-width: 800px;
+    margin: 80px auto; /* Espaço para a navbar */
+    text-align: left;
+}
+
+.container h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #0a0202;
+}
+
+.container p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.container h2:not(:first-of-type) {
+    margin-top: 20px;
+}
+
+.footer-image {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}

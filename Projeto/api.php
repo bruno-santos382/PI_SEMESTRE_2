@@ -11,6 +11,7 @@ require_once __DIR__.'/src/class/usuario/Controller.php';
 require_once __DIR__.'/src/class/cliente/Controller.php';
 require_once __DIR__.'/src/class/funcionario/Controller.php';
 require_once __DIR__.'/src/class/pedido/Controller.php';
+require_once __DIR__.'/src/class/frango_assado/Controller.php';
 require_once __DIR__.'/src/class/validacao/ValidacaoException.php';
 
 header('Content-Type: application/json');
@@ -28,6 +29,7 @@ try {
     $cliente = new ClienteController();
     $funcionario = new FuncionarioController();
     $pedido = new PedidoController();
+    $frango_assado = new FrangoAssadoController();
     
     $funcao = [
         // Rotas de produto
@@ -79,6 +81,9 @@ try {
         'pedido/lista_itens' => [$pedido, 'listaItensPedido'],
         'pedido/checkout' => [$pedido, 'realizarCheckout'],
         'pedido/confirmar' => [$pedido, 'confirmarPedido'],
+
+        // Rotas frango assado
+        'frango_assado/novo_pedido' => [$frango_assado, 'novoPedido'],
     ];
     
     if (!isset($funcao[$rota])) {

@@ -595,6 +595,27 @@ INSERT INTO `pedido_produtos` (`IdPedido`, `IdProduto`, `Quantidade`, `PrecoUnit
 
 
 --
+-- Estrutura para tabela `frango_assado_pedidos`
+--
+
+
+CREATE TABLE `frango_assado_pedidos` (
+  `IdPedido` INT NOT NULL AUTO_INCREMENT,
+  `Nome` VARCHAR(255) NOT NULL,
+  `Telefone` VARCHAR(20) NOT NULL,
+  `Quantidade` INT NOT NULL DEFAULT 1,
+  `Observacoes` TEXT,
+  `PrecoUnitario` DECIMAL(10, 2) NOT NULL DEFAULT 34.99,
+  `PrecoComDesconto` DECIMAL(10, 2) NOT NULL DEFAULT 31.49,
+  `DescontoAplicado` DECIMAL(5, 2) DEFAULT 10.00,
+  `DataPedido` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Status` ENUM('Pendente', 'Confirmado', 'Cancelado') DEFAULT 'Pendente',
+  PRIMARY KEY (`IdPedido`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+--
 -- Estrutura para tabela `carrinho`
 --
 

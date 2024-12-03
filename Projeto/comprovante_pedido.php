@@ -75,8 +75,8 @@ if (!$usuario || $pedido['IdPessoa'] !== $usuario['id_pessoa']) {
         <div class="header">
             <h1>Comprovante</h1>
             <p>GM Supermercado</p>
-            <p>Endereço do Supermercado</p>
-            <p>Telefone: (XX) XXXX-XXXX</p>
+            <p>Irineu scamparini n *23 José Ometto ll</p>
+            <p>Telefone: (19) 3132-1173</p>
         </div>
 
         <div class="details mb-4">

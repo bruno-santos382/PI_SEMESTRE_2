@@ -141,59 +141,60 @@ include __DIR__ . '/src/template/header.php';
             <p class="text-success mt-3"><strong>Promoção Especial:</strong> Desconto de 10% para pedidos online!</p>
 
             <!-- Botão de encomenda -->
-            <a href="paginapedidosfrango.html" class="btn btn-primary btn-lg mt-3">Encomendar Agora e Ganhe o
+            <a href="frango_assado.php" class="btn btn-primary btn-lg mt-3">Encomendar Agora e Ganhe o
                 Desconto!</a>
         </div>
     </div>
 </div>
-<!-- Ajuda e Suporte -->
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                <h5>Ajuda e Suporte</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" onclick="openFAQ()">FAQ</a></li>
-                    <li><a href="https://wa.me/55XX999999999" target="_blank">Suporte via WhatsApp</a></li>
-                    <li><a href="mailto:contato@gmsupermercado.com">Envie um Email</a></li>
-                </ul>
+ <!-- Ajuda e Suporte -->
+ <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <h5>Ajuda e Suporte</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" onclick="openFAQ()">FAQ</a></li>
+                        <li><a href="https://wa.me/5519974153552" target="_blank">Suporte via WhatsApp</a></li>
+                        <li><a href="mailto:contato@gmsupermercado.com">Envie um Email</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h5>Contato</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="tel:+5519974153552">Telefone:(19) 3132-1173</a></li>
+                        <li><a href="mailto:contato@gmsupermercado.com">Email: @gmsupermercado.com</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h5>Localização</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.google.com/maps/place/R.+Irineu+Scamparini,+23+-+Jardim+Jose+Ometto+II,+Araras+-+SP,+13606-351/@-22.3505342,-47.3394581,17z/data=!3m1!4b1!4m6!3m5!1s0x94c8708c8413e487:0xe6ca6db1c384d53f!8m2!3d-22.3505342!4d-47.3368778!16s%2Fg%2F11dz56dzx_?entry=ttu&g_ep=EgoyMDI0MTExOC4wIKXMDSoASAFQAw%3D%3D" target="_blank">Ver no Google Maps</a></li>
+                        <li>
+                            Irineu scamparini n *23 José Ometto ll</li>
+                        <li> Araras, SP, Brazil</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Sobre Nós</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="sobre.php">Nossa História</a></li>
+                        <li><a href="sobre.php">Missão e Valores</a></li>
+                        <li><a href="sobre.php">Nossa Equipe</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Siga-nos</h5>
+                    <ul class="list-unstyled social-icons">
+                        <li><a href="https://www.facebook.com/profile.php?id=100057182540823" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="https://www.instagram.com/gmsupermercados?igsh=MWdvdWF5czYydzBwOA==" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+            
+                    </ul>
+                </div>
             </div>
-            <div class="col-md-2">
-                <h5>Contato</h5>
-                <ul class="list-unstyled">
-                    <li><a href="tel:+55XX999999999">Telefone: (XX) 9999-9999</a></li>
-                    <li><a href="mailto:contato@gmsupermercado.com">Email: @gmsupermercado.com</a></li>
-                </ul>
-            </div>
-            <div class="col-md-2">
-                <h5>Localização</h5>
-                <ul class="list-unstyled">
-                    <li><a href="https://goo.gl/maps/example" target="_blank">Ver no Google Maps</a></li>
-                    <li>Rua Exemplo, 123</li>
-                    <li>Cidade, Estado</li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>Sobre Nós</h5>
-                <ul class="list-unstyled">
-                    <li><a href="sobre.html">Nossa História</a></li>
-                    <li><a href="valores.html">Missão e Valores</a></li>
-                    <li><a href="equipe.html">Nossa Equipe</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>Siga-nos</h5>
-                <ul class="list-unstyled social-icons">
-                    <li><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
-                    <li><a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-                    </li>
-                    <li><a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
-                </ul>
-            </div>
+            <p class="mt-3">© 2023 GM SuperMercado. Todos os direitos reservados.</p>
         </div>
-        <p class="mt-3">© <?php echo date('Y'); ?> GM SuperMercado. Todos os direitos reservados.</p>
-    </div>
-</footer>
+    </footer>
+
 
 <?php include __DIR__ . '/src/template/popup_produto_adicionado.php'; ?>
 

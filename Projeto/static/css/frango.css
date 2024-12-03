@@ -26,11 +26,16 @@ h1 {
     background-color: #D86B0B;
 }
 
+.btn-primary[disabled] {
+    background-color: #f49949;
+    cursor: not-allowed;
+}
+
 .discount-note {
     color: #28a745;
     font-weight: bold;
 }
-
+/* 
 .icon-text {
     display: flex;
     flex-direction: column;
@@ -48,7 +53,7 @@ h1 {
 
 .icon-text span {
     font-size: 0.8em;
-}
+} */
 
 .category-link {
     text-decoration: none;

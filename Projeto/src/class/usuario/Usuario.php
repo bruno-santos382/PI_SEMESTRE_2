@@ -104,7 +104,7 @@ class Usuario
     
     private function verificarDuplicidade(string $campo, string $valor, int $usuario_id = null, string $mensagem_erro): void {
         // Preparar a consulta base
-        $query = "SELECT idusuario FROM usuarios WHERE {$campo} = :valor";
+        $query = "SELECT idusuario FROM usuarios WHERE {$campo} = :valor AND dataexclusao IS NULL";
     
         // Excluir o usuário atual da verificação se for uma atualização
         if ($usuario_id) {

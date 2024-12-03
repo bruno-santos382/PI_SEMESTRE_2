@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/../Conexao.php';
 require_once __DIR__.'/../validacao/ValidacaoException.php';
+require_once __DIR__.'/../carrinho/Carrinho.php';
 
 // Iniciar sessão caso esteja inativa
 if (session_status() != PHP_SESSION_ACTIVE) {
@@ -18,15 +19,20 @@ if (session_status() != PHP_SESSION_ACTIVE) {
 class Autentica 
 {
     private Conexao $conexao;
+    
+    private Carrinho $carrinho;
 
     /**
      * Construtor da classe.
      * 
      * Instancia uma nova conexão com o banco de dados.
      */
-    public function __construct()
+    public function __construct(Conexao $conexao=null, Carrinho $carrinho=null)
     {
-        $this->conexao = new Conexao();
+        $this->conexao = $conexao ?? new Conexao();
+        // Passar dependencias por construtor para evitar loop infinito
+        // pois Carrinho também instancia um  objeto Autentica
+        $this->carrinho = $carrinho ?? new Carrinho($this->conexao, $this);
     }
     
     
@@ -76,6 +82,8 @@ class Autentica
             'tipo' => $row->Tipo
         );
 
+        // Carregar produtos do carrinho
+        $this->carrinho->carregar();
 
         if (isset($_SESSION['redirecionar_apos_login'])) {
             $url_redirecionamento = $_SESSION['redirecionar_apos_login'];
@@ -92,6 +100,11 @@ class Autentica
      */
     public function logout(): void
     {
+        // Salvar e esvaziar carrinho
+        $this->carrinho->salvar();
+        $this->carrinho->esvaziar();
+
+        // Efetuar logout
         unset($_SESSION['usuario']);
     }
 

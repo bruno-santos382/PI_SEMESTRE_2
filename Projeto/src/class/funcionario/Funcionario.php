@@ -27,7 +27,7 @@ class Funcionario
 	
 		// Insere o novo funcionário
 		$query = <<<SQL
-			INSERT INTO funcionarios (nome, email, telefone, idusuario, tipo) 
+			INSERT INTO pessoas (nome, email, telefone, idusuario, tipo) 
 			VALUES (:nome, :email, :telefone, :idusuario, 'funcionario');
 SQL;
 		$stmt = $this->conexao->prepare($query);
@@ -56,7 +56,7 @@ SQL;
 	
 		// Atualiza o funcionário
 		$query = <<<SQL
-			UPDATE funcionarios 
+			UPDATE pessoas 
 			   SET nome = :nome,
 				   email = :email,
 				   telefone = :telefone,
@@ -113,7 +113,7 @@ SQL;
 
 		// Marcar como excluído (soft delete)
 		$query = <<<SQL
-			UPDATE funcionarios
+			UPDATE pessoas
 			SET DataExclusao = CURRENT_TIMESTAMP()
 			WHERE idpessoa = :id
 SQL;
@@ -155,7 +155,7 @@ SQL;
 		SELECT f.*, u.Usuario 
 		from pessoas f 
 		JOIN usuarios u ON u.idusuario = f.idusuario AND u.DataExclusao IS NULL 
-		WHERE f.DataExclusao IS NULL 
+		WHERE f.DataExclusao IS NULL AND f.tipo = 'funcionario'
 		ORDER BY f.nome
 SQL;
 

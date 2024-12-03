@@ -139,7 +139,7 @@ SQL;
         SELECT c.*, u.Usuario
         from pessoas c
         JOIN usuarios u ON u.idusuario = c.idusuario AND u.DataExclusao IS NULL
-        WHERE c.DataExclusao IS NULL
+        WHERE c.DataExclusao IS NULL AND c.tipo = 'cliente'
         ORDER BY c.nome
 SQL;
         $stmt = $this->conexao->query($query);

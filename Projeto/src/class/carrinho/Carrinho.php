@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/../Conexao.php';
 require_once __DIR__.'/../validacao/ValidacaoException.php';
+require_once __DIR__.'/../autenticacao/Autentica.php';
 
 // Iniciar sessão caso esteja inativa
 if (session_status() != PHP_SESSION_ACTIVE) {
@@ -12,8 +13,13 @@ class Carrinho
 {
     protected Conexao $conexao;
 
-    public function __construct() {
-        $this->conexao = new Conexao();
+    protected Autentica $autentica;
+
+    public function __construct(Conexao $conexao=null, Autentica $autentica=null) {
+        $this->conexao = $conexao ?? new Conexao();
+        // Passar dependencias por construtor para evitar loop infinito
+        // pois Autentica também instancia um  objeto Carrinho
+        $this->autentica = $autentica ?? new Autentica($this->conexao, $this);
     }
     
     public function adicionar(int $id_produto): void
@@ -51,6 +57,65 @@ class Carrinho
         }
     }
 
+     // Carregar os produtos do carrinho na sessão
+     public function carregar(): void 
+     {
+        $usuario = $this->autentica->usuarioLogado();
+
+        $query = <<<SQL
+        
+        SELECT cp.* FROM carrinho c
+        JOIN carrinho_produtos cp ON cp.IdCarrinho = c.IdCarrinho
+        WHERE c.IdPessoa = ?
+SQL;
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute([$usuario['id_pessoa']]);
+        
+        $_SESSION['carrinho'] = array_merge(
+            $_SESSION['carrinho'] ?? [], 
+            $stmt->fetchAll(PDO::FETCH_ASSOC)
+        );
+    }
+
+    // Salvar o carrinho no banco de dados
+    public function salvar(): void 
+    {
+        $usuario = $this->autentica->usuarioLogado();
+
+        $query = "SELECT IdCarrinho FROM carrinho WHERE IdPessoa = ? LIMIT 1";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute([$usuario['id_pessoa']]);
+        $id_carrinho = $stmt->fetchColumn();
+
+       if (!empty($id_carrinho))
+       {
+            // Limpar produtos do carrinho
+            $query = "DELETE FROM carrinho_produtos WHERE IdCarrinho = ?";
+            $stmt = $this->conexao->prepare($query);
+            $stmt->execute([$id_carrinho]);
+       }
+       else
+       {
+            // Criar novo carrinho
+            $query = "INSERT INTO carrinho (IdPessoa) VALUES (?)";
+            $stmt = $this->conexao->prepare($query);
+            $stmt->execute([$usuario['id_pessoa']]);
+            $id_carrinho = $this->conexao->lastInsertId();
+       }
+
+        // Inserir produtos no carrinho
+        $query = "INSERT INTO carrinho_produtos (IdCarrinho, IdProduto, Quantidade) VALUES (?, ?, ?)";
+        $stmt = $this->conexao->prepare($query);
+
+        foreach ($_SESSION['carrinho'] as $item) {
+            $stmt->execute([
+                $id_carrinho, 
+                $item['IdProduto'], 
+                $item['Quantidade']]
+            );
+        }
+    }
+    
     public function esvaziar(): void
     {
         unset($_SESSION['carrinho']);

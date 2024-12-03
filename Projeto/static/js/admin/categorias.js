@@ -3,7 +3,7 @@ function htmlCategoria(categoria) {
     const paginas = {
         'hortifruti': 'Hortifruti',
         'acougue': 'Açougue',
-        'mercenaria': 'Mercenaria',
+        'mercearia': 'Mercearia',
         'bebidas': 'Bebidas',
         'padaria': 'Padaria',
         'limpeza': 'Limpeza'

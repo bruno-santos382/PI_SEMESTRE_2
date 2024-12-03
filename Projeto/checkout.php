@@ -32,7 +32,7 @@ include __DIR__ . '/src/template/header.php';
     </div>
 
     <?php
-    require __DIR__ . '/src/class/pedido/Pedido.php';
+    require_once __DIR__ . '/src/class/pedido/Pedido.php';
     $pedido = new Pedido();
     ['valor_total' => $valor_total, 'produtos' => $produtos] = $pedido->listaItensCheckout();
 

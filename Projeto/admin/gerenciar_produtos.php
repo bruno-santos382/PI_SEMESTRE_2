@@ -38,7 +38,7 @@ include __DIR__ . '/../src/template/admin/header.php';
                 <td><?= $item['IdProduto'] ?></td>
                 <td><?= $item['Categoria'] ?></td>
                 <td>
-                    <img src="<?= $item['Imagem'] ?? 'static/img/galeria.png' ?>" alt="<?= $item['Nome'] ?>" class="img-fluid" style="max-width: 50px; height: auto;">
+                    <img src="<?= $item['Imagem'] ?? 'static/img/galeria.png' ?>" alt="<?= $item['Nome'] ?>" class="img-fluid" style="max-width: 50px; height: 50px; object-fit: cover;">
                 </td>
                 <td><?= $item['Nome'] ?></td>
                 <td><?= $item['Marca'] ?></td>

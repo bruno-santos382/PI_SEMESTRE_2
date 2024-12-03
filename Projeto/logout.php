@@ -9,7 +9,7 @@
     Por favor, aguarde...
 
     <?php
-        require __DIR__.'/src/class/autenticacao/Autentica.php';
+        require_once __DIR__.'/src/class/autenticacao/Autentica.php';
         $autentica = new Autentica();
         $autentica->logout();
         header('Location: index.php');

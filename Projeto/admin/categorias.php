@@ -14,7 +14,7 @@ include __DIR__ . '/../src/template/admin/header.php';
     $paginas = [
         'hortifruti' => 'Hortifruti',
         'acougue' => 'Açougue',
-        'mercenaria' => 'Mercenaria',
+        'mercearia' => 'Mercearia',
         'bebidas' => 'Bebidas',
         'padaria' => 'Padaria',
         'limpeza' => 'Limpeza'

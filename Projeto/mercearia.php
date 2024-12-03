@@ -2,7 +2,7 @@
 <?php
 
 $template = array(
-    'titulo' => 'Mercenaria &mdash; GM Supermercado',
+    'titulo' => 'Mercearia &mdash; GM Supermercado',
     'scripts' => ['static/js/categorias.js', 'static/js/carrinho.js'],
     'styles' => ['static/css/categorias.css']
 );
@@ -19,19 +19,19 @@ include __DIR__ . '/src/template/header.php';
 </div>
 
 <?php
-    require __DIR__.'/src/class/produto/Produto.php';
-    require __DIR__.'/src/class/categoria/Categoria.php';
+    require_once __DIR__.'/src/class/produto/Produto.php';
+    require_once __DIR__.'/src/class/categoria/Categoria.php';
     
     $produto = new Produto();
     $categoria = new Categoria();
 ?>
 
 <div class="container my-5">
-    <h2 class="text-center mb-4">Setor de Mercenaria</h2>
+    <h2 class="text-center mb-4">Setor de Mercearia</h2>
 
     <?php 
-        // Categorias da página de Mercenaria
-        foreach ($categoria->listarPorPagina('mercenaria') as $item) {
+        // Categorias da página de Mercearia
+        foreach ($categoria->listarPorPagina('mercearia') as $item) {
             $nome_categoria = $item['Nome'];
             include __DIR__ . '/src/template/lista_produtos_categoria.php';
         }

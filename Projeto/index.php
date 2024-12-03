@@ -36,12 +36,12 @@ include __DIR__ . '/src/template/header.php';
             </a>
         </div>
         <div class="col-4 col-md-2">
-            <a href="mercenaria.php" class="category-link">
+            <a href="mercearia.php" class="category-link">
                 <div class="category-item">
                     <div class="icon-circle">
-                        <img src="static/img/MERCENARIA.png" alt="mercenaria" class="category-image">
+                        <img src="static/img/MERCEARIA.png" alt="mercearia" class="category-image">
                     </div>
-                    <p>Mercenaria</p>
+                    <p>Mercearia</p>
                 </div>
             </a>
         </div>

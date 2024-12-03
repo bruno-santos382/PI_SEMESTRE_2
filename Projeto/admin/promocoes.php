@@ -27,7 +27,7 @@ include __DIR__ . '/../src/template/admin/header.php';
 	<input type="number" name="id" id="codigo" hidden value="">
 
 	<?php
-		require __DIR__.'/../src/class/produto/Produto.php';
+		require_once __DIR__.'/../src/class/produto/Produto.php';
 		$produto = new Produto();
 	?>
 

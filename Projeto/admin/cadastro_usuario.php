@@ -24,7 +24,7 @@ include __DIR__ . '/../src/template/admin/header.php';
         
         if (!empty($id)) 
         {
-            require __DIR__.'/../src/class/usuario/Usuario.php';
+            require_once __DIR__.'/../src/class/usuario/Usuario.php';
             $usuario = new Usuario();
             $usuario = $usuario->buscaPorId($id);
 

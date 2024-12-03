@@ -19,7 +19,7 @@
 				<td><?php echo htmlspecialchars($item['Nome']); ?></td>
 				<td>
 					<img src="<?= $item['Imagem'] ?? 'static/img/galeria.png' ?>" alt="<?= htmlspecialchars($item['Nome']) ?>"
-						class="img-fluid" style="max-width: 50px; height: auto;">
+						class="img-fluid" style="max-width: 50px; height: 50px; object-fit: cover;">
 				</td>
 				<td><?php echo date('d/m/Y', strtotime($item['DataInicio'])); ?></td>
 				<td><?php echo date('d/m/Y', strtotime($item['DataFim'])); ?></td>

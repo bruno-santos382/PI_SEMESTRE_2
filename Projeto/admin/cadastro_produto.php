@@ -28,7 +28,7 @@ include __DIR__ . '/../src/template/admin/header.php';
         
         if (!empty($id)) 
         {
-            require __DIR__.'/../src/class/produto/Produto.php';
+            require_once __DIR__.'/../src/class/produto/Produto.php';
             $produto = new Produto();
             $produto = $produto->buscaPorId($id);
 
@@ -69,7 +69,7 @@ include __DIR__ . '/../src/template/admin/header.php';
                     <option value="" disabled selected>Selecione a categoria do produto</option>
                     
                     <?php 
-                        require __DIR__.'/../src/class/categoria/Categoria.php';
+                        require_once __DIR__.'/../src/class/categoria/Categoria.php';
                         $categoria = new Categoria();
                     ?>
 
@@ -155,7 +155,7 @@ include __DIR__ . '/../src/template/admin/header.php';
 
 						<div id="galeriaImagens" class="d-grid gap-2 justify-content-center" style="grid-template-columns: repeat(auto-fill, 150px);">
                             <?php 
-                                require __DIR__.'/../src/class/imagem/Imagem.php';
+                                require_once __DIR__.'/../src/class/imagem/Imagem.php';
                                 $imagem = new Imagem(); 
                             ?>
                             <?php foreach ($imagem->listarTudo() as $img): ?>

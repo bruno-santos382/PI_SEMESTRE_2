@@ -19,8 +19,8 @@ include __DIR__ . '/src/template/header.php';
 </div>
 
 <?php
-    require __DIR__.'/src/class/produto/Produto.php';
-    require __DIR__.'/src/class/categoria/Categoria.php';
+    require_once __DIR__.'/src/class/produto/Produto.php';
+    require_once __DIR__.'/src/class/categoria/Categoria.php';
     
     $produto = new Produto();
     $categoria = new Categoria();

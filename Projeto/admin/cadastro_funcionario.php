@@ -26,7 +26,7 @@ include __DIR__ . '/../src/template/admin/header.php';
         // Se houver um ID, busque os dados do funcionário
         if (!empty($id)) 
         {
-            require __DIR__.'/../src/class/funcionario/Funcionario.php';
+            require_once __DIR__.'/../src/class/funcionario/Funcionario.php';
             $funcionario = new Funcionario();
             $funcionario = $funcionario->buscaPorId($id);
 
@@ -41,7 +41,7 @@ include __DIR__ . '/../src/template/admin/header.php';
         }
 
         // Buscando usuários para preencher o select
-        require __DIR__.'/../src/class/usuario/Usuario.php';
+        require_once __DIR__.'/../src/class/usuario/Usuario.php';
         $usuario_obj = new Usuario();
         $usuarios = $usuario_obj->listarTudo(); // Método que deve retornar todos os usuários
     ?>

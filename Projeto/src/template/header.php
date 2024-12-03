@@ -53,13 +53,11 @@
                     </a>
                 <?php endif ?>
 
-                <?php if (empty($usuario) || $usuario['tipo'] == 'cliente'): ?>
-                    <a href="carrinho.php" class="icon-text mx-3">
-                        <img src="static/img/compras.png" alt="Carrinho" class="icon-image">
-                        <span>Carrinho</span>
-                    </a>
-                <?php endif; ?>
-                
+                <a href="carrinho.php" class="icon-text mx-3">
+                    <img src="static/img/compras.png" alt="Carrinho" class="icon-image">
+                    <span>Carrinho</span>
+                </a>
+            
                 <a href="index.php" class="icon-text mx-3">
                     <img src="static/img/casinha.png" alt="Localização" class="icon-image">
                     <span>Inicio</span>

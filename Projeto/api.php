@@ -84,6 +84,8 @@ try {
 
         // Rotas frango assado
         'frango_assado/novo_pedido' => [$frango_assado, 'novoPedido'],
+        'frango_assado/finalizar_pedido' => [$frango_assado, 'finalizarPedido'],
+        'frango_assado/cancelar_pedido' => [$frango_assado, 'cancelarPedido'],
     ];
     
     if (!isset($funcao[$rota])) {

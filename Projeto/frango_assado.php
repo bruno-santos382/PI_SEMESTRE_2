@@ -32,7 +32,7 @@ include __DIR__ . '/src/template/header.php';
 
 		<div class="form-group">
 			<label for="observacoes">Observações (opcional)</label>
-			<textarea class="form-control" id="observacoes" name="observacoes" rows="3"></textarea>
+			<textarea class="form-control" id="observacoes" name="observacoes" maxlength="255" rows="3"></textarea>
 		</div>
 
 		<p class="text-danger font-weight-bold">Preço Unitário: R$ 34,99</p>

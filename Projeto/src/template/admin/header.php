@@ -60,7 +60,13 @@ if (empty($template['menu_atual'])) {
                     <!-- Pedidos -->
                     <li class="nav-item">
                         <a href="admin/pedidos.php" class="<?= $template['menu_atual'] == 'pedidos' ? 'active' : 'link-dark' ?> nav-link" >
-                            <i class="bi bi-cart4 me-2"></i> Pedidos
+                            <i class="bi bi-cart-plus-fill me-2"></i> Pedidos
+                        </a>
+                    </li>
+                     <!-- Pedidos de Frango Assado -->
+                     <li class="nav-item">
+                        <a href="admin/frango_assado.php" class="<?= $template['menu_atual'] == 'frango_assado' ? 'active' : 'link-dark' ?> nav-link" >
+                            <i class="bi bi-cart-plus-fill me-2"></i> Frango Assado
                         </a>
                     </li>
                     <!-- Produtos -->

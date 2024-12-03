@@ -26,36 +26,136 @@ class FrangoAssado
         string $nome, 
         string $telefone, 
         int $quantidade, 
-        string $observacoes = null
+        string $observacoes = null,
+        int $id = null
     ): array {
         // Preço do frango assado com desconto
         $preco_unitario = 34.99;
-        $preco_com_desconto = 31.49;
-        $desconto_aplicado = 10.00;
 
-        // Inserir ou atualizar o pedido no banco de dados
-        $query = 'INSERT INTO frango_assado_pedidos (Nome, Telefone, Quantidade, Observacoes, PrecoUnitario, PrecoComDesconto, DescontoAplicado) 
-                  VALUES (:nome, :telefone, :quantidade, :observacoes, :preco_unitario, :preco_com_desconto, :desconto_aplicado)';
-
+      // Inserir ou atualizar o pedido no banco de dados
+        $query = <<<SQL
+        INSERT INTO frango_assado_pedidos (Nome, Telefone, Quantidade, Observacoes, Total) 
+        VALUES (:nome, :telefone, :quantidade, :observacoes, :total)
+SQL;
         $params = [
             'nome' => $nome,
             'telefone' => $telefone,
             'quantidade' => $quantidade,
             'observacoes' => $observacoes,
-            'preco_unitario' => $preco_unitario,
-            'preco_com_desconto' => $preco_com_desconto,
-            'desconto_aplicado' => $desconto_aplicado,
+            'total' => $quantidade * $preco_unitario
         ];
+
+        if (!empty($id)) {
+            $query = <<<SQL
+                UPDATE frango_assado_pedidos 
+                SET Nome = :nome, Telefone = :telefone, Quantidade = :quantidade, Observacoes = :observacoes, Total = :total 
+                WHERE IdPedido = :id
+SQL;
+            $params['id'] = $id;
+        }
 
         $stmt = $this->conexao->prepare($query);
         $stmt->execute($params);
-        $id_pedido = $this->conexao->lastInsertId();
+        $id_pedido = max($this->conexao->lastInsertId(), $id); 
 
-        // Buscar os dados do pedido inserido
-        $query = 'SELECT * FROM frango_assado_pedidos WHERE IdPedido = :idPedido';
+        return $this->buscaPorId($id_pedido);
+    }
+
+    public function cancelarPedido(int $id): array {
+        // Cancela o pedido
+        $query = <<<SQL
+
+        UPDATE frango_assado_pedidos
+        SET Status = 'Cancelado'
+        WHERE IdPedido = :id
+SQL;
         $stmt = $this->conexao->prepare($query);
-        $stmt->execute(['idPedido' => $id_pedido]);
+        $stmt->execute(['id' => $id]);
 
+        return $this->buscaPorId($id);
+    }
+
+    public function finalizarPedido(int $id): array {
+        $query = <<<SQL
+
+        UPDATE frango_assado_pedidos
+        SET Status = 'Finalizado'
+        WHERE IdPedido = :id
+SQL;
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute(['id' => $id]);
+
+        return $this->buscaPorId($id);
+    }
+
+    public function buscaPorId(int $id): array {
+        $query = "SELECT * FROM frango_assado_pedidos WHERE IdPedido = :id";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute(['id' => $id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+   /**
+     * Consulta os pedidos pendentes de frango assado.
+     * 
+     * @return array Retorna os dados dos pedidos pendentes.
+     */
+    public function listarPedidosPendentes(): array {
+        $query = <<<SQL
+        
+        SELECT *
+        FROM frango_assado_pedidos WHERE Status = 'Pendente' 
+        ORDER BY DataPedido ASC;
+SQL;
+        
+        // Prepara e executa a consulta no banco de dados
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute();
+
+        // Retorna os resultados da consulta
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Consulta os pedidos finalizados de frango assado.
+     * 
+     * @return array Retorna os dados dos pedidos finalizados.
+     */
+    public function listarPedidosFinalizados(): array {
+        $query = <<<SQL
+        
+        SELECT *
+        FROM frango_assado_pedidos WHERE Status = 'Finalizado' 
+        ORDER BY DataPedido ASC;
+SQL;
+        
+        // Prepara e executa a consulta no banco de dados
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute();
+
+        // Retorna os resultados da consulta
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
+    /**
+     * Consulta os pedidos cancelados de frango assado.
+     * 
+     * @return array Retorna os dados dos pedidos cancelados.
+     */
+    public function listarPedidosCancelados(): array {
+        $query = <<<SQL
+        
+        SELECT *
+        FROM frango_assado_pedidos WHERE Status = 'Cancelado' 
+        ORDER BY DataPedido ASC;
+SQL;
+        // Prepara e executa a consulta no banco de dados
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute();
+
+        // Retorna os resultados da consulta
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
 }

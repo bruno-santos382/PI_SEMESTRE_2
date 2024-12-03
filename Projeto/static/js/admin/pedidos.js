@@ -193,8 +193,6 @@ function editarPedido(event) {
     campoCliente.value = dados.idCliente;
     campoCliente.focus();
 
-    console.log(dados, dados.idCliente, campoCliente.value);
-
     let [data, hora] = dados.dataPedido.split(' ');
     document.querySelector('#dataPedido').value = data;
 

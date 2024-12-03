@@ -17,12 +17,16 @@ class FrangoAssadoController extends BaseController
     public function novoPedido(): array
     {
         $retorno = $this->realizarAcao([$this->frango_assado, 'novoPedido'], [
+            'id' => [
+                'filter' => FILTER_VALIDATE_INT,
+                'obrigatorio' => false
+            ],
             'nome' => [
-                'filter' => FILTER_SANITIZE_STRING,
+                'filter' => FILTER_DEFAULT,
                 'erro' => 'O nome completo é obrigatório.'
             ],
             'telefone' => [
-                'filter' => FILTER_SANITIZE_STRING,
+                'filter' => FILTER_DEFAULT,
                 'erro' => 'O telefone é obrigatório.'
             ],
             'quantidade' => [
@@ -33,7 +37,7 @@ class FrangoAssadoController extends BaseController
                 'erro' => 'A quantidade de frangos é obrigatória e deve ser um número positivo.'
             ],
             'observacoes' => [
-                'filter' => FILTER_SANITIZE_STRING,
+                'filter' => FILTER_DEFAULT,
                 'obrigatorio' => false
             ]
         ]);
@@ -41,6 +45,32 @@ class FrangoAssadoController extends BaseController
         return [
             'status' => 'ok', 
             'mensagem' => 'Pedido de Frango Assado realizado com sucesso!', 
+            'dados' => $retorno
+        ];
+    }
+
+    public function cancelarPedido(): array 
+    {
+        $retorno = $this->realizarAcao([$this->frango_assado, 'cancelarPedido'], [
+            'id' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'O código do pedido é obrigatório.'] 
+        ]);
+
+        return [
+            'status' => 'ok', 
+            'mensagem' => 'Pedido cancelado com sucesso!', 
+            'dados' => $retorno
+        ];
+    }
+
+    public function finalizarPedido(): array 
+    {
+        $retorno = $this->realizarAcao([$this->frango_assado, 'finalizarPedido'], [
+            'id' => ['filter' => FILTER_VALIDATE_INT, 'erro' => 'O código do pedido é obrigatório.'] 
+        ]);
+
+        return [
+            'status' => 'ok', 
+            'mensagem' => 'Pedido finalizado com sucesso!', 
             'dados' => $retorno
         ];
     }

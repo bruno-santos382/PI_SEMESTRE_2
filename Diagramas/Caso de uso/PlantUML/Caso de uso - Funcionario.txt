@@ -1,37 +1,36 @@
 @startuml
 left to right direction
 
-actor Funcionário
+actor "Funcionário" as Funcionario
 
-package "Gerenciamento de Produtos" {
-    usecase "Excluir Produto" as UC1
-    usecase "Editar Produto" as UC2
-    usecase "Adicionar Produto" as UC3
+package "Autenticação" {
+    Funcionario -- (Login)
+    note right of (Login) : O funcionário deve fazer login para acessar as funcionalidades.
 }
 
-package "Gerenciamento de Pedidos" {
-    usecase "Listar Pedidos" as UC4
-    usecase "Ver Detalhes do Pedido" as UC5
+package "Usuários" {
+    Funcionario -- (Gerenciar Usuário) 
+    note right of (Gerenciar Usuário) : Inclui criar, visualizar, atualizar e excluir usuários.
 }
 
-package "Gerenciamento de Usuários" {
-    usecase "Editar Informações do Usuário" as UC6
-    usecase "Visualizar Usuários" as UC7
+package "Produtos" {
+    Funcionario -- (Gerenciar Produto)
+    note right of (Gerenciar Produto) : Inclui criar, visualizar, atualizar e excluir produtos.
 }
 
-package "Relatórios" {
-    usecase "Gerar Relatório de Resumo de Pedidos" as UC8
-    usecase "Gerar Relatório de Vendas" as UC9
+package "Pedidos" {
+    Funcionario -- (Gerenciar Pedido)
+    note right of (Gerenciar Pedido) : Inclui criar, visualizar, atualizar e excluirpedidos.
 }
 
-Funcionário --> UC1
-Funcionário --> UC2
-Funcionário --> UC3
-Funcionário --> UC4
-Funcionário --> UC5
-Funcionário --> UC6
-Funcionário --> UC7
-Funcionário --> UC8
-Funcionário --> UC9
+package "Categorias de Produto" {
+    Funcionario -- (Gerenciar Categoria de Produto)
+    note right of (Gerenciar Categoria de Produto) :  Inclui criar, visualizar, atualizar e excluir produtos.
+}
+
+package "Promoções" {
+    Funcionario -- (Gerenciar Promoção)
+    note right of (Gerenciar Promoção) : Inclui criar, visualizar, atualizar e excluir promoções.
+}
 
 @enduml

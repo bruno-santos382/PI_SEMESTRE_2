@@ -1,0 +1,14 @@
+[2024-11-22 01:44:01] Erro [256]: Erro inesperado: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' em C:\xampp\htdocs\Projeto PI\Projeto\src\class\produto\Produto.php na linha 47
+Pilha de chamadas:
+#0 C:\xampp\htdocs\Projeto PI\Projeto\src\class\produto\Produto.php(47): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\Projeto PI\Projeto\src\class\BaseController.php(35): Produto->atualizar(1, 'Abacaxi', 5.0, 'Marca A', 3, 50, 0)
+#2 C:\xampp\htdocs\Projeto PI\Projeto\src\class\produto\Controller.php(33): BaseController->realizarAcao(Array, Array)
+#3 C:\xampp\htdocs\Projeto PI\Projeto\api.php(50): ProdutoController->atualizarProduto()
+#4 {main} em C:\xampp\htdocs\Projeto PI\Projeto\api.php na linha 63
+[2024-11-22 01:44:24] Erro [256]: Erro inesperado: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mercado`.`produtos`, CONSTRAINT `fk_produtos_imagens` FOREIGN KEY (`IdImagem`) REFERENCES `imagens` (`IdImagem`) ON DELETE SET NULL ON UPDATE CASCADE) em C:\xampp\htdocs\Projeto PI\Projeto\src\class\produto\Produto.php na linha 47
+Pilha de chamadas:
+#0 C:\xampp\htdocs\Projeto PI\Projeto\src\class\produto\Produto.php(47): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\Projeto PI\Projeto\src\class\BaseController.php(35): Produto->atualizar(1, 'Abacaxi', 5.0, 'Marca A', 3, 50, 0)
+#2 C:\xampp\htdocs\Projeto PI\Projeto\src\class\produto\Controller.php(33): BaseController->realizarAcao(Array, Array)
+#3 C:\xampp\htdocs\Projeto PI\Projeto\api.php(50): ProdutoController->atualizarProduto()
+#4 {main} em C:\xampp\htdocs\Projeto PI\Projeto\api.php na linha 63

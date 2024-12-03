@@ -1,0 +1,43 @@
+/*corpo com fundo gradiente linear */
+body {
+    background: linear-gradient(135deg, #f09c2f, #ddd020);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+}
+
+
+
+/* card de login */
+.card {
+    background: rgb(255, 255, 255); 
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.829); 
+}
+
+/* título de login */
+h3 {
+    font-weight: bold;
+    color: #181515;
+    font-size: 1.75rem;
+}
+
+/* botão de login */
+.btn-primary {
+    background-color: #cb8a11;
+    border: none;
+    font-size: 1.2rem;
+}
+
+.btn-primary:hover {
+    background-color: #fcca25;
+}
+
+
+.btn-primary[disabled] {
+    background-color: #f49949;
+    cursor: not-allowed;
+}

@@ -1,0 +1,165 @@
+.icon-text {
+    display: flex;
+    flex-direction: column;  /* Organiza o ícone e o texto em coluna */
+    align-items: center;     /* Centraliza o ícone e o texto */
+    font-size: 18;        /* Ajusta o tamanho da fonte do texto */
+    color: black;
+}
+
+.icon-text i {
+    font-size: 1.5em;  /* Tamanho dos ícones */
+    margin-bottom: 3px; /* Espaço entre o ícone e o texto */
+}
+
+.icon-text span {
+    font-size: 0.8em;   /* Tamanho menor para o texto */
+}
+/* Estilos básicos */
+body {
+    background-color: #f5f5f5; /* Cor de fundo suave */
+}
+
+/* Estilização para links de categorias */
+.category-link {
+    text-decoration: none; /* Remove o sublinhado dos links */
+    color: inherit; /* Mantém a cor do texto original */
+}
+/* Container para rolagem horizontal */
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px; /* Espaçamento entre os cards */
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1; /* Personaliza a cor da barra de rolagem */
+}
+
+/* Estilo dos cards */
+.scroll-container .card {
+    flex: 0 0 auto;
+    width: 18rem; /* Ajuste a largura do card */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para os cards */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
+    overflow: hidden;
+}
+
+.scroll-container .card:hover {
+    transform: translateY(-10px); /* Efeito de "flutuar" ao passar o mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Aumenta a sombra ao passar o mouse */
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0; /* Bordas arredondadas na parte superior do card */
+    object-fit: contain;
+}
+
+.card-body {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: #555;
+    font-size: 1rem;
+}
+
+/* .card .text-danger {
+    font-size: 1.2rem;
+    color: #d9534f; Cor do preço
+} */
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.scroll-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.scroll-left {
+    left: 5px;
+}
+
+.scroll-right {
+    right: 5px;
+}
+
+/* Barra de rolagem personalizada */
+.scroll-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.input-group {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.input-group input {
+    border-radius: 20px;
+    padding-left: 20px;
+    border: 1px solid #ddd;
+}
+
+.input-group button {
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.input-group button:hover {
+    background-color: #218838;
+}

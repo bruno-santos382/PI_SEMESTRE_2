@@ -1,0 +1,16 @@
+AI Prompt for Class Diagram Generation:
+
+"I have a set of classes related to [name the system or module], and I need a UML class diagram for them. The diagram should include the following:
+
+Class names and methods: Include the class names and their methods, with the appropriate method signatures.
+Method comments: Each method should have a comment explaining its functionality.
+Relationships between classes: If any classes use or extend other classes, that should be represented in the diagram.
+Exceptions: If a class throws exceptions, include the relationship between the class and the exception it throws.
+Packages: Organize the classes into relevant packages (e.g., authentication, validation, data, etc.), and make sure the BaseController is not in any package.
+Use the following structure for each class:
+
+Class: Name of the class.
+Method signature: List each method with parameters, return types, and a brief description of what it does.
+Relationships: Include dependencies or inheritance between classes (e.g., ClassA --> ClassB or ClassC <|-- ClassD).
+Exception relationships: If a class throws an exception, include it with an arrow (e.g., ClassA --> ExceptionClass : throws).
+The diagram should be in PlantUML format. Also, include any relevant comments for the methods and classes to ensure the diagram is clear and easy to understand."
